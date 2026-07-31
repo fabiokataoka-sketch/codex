@@ -1,0 +1,8 @@
+/* ==========================================================================
+   AI Lab Global Design System — single entry point
+   Import this file, or the layers individually in this order.
+   ========================================================================== */
+
+@import url("tokens.css");
+@import url("base.css");
+@import url("components.css");

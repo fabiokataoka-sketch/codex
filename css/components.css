@@ -1,0 +1,357 @@
+/* ==========================================================================
+   AI Lab Global — Components
+   Requires tokens.css + base.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Buttons — pill-shaped, uppercase, decisive
+   -------------------------------------------------------------------------- */
+
+.al-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--al-space-2);
+  padding: 0.875rem 2rem;
+  border-radius: var(--al-radius-pill);
+  font-family: var(--al-font-display);
+  font-size: var(--al-text-sm);
+  font-weight: var(--al-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wide);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--al-duration-fast) var(--al-ease-out),
+    border-color var(--al-duration-fast) var(--al-ease-out),
+    color var(--al-duration-fast) var(--al-ease-out),
+    box-shadow var(--al-duration-base) var(--al-ease-out),
+    transform var(--al-duration-fast) var(--al-ease-out);
+}
+
+.al-btn:active {
+  transform: scale(0.97);
+}
+
+.al-btn:disabled,
+.al-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.al-btn--primary {
+  background: var(--al-accent);
+  color: var(--al-accent-contrast);
+}
+
+.al-btn--primary:hover {
+  background: var(--al-accent-hover);
+  color: var(--al-accent-contrast);
+  box-shadow: var(--al-glow-accent);
+}
+
+.al-btn--secondary {
+  background: transparent;
+  color: var(--al-text);
+  border: 1px solid var(--al-border-strong);
+}
+
+.al-btn--secondary:hover {
+  border-color: var(--al-accent);
+  color: var(--al-accent);
+}
+
+.al-btn--ghost {
+  background: transparent;
+  color: var(--al-text-muted);
+  padding-inline: var(--al-space-4);
+}
+
+.al-btn--ghost:hover {
+  color: var(--al-accent);
+}
+
+.al-btn--sm { padding: 0.625rem 1.25rem; font-size: var(--al-text-xs); }
+.al-btn--lg { padding: 1.125rem 2.75rem; font-size: var(--al-text-md); }
+
+/* --------------------------------------------------------------------------
+   Badges & tags
+   -------------------------------------------------------------------------- */
+
+.al-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--al-radius-pill);
+  border: 1px solid var(--al-border-strong);
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-xs);
+  font-weight: var(--al-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wide);
+  color: var(--al-text-muted);
+}
+
+.al-badge--accent  { border-color: var(--al-accent);  color: var(--al-accent); }
+.al-badge--solid   { border-color: var(--al-accent);  background: var(--al-accent); color: var(--al-accent-contrast); }
+.al-badge--success { border-color: var(--al-success); color: var(--al-success); }
+.al-badge--warning { border-color: var(--al-warning); color: var(--al-warning); }
+.al-badge--danger  { border-color: var(--al-danger);  color: var(--al-danger); }
+
+/* --------------------------------------------------------------------------
+   Navigation bar
+   -------------------------------------------------------------------------- */
+
+.al-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--al-z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--al-space-5);
+  padding: var(--al-space-4) var(--al-container-pad);
+  background: color-mix(in srgb, var(--al-bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--al-border);
+}
+
+.al-nav__brand {
+  font-family: var(--al-font-display);
+  font-weight: var(--al-weight-black);
+  font-size: var(--al-text-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-tight);
+}
+
+.al-nav__brand em {
+  font-style: normal;
+  color: var(--al-accent);
+}
+
+.al-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--al-space-5);
+  list-style: none;
+}
+
+.al-nav__link {
+  font-family: var(--al-font-display);
+  font-size: var(--al-text-sm);
+  font-weight: var(--al-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wide);
+  color: var(--al-text-muted);
+}
+
+.al-nav__link:hover,
+.al-nav__link[aria-current="page"] {
+  color: var(--al-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+
+.al-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--al-surface-raised);
+  border: 1px solid var(--al-border);
+  border-radius: var(--al-radius-sm);
+  overflow: hidden;
+  transition:
+    border-color var(--al-duration-base) var(--al-ease-out),
+    transform var(--al-duration-base) var(--al-ease-out),
+    box-shadow var(--al-duration-base) var(--al-ease-out);
+}
+
+.al-card:hover {
+  border-color: var(--al-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--al-shadow-md);
+}
+
+.al-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--al-carbon-700);
+}
+
+.al-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--al-duration-slow) var(--al-ease-out);
+}
+
+.al-card:hover .al-card__media img {
+  transform: scale(1.05);
+}
+
+.al-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-3);
+  padding: var(--al-space-5);
+}
+
+.al-card__title {
+  font-family: var(--al-font-display);
+  font-size: var(--al-text-xl);
+  font-weight: var(--al-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-normal);
+  line-height: var(--al-leading-snug);
+}
+
+.al-card__meta {
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wide);
+  color: var(--al-text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Stat block — big numbers, small labels
+   -------------------------------------------------------------------------- */
+
+.al-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-2);
+  padding: var(--al-space-5);
+  border-left: 2px solid var(--al-accent);
+}
+
+.al-stat__value {
+  font-family: var(--al-font-display);
+  font-size: var(--al-text-3xl);
+  font-weight: var(--al-weight-black);
+  line-height: var(--al-leading-tight);
+  color: var(--al-text);
+}
+
+.al-stat__label {
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wider);
+  color: var(--al-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Forms
+   -------------------------------------------------------------------------- */
+
+.al-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-2);
+}
+
+.al-label {
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-xs);
+  font-weight: var(--al-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wide);
+  color: var(--al-text-muted);
+}
+
+.al-input,
+.al-select,
+.al-textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: var(--al-surface);
+  border: 1px solid var(--al-border-strong);
+  border-radius: var(--al-radius-md);
+  color: var(--al-text);
+  font-family: var(--al-font-body);
+  font-size: var(--al-text-md);
+  transition:
+    border-color var(--al-duration-fast) var(--al-ease-out),
+    box-shadow var(--al-duration-fast) var(--al-ease-out);
+}
+
+.al-input::placeholder,
+.al-textarea::placeholder {
+  color: var(--al-text-faint);
+}
+
+.al-input:focus,
+.al-select:focus,
+.al-textarea:focus {
+  outline: none;
+  border-color: var(--al-accent);
+  box-shadow: 0 0 0 3px rgba(198, 255, 0, 0.15);
+}
+
+.al-field__hint {
+  font-size: var(--al-text-xs);
+  color: var(--al-text-faint);
+}
+
+.al-field--error .al-input,
+.al-field--error .al-textarea {
+  border-color: var(--al-danger);
+}
+
+.al-field--error .al-field__hint {
+  color: var(--al-danger);
+}
+
+/* --------------------------------------------------------------------------
+   Marquee ticker — kinetic brand strip
+   -------------------------------------------------------------------------- */
+
+.al-marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--al-border);
+  background: var(--al-surface);
+  padding-block: var(--al-space-3);
+}
+
+.al-marquee__track {
+  display: flex;
+  gap: var(--al-space-6);
+  width: max-content;
+  animation: al-marquee 24s linear infinite;
+}
+
+.al-marquee__item {
+  font-family: var(--al-font-display);
+  font-size: var(--al-text-lg);
+  font-weight: var(--al-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--al-tracking-wide);
+  color: var(--al-text-faint);
+  white-space: nowrap;
+}
+
+.al-marquee__item:nth-child(even) {
+  color: var(--al-accent);
+}
+
+@keyframes al-marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.al-footer {
+  border-top: 1px solid var(--al-border);
+  padding-block: var(--al-space-8);
+  color: var(--al-text-muted);
+  font-size: var(--al-text-sm);
+}
+
+.al-footer a:hover {
+  color: var(--al-accent);
+}
