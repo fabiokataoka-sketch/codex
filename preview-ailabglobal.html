@@ -639,14 +639,14 @@
     border-radius: 50%;
   }
 
-  /* live: filled — shipped and earning */
+  /* no ar: filled — published, with a reachable URL */
   .al-status--live {
     background: var(--al-accent);
     color: var(--al-accent-contrast);
   }
   .al-status--live::before { background: var(--al-accent-contrast); }
 
-  /* beta: outlined — real but provisional */
+  /* em construção: outlined — a real project, not published yet */
   .al-status--beta {
     background: transparent;
     border: 1px solid var(--al-status-beta);
@@ -654,7 +654,7 @@
   }
   .al-status--beta::before { background: currentColor; }
 
-  /* dev: dashed — not yet a promise */
+  /* planejado: dashed — announced, nothing to verify yet */
   .al-status--dev {
     background: transparent;
     border: 1px dashed var(--al-status-dev);
@@ -1132,43 +1132,41 @@
       <h2 class="al-section__title" style="margin-top: var(--al-space-4); font-size: var(--al-text-2xl)">
         O que saiu, e quando
       </h2>
+      <p class="al-section__note" style="margin-top: var(--al-space-4)">
+        Data da última entrega de cada produto publicado.
+      </p>
     </div>
 
     <div class="al-log" aria-label="Registro de lançamentos">
       <div class="al-log__head">
         <span>Ship log</span>
-        <span class="al-log__pulse">2 no ar</span>
+        <span class="al-log__pulse">5 no ar</span>
       </div>
       <ul class="al-log__rows">
           <li class="al-log__row">
-            <span class="al-log__date">2026.02</span>
-            <span class="al-log__name">Mercari Pro</span>
-            <span class="al-status al-status--live">Live</span>
-          </li>
-          <li class="al-log__row">
-            <span class="al-log__date">2026.02</span>
+            <span class="al-log__date">2026.07.31</span>
             <span class="al-log__name">Manual Prático</span>
-            <span class="al-status al-status--live">Live</span>
+            <span class="al-status al-status--live">No ar</span>
           </li>
           <li class="al-log__row">
-            <span class="al-log__date">2026.05</span>
-            <span class="al-log__name">Shop USA Japan</span>
-            <span class="al-status al-status--beta">Beta</span>
+            <span class="al-log__date">2026.07.24</span>
+            <span class="al-log__name">Concierge Japão</span>
+            <span class="al-status al-status--live">No ar</span>
           </li>
           <li class="al-log__row">
-            <span class="al-log__date">2026.06</span>
-            <span class="al-log__name">TradeLog AI</span>
-            <span class="al-status al-status--beta">Beta</span>
+            <span class="al-log__date">2026.07.19</span>
+            <span class="al-log__name">Mercari Magic List</span>
+            <span class="al-status al-status--live">No ar</span>
           </li>
           <li class="al-log__row">
-            <span class="al-log__date">2026.07</span>
-            <span class="al-log__name">Niko Mind</span>
-            <span class="al-status al-status--dev">Dev</span>
+            <span class="al-log__date">2026.07.19</span>
+            <span class="al-log__name">JoyfulCart Boutique</span>
+            <span class="al-status al-status--live">No ar</span>
           </li>
           <li class="al-log__row">
-            <span class="al-log__date">2026.07</span>
-            <span class="al-log__name">SEO Agent</span>
-            <span class="al-status al-status--dev">Dev</span>
+            <span class="al-log__date">2026.07.17</span>
+            <span class="al-log__name">LINE Lead AI</span>
+            <span class="al-status al-status--live">No ar</span>
           </li>
         </ul>
       </div>
@@ -1177,18 +1175,26 @@
 
 <div class="al-marquee" aria-hidden="true">
   <div class="al-marquee__track">
-    <span class="al-marquee__item">Mercari Pro</span>
+    <span class="al-marquee__item">Mercari Magic List</span>
     <span class="al-marquee__item">Manual Prático</span>
+    <span class="al-marquee__item">Concierge Japão</span>
+    <span class="al-marquee__item">LINE Lead AI</span>
+    <span class="al-marquee__item">JoyfulCart</span>
+    <span class="al-marquee__item">Niko</span>
+    <span class="al-marquee__item">Promo Agent</span>
+    <span class="al-marquee__item">EbaySync Pro</span>
     <span class="al-marquee__item">Shop USA Japan</span>
-    <span class="al-marquee__item">TradeLog AI</span>
-    <span class="al-marquee__item">Niko Mind</span>
-    <span class="al-marquee__item">SEO Agent</span>
-    <span class="al-marquee__item">Mercari Pro</span>
+    <span class="al-marquee__item">Mercari Masterclass</span>
+    <span class="al-marquee__item">Mercari Magic List</span>
     <span class="al-marquee__item">Manual Prático</span>
+    <span class="al-marquee__item">Concierge Japão</span>
+    <span class="al-marquee__item">LINE Lead AI</span>
+    <span class="al-marquee__item">JoyfulCart</span>
+    <span class="al-marquee__item">Niko</span>
+    <span class="al-marquee__item">Promo Agent</span>
+    <span class="al-marquee__item">EbaySync Pro</span>
     <span class="al-marquee__item">Shop USA Japan</span>
-    <span class="al-marquee__item">TradeLog AI</span>
-    <span class="al-marquee__item">Niko Mind</span>
-    <span class="al-marquee__item">SEO Agent</span>
+    <span class="al-marquee__item">Mercari Masterclass</span>
   </div>
 </div>
 
@@ -1196,16 +1202,16 @@
   <div class="al-shell">
     <div class="al-stats">
       <div class="al-stat">
-        <span class="al-stat__value">6</span>
+        <span class="al-stat__value">12</span>
         <span class="al-stat__label">Produtos</span>
       </div>
       <div class="al-stat">
-        <span class="al-stat__value">2</span>
+        <span class="al-stat__value">5</span>
         <span class="al-stat__label">No ar</span>
       </div>
       <div class="al-stat">
-        <span class="al-stat__value">2</span>
-        <span class="al-stat__label">Em beta</span>
+        <span class="al-stat__value">5</span>
+        <span class="al-stat__label">Em construção</span>
       </div>
       <div class="al-stat">
         <span class="al-stat__value">3</span>
@@ -1224,11 +1230,13 @@
     <div class="al-section__head">
       <div>
         <p class="al-eyebrow">Produtos</p>
-        <h2 class="al-section__title">O que já está rodando</h2>
+        <h2 class="al-section__title">Os produtos, e onde cada um está</h2>
       </div>
       <p class="al-section__note">
-        Cada produto mostra o estágio real em que está. Passe o cursor
-        (ou navegue pelo teclado) para ver o stack por trás de cada um.
+        <strong>No ar</strong> abre o produto publicado. <strong>Em construção</strong>
+        já é um projeto real, ainda não publicado. <strong>Planejado</strong> está
+        anunciado, sem nada no ar para conferir. Passe o cursor (ou navegue pelo
+        teclado) para ver o stack por trás de cada um.
       </p>
     </div>
 
@@ -1236,11 +1244,11 @@
       <article class="al-product">
         <div class="al-product__top">
           <span class="al-product__kind">SaaS · Marketplace</span>
-          <span class="al-status al-status--live">Live</span>
+          <span class="al-status al-status--live">No ar</span>
         </div>
-        <h3 class="al-product__name"><a href="#produtos">Mercari Pro</a></h3>
+        <h3 class="al-product__name"><a href="https://mercari-pro.lovable.app" target="_blank" rel="noopener noreferrer">Mercari Magic List</a></h3>
         <p class="al-product__desc">
-          Automação de anúncios e precificação para quem vende no Mercari Japão.
+          Fotografe o produto e receba título, descrição, hashtags e preço sugerido em japonês.
         </p>
         <div class="al-product__reveal">
           <span class="al-chip">Claude API</span>
@@ -1252,11 +1260,11 @@
       <article class="al-product">
         <div class="al-product__top">
           <span class="al-product__kind">Guia · E-book</span>
-          <span class="al-status al-status--live">Live</span>
+          <span class="al-status al-status--live">No ar</span>
         </div>
-        <h3 class="al-product__name"><a href="#produtos">Manual Prático Mercari</a></h3>
+        <h3 class="al-product__name"><a href="https://merca-pro-guide.lovable.app" target="_blank" rel="noopener noreferrer">Manual Prático Mercari</a></h3>
         <p class="al-product__desc">
-          Do zero à primeira venda, com checklists de conta, anúncio e envio.
+          Do zero à primeira venda, com checklists de conta, anúncio e envio em PDF.
         </p>
         <div class="al-product__reveal">
           <span class="al-chip">Lovable</span>
@@ -1267,12 +1275,104 @@
 
       <article class="al-product">
         <div class="al-product__top">
-          <span class="al-product__kind">E-commerce</span>
-          <span class="al-status al-status--beta">Beta</span>
+          <span class="al-product__kind">Assistente · Documentos</span>
+          <span class="al-status al-status--live">No ar</span>
         </div>
-        <h3 class="al-product__name"><a href="#produtos">Shop USA Japan</a></h3>
+        <h3 class="al-product__name"><a href="https://japan-guide-bot.lovable.app" target="_blank" rel="noopener noreferrer">Concierge Japão</a></h3>
         <p class="al-product__desc">
-          Compra nos EUA e entrega no Japão, com cálculo de frete e taxas.
+          Fotografe uma carta oficial japonesa e receba prazo, urgência e o passo a passo no seu idioma.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Claude API</span>
+          <span class="al-chip">Supabase</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">Automação · Atendimento</span>
+          <span class="al-status al-status--live">No ar</span>
+        </div>
+        <h3 class="al-product__name"><a href="https://ai-lead-captura.lovable.app" target="_blank" rel="noopener noreferrer">LINE Lead AI</a></h3>
+        <p class="al-product__desc">
+          Responde, classifica intenção e nutre leads no LINE sem deixar mensagem sem resposta.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Claude API</span>
+          <span class="al-chip">Supabase</span>
+          <span class="al-chip">n8n</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">E-commerce</span>
+          <span class="al-status al-status--live">No ar</span>
+        </div>
+        <h3 class="al-product__name"><a href="https://sakura-cart.lovable.app" target="_blank" rel="noopener noreferrer">JoyfulCart Boutique</a></h3>
+        <p class="al-product__desc">
+          Loja completa com carrinho, checkout e contas, integrada a meios de pagamento japoneses.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Supabase</span>
+          <span class="al-chip">Stripe</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">Agente de IA</span>
+          <span class="al-status al-status--beta">Em construção</span>
+        </div>
+        <h3 class="al-product__name">Niko</h3>
+        <p class="al-product__desc">
+          Parceiro criativo que investiga seu nicho e voz antes de sugerir e escrever conteúdo.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Claude API</span>
+          <span class="al-chip">Higgsfield</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">Social · Automação</span>
+          <span class="al-status al-status--beta">Em construção</span>
+        </div>
+        <h3 class="al-product__name">Promo Agent</h3>
+        <p class="al-product__desc">
+          Gera, agenda e mede conteúdo de vários projetos em TikTok, YouTube e Instagram.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Claude API</span>
+          <span class="al-chip">Supabase</span>
+          <span class="al-chip">n8n</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">Marketplace · Sync</span>
+          <span class="al-status al-status--beta">Em construção</span>
+        </div>
+        <h3 class="al-product__name">EbaySync Pro</h3>
+        <p class="al-product__desc">
+          Lista no eBay a partir de Amazon e Yahoo Japão, com estoque e preço sempre sincronizados.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Supabase</span>
+          <span class="al-chip">n8n</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">E-commerce · Importação</span>
+          <span class="al-status al-status--beta">Em construção</span>
+        </div>
+        <h3 class="al-product__name">Shop USA Japan</h3>
+        <p class="al-product__desc">
+          Compra em lojas dos EUA que não enviam ao Japão, e entrega na sua porta.
         </p>
         <div class="al-product__reveal">
           <span class="al-chip">Supabase</span>
@@ -1283,49 +1383,46 @@
 
       <article class="al-product">
         <div class="al-product__top">
-          <span class="al-product__kind">Fintech</span>
-          <span class="al-status al-status--beta">Beta</span>
+          <span class="al-product__kind">Curso</span>
+          <span class="al-status al-status--beta">Em construção</span>
         </div>
-        <h3 class="al-product__name"><a href="#produtos">TradeLog AI</a></h3>
+        <h3 class="al-product__name">Mercari Masterclass</h3>
         <p class="al-product__desc">
-          Registro e leitura de operações com análise automática de resultado.
+          Formação em vídeo sobre vender no Mercari, da identidade à página de vendas.
+        </p>
+        <div class="al-product__reveal">
+          <span class="al-chip">Lovable</span>
+          <span class="al-chip">Stripe</span>
+        </div>
+      </article>
+
+      <article class="al-product">
+        <div class="al-product__top">
+          <span class="al-product__kind">Fintech</span>
+          <span class="al-status al-status--dev">Planejado</span>
+        </div>
+        <h3 class="al-product__name">TradeLog AI</h3>
+        <p class="al-product__desc">
+          Registro de operações com leitura automática de resultado.
         </p>
         <div class="al-product__reveal">
           <span class="al-chip">Claude API</span>
           <span class="al-chip">Supabase</span>
-          <span class="al-chip">n8n</span>
         </div>
       </article>
 
       <article class="al-product">
         <div class="al-product__top">
-          <span class="al-product__kind">Agente de IA</span>
-          <span class="al-status al-status--dev">Dev</span>
+          <span class="al-product__kind">Conteúdo · Automação</span>
+          <span class="al-status al-status--dev">Planejado</span>
         </div>
-        <h3 class="al-product__name"><a href="#produtos">Niko Mind</a></h3>
-        <p class="al-product__desc">
-          Parceiro criativo que ajuda a planejar, escrever e publicar conteúdo.
-        </p>
-        <div class="al-product__reveal">
-          <span class="al-chip">Claude API</span>
-          <span class="al-chip">Higgsfield</span>
-          <span class="al-chip">n8n</span>
-        </div>
-      </article>
-
-      <article class="al-product">
-        <div class="al-product__top">
-          <span class="al-product__kind">Automação</span>
-          <span class="al-status al-status--dev">Dev</span>
-        </div>
-        <h3 class="al-product__name"><a href="#produtos">SEO Automation Agent</a></h3>
+        <h3 class="al-product__name">SEO Automation Agent</h3>
         <p class="al-product__desc">
           Pesquisa, redação e publicação de conteúdo em ciclo contínuo.
         </p>
         <div class="al-product__reveal">
           <span class="al-chip">Claude API</span>
           <span class="al-chip">n8n</span>
-          <span class="al-chip">Supabase</span>
         </div>
       </article>
     </div>
@@ -1386,8 +1483,8 @@
         que era primeiro pessoal: vender no Mercari sem falar japonês fluente.
       </p>
       <p>
-        O que virou ferramenta para um virou produto para muitos. Hoje são seis
-        projetos em estágios diferentes, todos partindo da mesma pergunta —
+        O que virou ferramenta para um virou produto para muitos. Hoje são doze
+        produtos em estágios diferentes, todos partindo da mesma pergunta —
         <strong>o que trava a pessoa na prática</strong>, e o que a IA resolve de verdade.
       </p>
       <p>
