@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Lab Global — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <style>
+    /* Style-guide-only chrome */
+    .sg-grid {
+      display: grid;
+      gap: var(--al-space-5);
+    }
+    .sg-grid--2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .sg-grid--4 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .sg-swatch {
+      border: 1px solid var(--al-border);
+      border-radius: var(--al-radius-sm);
+      overflow: hidden;
+    }
+    .sg-swatch__color { height: 88px; }
+    .sg-swatch__info {
+      padding: var(--al-space-3);
+      font-family: var(--al-font-mono);
+      font-size: var(--al-text-xs);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sg-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--al-space-4);
+    }
+    .sg-section-head {
+      display: flex;
+      flex-direction: column;
+      gap: var(--al-space-3);
+      margin-bottom: var(--al-space-7);
+    }
+    .sg-type-specimen {
+      display: flex;
+      flex-direction: column;
+      gap: var(--al-space-5);
+    }
+    .sg-type-specimen > div {
+      border-bottom: 1px solid var(--al-border);
+      padding-bottom: var(--al-space-5);
+    }
+    .sg-token-note {
+      font-family: var(--al-font-mono);
+      font-size: var(--al-text-xs);
+      color: var(--al-text-faint);
+      letter-spacing: var(--al-tracking-wide);
+      text-transform: none;
+      display: block;
+      margin-bottom: var(--al-space-2);
+    }
+    .sg-spacing-bar {
+      background: var(--al-accent);
+      height: 16px;
+      border-radius: var(--al-radius-sm);
+    }
+    .sg-radius-demo {
+      width: 96px;
+      height: 96px;
+      background: var(--al-surface-raised);
+      border: 1px solid var(--al-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--al-font-mono);
+      font-size: var(--al-text-xs);
+      color: var(--al-text-muted);
+    }
+    .sg-hero {
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--al-space-5);
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(198, 255, 0, 0.08), transparent),
+        var(--al-bg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="al-nav">
+    <a class="al-nav__brand" href="#">AI Lab <em>Global</em></a>
+    <ul class="al-nav__links">
+      <li><a class="al-nav__link" aria-current="page" href="#colors">Colors</a></li>
+      <li><a class="al-nav__link" href="#typography">Type</a></li>
+      <li><a class="al-nav__link" href="#buttons">Buttons</a></li>
+      <li><a class="al-nav__link" href="#cards">Cards</a></li>
+      <li><a class="al-nav__link" href="#forms">Forms</a></li>
+    </ul>
+    <a class="al-btn al-btn--primary al-btn--sm" href="#">Get Started</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="sg-hero al-container">
+    <span class="al-eyebrow">Design System · v1.0</span>
+    <h1 class="al-hero-title">Built for<br /><span class="al-accent-text">Velocity</span></h1>
+    <p class="al-lead">
+      The AI Lab Global design system: dark-first, high-contrast, and unapologetically bold.
+      Carbon neutrals, a neon-lime signature accent, and heavyweight uppercase display type —
+      engineered for products that move fast.
+    </p>
+    <div class="sg-row">
+      <a class="al-btn al-btn--primary" href="#colors">Explore Tokens</a>
+      <a class="al-btn al-btn--secondary" href="tokens/tokens.json">tokens.json</a>
+    </div>
+  </header>
+
+  <!-- Marquee -->
+  <div class="al-marquee" aria-hidden="true">
+    <div class="al-marquee__track">
+      <span class="al-marquee__item">AI Lab Global</span>
+      <span class="al-marquee__item">Precision</span>
+      <span class="al-marquee__item">Velocity</span>
+      <span class="al-marquee__item">Intelligence</span>
+      <span class="al-marquee__item">AI Lab Global</span>
+      <span class="al-marquee__item">Precision</span>
+      <span class="al-marquee__item">Velocity</span>
+      <span class="al-marquee__item">Intelligence</span>
+    </div>
+  </div>
+
+  <!-- Colors -->
+  <section class="al-section al-container" id="colors">
+    <div class="sg-section-head">
+      <span class="al-eyebrow">01 — Foundations</span>
+      <h2>Color</h2>
+      <p class="al-lead">Carbon neutrals carry the interface; lime is the single loud voice. Use the accent sparingly — one decisive moment per view.</p>
+    </div>
+
+    <h4><span class="sg-token-note">--al-lime-*</span>Accent — Neon Lime</h4>
+    <div class="sg-grid sg-grid--4" style="margin-block: var(--al-space-5) var(--al-space-7);">
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#E5FF85"></div><div class="sg-swatch__info"><strong>lime-200</strong><span class="al-faint">#E5FF85</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#DCFF57"></div><div class="sg-swatch__info"><strong>lime-300</strong><span class="al-faint">#DCFF57</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#C6FF00"></div><div class="sg-swatch__info"><strong>lime-500 · primary</strong><span class="al-faint">#C6FF00</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#A3D600"></div><div class="sg-swatch__info"><strong>lime-600</strong><span class="al-faint">#A3D600</span></div></div>
+    </div>
+
+    <h4><span class="sg-token-note">--al-carbon-* / --al-gray-*</span>Neutrals — Carbon Scale</h4>
+    <div class="sg-grid sg-grid--4" style="margin-block: var(--al-space-5) var(--al-space-7);">
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#0A0A0B"></div><div class="sg-swatch__info"><strong>black · bg</strong><span class="al-faint">#0A0A0B</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#16181B"></div><div class="sg-swatch__info"><strong>carbon-800 · surface</strong><span class="al-faint">#16181B</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#2A2E32"></div><div class="sg-swatch__info"><strong>carbon-600 · border</strong><span class="al-faint">#2A2E32</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#9AA0A6"></div><div class="sg-swatch__info"><strong>gray-300 · muted text</strong><span class="al-faint">#9AA0A6</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#F4F5F3"></div><div class="sg-swatch__info"><strong>offwhite · text</strong><span class="al-faint">#F4F5F3</span></div></div>
+    </div>
+
+    <h4><span class="sg-token-note">--al-success / warning / danger / info</span>Status</h4>
+    <div class="sg-grid sg-grid--4" style="margin-top: var(--al-space-5);">
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#3DDC84"></div><div class="sg-swatch__info"><strong>success</strong><span class="al-faint">#3DDC84</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#FFC53D"></div><div class="sg-swatch__info"><strong>warning</strong><span class="al-faint">#FFC53D</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#FF4D4F"></div><div class="sg-swatch__info"><strong>danger</strong><span class="al-faint">#FF4D4F</span></div></div>
+      <div class="sg-swatch"><div class="sg-swatch__color" style="background:#4DA6FF"></div><div class="sg-swatch__info"><strong>info</strong><span class="al-faint">#4DA6FF</span></div></div>
+    </div>
+  </section>
+
+  <hr class="al-divider" />
+
+  <!-- Typography -->
+  <section class="al-section al-container" id="typography">
+    <div class="sg-section-head">
+      <span class="al-eyebrow">02 — Foundations</span>
+      <h2>Typography</h2>
+      <p class="al-lead">Archivo (heavy, uppercase, tight) for display. Inter for body. JetBrains Mono for labels, data, and eyebrows.</p>
+    </div>
+
+    <div class="sg-type-specimen">
+      <div>
+        <span class="sg-token-note">.al-hero-title · Archivo Black 125% width · --al-text-hero</span>
+        <p class="al-display al-hero-title">Aa 001</p>
+      </div>
+      <div>
+        <span class="sg-token-note">h1 · --al-text-4xl</span>
+        <h1>Heading One</h1>
+      </div>
+      <div>
+        <span class="sg-token-note">h2 · --al-text-3xl</span>
+        <h2>Heading Two</h2>
+      </div>
+      <div>
+        <span class="sg-token-note">h3 · --al-text-2xl</span>
+        <h3>Heading Three</h3>
+      </div>
+      <div>
+        <span class="sg-token-note">.al-eyebrow · JetBrains Mono · tracking-wider</span>
+        <span class="al-eyebrow">Eyebrow Label</span>
+      </div>
+      <div>
+        <span class="sg-token-note">.al-lead · Inter · --al-text-lg</span>
+        <p class="al-lead">Lead paragraph — used to introduce sections. Muted color, loose leading, max 60 characters per line for comfortable reading.</p>
+      </div>
+      <div>
+        <span class="sg-token-note">body · Inter · --al-text-md</span>
+        <p style="max-width: 60ch;">Body copy is set in Inter at 16px with 1.5 line height. It stays quiet and legible so the display type can do the shouting. <a href="#" class="al-accent-text">Inline links</a> pick up the accent on hover.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="al-divider" />
+
+  <!-- Spacing & radii -->
+  <section class="al-section al-container" id="spacing">
+    <div class="sg-section-head">
+      <span class="al-eyebrow">03 — Foundations</span>
+      <h2>Spacing &amp; Shape</h2>
+      <p class="al-lead">A 4px spacing scale. Surfaces stay sharp (2px); interactive controls are full pills.</p>
+    </div>
+
+    <div class="sg-grid" style="max-width: 640px; margin-bottom: var(--al-space-8);">
+      <div><span class="sg-token-note">--al-space-2 · 8px</span><div class="sg-spacing-bar" style="width:8px"></div></div>
+      <div><span class="sg-token-note">--al-space-4 · 16px</span><div class="sg-spacing-bar" style="width:16px"></div></div>
+      <div><span class="sg-token-note">--al-space-5 · 24px</span><div class="sg-spacing-bar" style="width:24px"></div></div>
+      <div><span class="sg-token-note">--al-space-7 · 48px</span><div class="sg-spacing-bar" style="width:48px"></div></div>
+      <div><span class="sg-token-note">--al-space-9 · 96px</span><div class="sg-spacing-bar" style="width:96px"></div></div>
+    </div>
+
+    <div class="sg-row">
+      <div class="sg-radius-demo" style="border-radius: var(--al-radius-sm);">sm · 2px</div>
+      <div class="sg-radius-demo" style="border-radius: var(--al-radius-md);">md · 6px</div>
+      <div class="sg-radius-demo" style="border-radius: var(--al-radius-lg);">lg · 12px</div>
+      <div class="sg-radius-demo" style="border-radius: var(--al-radius-pill); width: 160px; height: 56px;">pill</div>
+    </div>
+  </section>
+
+  <hr class="al-divider" />
+
+  <!-- Buttons & badges -->
+  <section class="al-section al-container" id="buttons">
+    <div class="sg-section-head">
+      <span class="al-eyebrow">04 — Components</span>
+      <h2>Buttons &amp; Badges</h2>
+      <p class="al-lead">One primary action per view. Primary buttons glow on hover; secondary buttons trace the accent.</p>
+    </div>
+
+    <div class="sg-row" style="margin-bottom: var(--al-space-6);">
+      <button class="al-btn al-btn--primary">Primary Action</button>
+      <button class="al-btn al-btn--secondary">Secondary</button>
+      <button class="al-btn al-btn--ghost">Ghost →</button>
+      <button class="al-btn al-btn--primary" disabled>Disabled</button>
+    </div>
+    <div class="sg-row" style="margin-bottom: var(--al-space-8);">
+      <button class="al-btn al-btn--primary al-btn--sm">Small</button>
+      <button class="al-btn al-btn--primary">Default</button>
+      <button class="al-btn al-btn--primary al-btn--lg">Large</button>
+    </div>
+
+    <div class="sg-row">
+      <span class="al-badge">Default</span>
+      <span class="al-badge al-badge--accent">Accent</span>
+      <span class="al-badge al-badge--solid">Solid</span>
+      <span class="al-badge al-badge--success">Online</span>
+      <span class="al-badge al-badge--warning">Beta</span>
+      <span class="al-badge al-badge--danger">Deprecated</span>
+    </div>
+  </section>
+
+  <hr class="al-divider" />
+
+  <!-- Cards & stats -->
+  <section class="al-section al-container" id="cards">
+    <div class="sg-section-head">
+      <span class="al-eyebrow">05 — Components</span>
+      <h2>Cards &amp; Stats</h2>
+      <p class="al-lead">Cards lift and trace the accent on hover; media zooms slowly. Stats pair oversized numerals with mono labels.</p>
+    </div>
+
+    <div class="sg-grid sg-grid--2" style="margin-bottom: var(--al-space-8);">
+      <article class="al-card">
+        <div class="al-card__media" aria-hidden="true"></div>
+        <div class="al-card__body">
+          <span class="al-card__meta">Research · 2026</span>
+          <h3 class="al-card__title">Frontier Model Lab</h3>
+          <p class="al-muted">Applied research programs pushing inference efficiency and multimodal reasoning.</p>
+          <div><a class="al-btn al-btn--ghost" href="#" style="padding-inline: 0;">Read More →</a></div>
+        </div>
+      </article>
+      <article class="al-card">
+        <div class="al-card__media" aria-hidden="true"></div>
+        <div class="al-card__body">
+          <span class="al-card__meta">Product · 2026</span>
+          <h3 class="al-card__title">Global Platform</h3>
+          <p class="al-muted">Deployment infrastructure engineered for velocity across every region.</p>
+          <div><a class="al-btn al-btn--ghost" href="#" style="padding-inline: 0;">Read More →</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="sg-grid sg-grid--4">
+      <div class="al-stat"><span class="al-stat__value">40+</span><span class="al-stat__label">Countries</span></div>
+      <div class="al-stat"><span class="al-stat__value">12ms</span><span class="al-stat__label">P50 Latency</span></div>
+      <div class="al-stat"><span class="al-stat__value">99.99%</span><span class="al-stat__label">Uptime</span></div>
+      <div class="al-stat"><span class="al-stat__value">1B+</span><span class="al-stat__label">Daily Inferences</span></div>
+    </div>
+  </section>
+
+  <hr class="al-divider" />
+
+  <!-- Forms -->
+  <section class="al-section al-container" id="forms">
+    <div class="sg-section-head">
+      <span class="al-eyebrow">06 — Components</span>
+      <h2>Forms</h2>
+      <p class="al-lead">Mono uppercase labels, quiet surfaces, lime focus rings.</p>
+    </div>
+
+    <form class="sg-grid sg-grid--2" style="max-width: 720px;" onsubmit="return false;">
+      <div class="al-field">
+        <label class="al-label" for="sg-name">Full Name</label>
+        <input class="al-input" id="sg-name" type="text" placeholder="Ada Lovelace" />
+      </div>
+      <div class="al-field">
+        <label class="al-label" for="sg-email">Email</label>
+        <input class="al-input" id="sg-email" type="email" placeholder="you@ailab.global" />
+        <span class="al-field__hint">We never share your email.</span>
+      </div>
+      <div class="al-field al-field--error">
+        <label class="al-label" for="sg-key">API Key</label>
+        <input class="al-input" id="sg-key" type="text" value="invalid-key" aria-invalid="true" />
+        <span class="al-field__hint">This key is not valid.</span>
+      </div>
+      <div class="al-field">
+        <label class="al-label" for="sg-msg">Message</label>
+        <textarea class="al-textarea" id="sg-msg" rows="3" placeholder="Tell us about your project…"></textarea>
+      </div>
+      <div><button class="al-btn al-btn--primary" type="submit">Submit</button></div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="al-footer">
+    <div class="al-container sg-row" style="justify-content: space-between;">
+      <span class="al-nav__brand">AI Lab <em>Global</em></span>
+      <span>© 2026 AI Lab Global · Design System v1.0</span>
+    </div>
+  </footer>
+
+</body>
+</html>

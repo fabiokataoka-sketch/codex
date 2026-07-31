@@ -1,0 +1,173 @@
+/* ==========================================================================
+   AI Lab Global — Design Tokens
+   Aesthetic reference: high-contrast performance minimalism
+   (dark neutrals, neon lime accent, bold uppercase display type)
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     Primitive color palette
+     ------------------------------------------------------------------ */
+
+  /* Accent — signature neon lime */
+  --al-lime-100: #F2FFC2;
+  --al-lime-200: #E5FF85;
+  --al-lime-300: #DCFF57;
+  --al-lime-400: #D2FF2E;
+  --al-lime-500: #C6FF00;   /* brand primary */
+  --al-lime-600: #A3D600;
+  --al-lime-700: #7FA800;
+  --al-lime-800: #5C7A00;
+
+  /* Neutrals — carbon scale */
+  --al-black:     #0A0A0B;
+  --al-carbon-900:#101113;
+  --al-carbon-800:#16181B;
+  --al-carbon-700:#1E2124;
+  --al-carbon-600:#2A2E32;
+  --al-carbon-500:#3C4147;
+  --al-gray-400:  #6B7178;
+  --al-gray-300:  #9AA0A6;
+  --al-gray-200:  #C7CBD0;
+  --al-gray-100:  #E8EAEC;
+  --al-offwhite:  #F4F5F3;
+  --al-white:     #FFFFFF;
+
+  /* Status */
+  --al-success: #3DDC84;
+  --al-warning: #FFC53D;
+  --al-danger:  #FF4D4F;
+  --al-info:    #4DA6FF;
+
+  /* Special — championship gold (reserved for milestone moments) */
+  --al-gold: #D8B24A;
+
+  /* ------------------------------------------------------------------
+     Semantic aliases (dark-first)
+     ------------------------------------------------------------------ */
+  --al-bg:             var(--al-black);
+  --al-surface:        var(--al-carbon-900);
+  --al-surface-raised: var(--al-carbon-800);
+  --al-surface-hover:  var(--al-carbon-700);
+  --al-border:         var(--al-carbon-600);
+  --al-border-strong:  var(--al-carbon-500);
+
+  --al-text:           var(--al-offwhite);
+  --al-text-muted:     var(--al-gray-300);
+  --al-text-faint:     var(--al-gray-400);
+
+  --al-accent:          var(--al-lime-500);
+  --al-accent-hover:    var(--al-lime-300);
+  --al-accent-contrast: var(--al-black);   /* text placed on accent */
+
+  --al-focus-ring: var(--al-lime-400);
+
+  /* ------------------------------------------------------------------
+     Typography
+     ------------------------------------------------------------------ */
+  --al-font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --al-font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --al-font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Fluid type scale */
+  --al-text-xs:   0.75rem;                            /* 12 — labels, captions */
+  --al-text-sm:   0.875rem;                           /* 14 — secondary body */
+  --al-text-md:   1rem;                               /* 16 — body */
+  --al-text-lg:   1.125rem;                           /* 18 — lead body */
+  --al-text-xl:   clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --al-text-2xl:  clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);   /* h3 */
+  --al-text-3xl:  clamp(2rem, 1.5rem + 2.5vw, 3.5rem);      /* h2 */
+  --al-text-4xl:  clamp(2.75rem, 1.8rem + 4.5vw, 5.5rem);   /* h1 */
+  --al-text-hero: clamp(3.5rem, 2rem + 8vw, 9rem);          /* display hero */
+
+  --al-leading-tight:  0.95;
+  --al-leading-snug:   1.15;
+  --al-leading-normal: 1.5;
+  --al-leading-loose:  1.7;
+
+  --al-tracking-tight: -0.03em;   /* large display */
+  --al-tracking-normal: 0;
+  --al-tracking-wide:  0.08em;    /* uppercase labels */
+  --al-tracking-wider: 0.18em;    /* eyebrows, badges */
+
+  --al-weight-regular:  400;
+  --al-weight-medium:   500;
+  --al-weight-semibold: 600;
+  --al-weight-bold:     700;
+  --al-weight-black:    900;
+
+  /* ------------------------------------------------------------------
+     Spacing — 4px base scale
+     ------------------------------------------------------------------ */
+  --al-space-1:  0.25rem;   /*  4 */
+  --al-space-2:  0.5rem;    /*  8 */
+  --al-space-3:  0.75rem;   /* 12 */
+  --al-space-4:  1rem;      /* 16 */
+  --al-space-5:  1.5rem;    /* 24 */
+  --al-space-6:  2rem;      /* 32 */
+  --al-space-7:  3rem;      /* 48 */
+  --al-space-8:  4rem;      /* 64 */
+  --al-space-9:  6rem;      /* 96 */
+  --al-space-10: 8rem;      /* 128 */
+
+  --al-container-max: 80rem;      /* 1280 */
+  --al-container-pad: clamp(1rem, 4vw, 2.5rem);
+
+  /* ------------------------------------------------------------------
+     Radii — sharp surfaces, pill controls
+     ------------------------------------------------------------------ */
+  --al-radius-none: 0;
+  --al-radius-sm:   2px;     /* cards, media, surfaces */
+  --al-radius-md:   6px;     /* inputs */
+  --al-radius-lg:   12px;    /* modals, large panels */
+  --al-radius-pill: 999px;   /* buttons, badges */
+
+  /* ------------------------------------------------------------------
+     Elevation
+     ------------------------------------------------------------------ */
+  --al-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --al-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --al-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --al-glow-accent: 0 0 0 1px rgba(198, 255, 0, 0.35),
+                    0 0 32px rgba(198, 255, 0, 0.18);
+
+  /* ------------------------------------------------------------------
+     Motion
+     ------------------------------------------------------------------ */
+  --al-duration-fast:   150ms;
+  --al-duration-base:   250ms;
+  --al-duration-slow:   450ms;
+  --al-ease-out:    cubic-bezier(0.16, 1, 0.3, 1);   /* signature ease */
+  --al-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ------------------------------------------------------------------
+     Z-index scale
+     ------------------------------------------------------------------ */
+  --al-z-nav:     100;
+  --al-z-overlay: 200;
+  --al-z-modal:   300;
+  --al-z-toast:   400;
+}
+
+/* Light theme override — opt in with data-theme="light" on <html> or a
+   subtree. The brand stays dark-first; light is for docs/long-form reading. */
+[data-theme="light"] {
+  --al-bg:             var(--al-offwhite);
+  --al-surface:        var(--al-white);
+  --al-surface-raised: var(--al-white);
+  --al-surface-hover:  var(--al-gray-100);
+  --al-border:         var(--al-gray-200);
+  --al-border-strong:  var(--al-gray-300);
+
+  --al-text:           var(--al-black);
+  --al-text-muted:     var(--al-carbon-500);
+  --al-text-faint:     var(--al-gray-400);
+
+  --al-accent:          var(--al-lime-600);
+  --al-accent-hover:    var(--al-lime-500);
+  --al-accent-contrast: var(--al-black);
+
+  --al-shadow-sm: 0 1px 2px rgba(10, 10, 11, 0.08);
+  --al-shadow-md: 0 8px 24px rgba(10, 10, 11, 0.10);
+  --al-shadow-lg: 0 24px 64px rgba(10, 10, 11, 0.14);
+}
