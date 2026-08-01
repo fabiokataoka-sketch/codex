@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wakaru — photograph any japanese document and understand what to do</title>
+  <meta name="description" content="Photograph Japanese letters, bills, and notices. Wakaru tells you what it is, the deadline, the next steps, and the full translation — in under 30 seconds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/wakaru.css">
+  <style>
+    /* ------------------------------------------------------------------
+       Page-specific styles (preview only — everything else is the system)
+       ------------------------------------------------------------------ */
+
+    /* Hero */
+    .pv-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--wk-space-8);
+      align-items: center;
+      padding-block: var(--wk-space-9);
+    }
+
+    @media (max-width: 56rem) {
+      .pv-hero { grid-template-columns: 1fr; }
+    }
+
+    /* Mock Japanese document inside the scan frame */
+    .pv-doc-mock {
+      margin: var(--wk-space-7);
+      background: var(--wk-paper);
+      color: var(--wk-ink);
+      border-radius: 4px;
+      padding: var(--wk-space-5);
+      font-family: var(--wk-font-jp);
+      font-size: var(--wk-text-sm);
+      line-height: 1.9;
+      box-shadow: var(--wk-shadow-md);
+      transform: rotate(-1.5deg);
+    }
+
+    .pv-doc-mock__stamp {
+      float: right;
+      width: 3rem;
+      height: 3rem;
+      border: 2px solid var(--wk-danger);
+      border-radius: 50%;
+      color: var(--wk-danger);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--wk-text-xs);
+      transform: rotate(8deg);
+      opacity: 0.75;
+    }
+
+    .pv-doc-mock__line {
+      height: 6px;
+      background: var(--wk-gray-200);
+      border-radius: 3px;
+      margin-block: 10px;
+    }
+
+    .pv-doc-mock__line--short { width: 60%; }
+
+    /* Ticker — mono marquee strip */
+    .pv-ticker {
+      border-block: 1px solid var(--wk-border);
+      overflow: hidden;
+      padding-block: var(--wk-space-3);
+    }
+
+    .pv-ticker__track {
+      display: flex;
+      gap: var(--wk-space-6);
+      white-space: nowrap;
+      width: max-content;
+      animation: pv-scroll 28s linear infinite;
+    }
+
+    @keyframes pv-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pv-ticker__track { animation: none; }
+    }
+
+    /* Analysis panel — paper theme subtree ("documents are paper") */
+    .pv-analysis {
+      background: var(--wk-bg);
+      color: var(--wk-text);
+      border-radius: var(--wk-radius-device);
+      padding: var(--wk-space-6);
+      box-shadow: var(--wk-shadow-lg);
+    }
+
+    /* Phone-ish framing for the demo column */
+    .pv-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--wk-space-6);
+      align-items: start;
+    }
+
+    @media (max-width: 56rem) {
+      .pv-demo { grid-template-columns: 1fr; }
+    }
+
+    /* Big lowercase section statements, rabbit-style */
+    .pv-statement {
+      font-size: var(--wk-text-3xl);
+      max-width: 22ch;
+    }
+
+    .pv-statement em {
+      font-style: normal;
+      color: var(--wk-accent);
+    }
+
+    /* Final CTA */
+    .pv-cta {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--wk-space-5);
+      padding-block: var(--wk-space-10);
+    }
+  </style>
+</head>
+<body>
+  <a class="wk-skip-link" href="#main">skip to content</a>
+
+  <nav class="wk-nav">
+    <div class="wk-container wk-nav__inner">
+      <a class="wk-nav__brand" href="#">
+        <svg width="22" height="22" viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges">
+          <rect x="1" y="0" width="5" height="8" fill="#FF4D00"/>
+          <rect x="6" y="2" width="1" height="6" fill="#FF4D00"/>
+          <rect x="6" y="0" width="1" height="1" fill="#FF4D00" opacity="0.45"/>
+          <rect x="2" y="2" width="3" height="1" fill="#111110"/>
+          <rect x="2" y="4" width="4" height="1" fill="#111110"/>
+        </svg>
+        wakaru
+      </a>
+      <ul class="wk-nav__links">
+        <li><a class="wk-nav__link" href="#how">how it works</a></li>
+        <li><a class="wk-nav__link" href="#demo">see it read</a></li>
+        <li><a class="wk-nav__link" href="#privacy">privacy</a></li>
+      </ul>
+      <a class="wk-btn wk-btn--primary wk-btn--sm" href="#cta">scan a document <span class="wk-btn__arrow">→</span></a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <header class="wk-container pv-hero">
+      <div class="wk-stack wk-stack--lg">
+        <p class="wk-eyebrow">built for english speakers in japan</p>
+        <h1 class="wk-hero-title">that letter from city hall? understood.</h1>
+        <p class="wk-lead">Photograph any Japanese document and understand what to do. Wakaru tells you what it is, the deadline, the next steps, and the full translation.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--wk-space-4)">
+          <a class="wk-btn wk-btn--primary wk-btn--lg" href="#cta">analyze your first document free <span class="wk-btn__arrow">→</span></a>
+          <a class="wk-btn wk-btn--secondary wk-btn--lg" href="#how">how it works</a>
+        </div>
+        <p class="wk-mono wk-faint">no signup · under 30 seconds · data deleted after analysis</p>
+      </div>
+
+      <div class="wk-scan wk-scan--active" aria-hidden="true">
+        <span class="wk-scan__corner wk-scan__corner--tl"></span>
+        <span class="wk-scan__corner wk-scan__corner--tr"></span>
+        <span class="wk-scan__corner wk-scan__corner--bl"></span>
+        <span class="wk-scan__corner wk-scan__corner--br"></span>
+        <div class="pv-doc-mock">
+          <div class="pv-doc-mock__stamp">重要</div>
+          <strong>市民税・県民税納税通知書</strong>
+          <div class="pv-doc-mock__line"></div>
+          <div class="pv-doc-mock__line pv-doc-mock__line--short"></div>
+          <div class="pv-doc-mock__line"></div>
+          <span style="font-size: 12px">納期限：令和8年3月15日</span>
+          <div class="pv-doc-mock__line pv-doc-mock__line--short"></div>
+          <div class="pv-doc-mock__line"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Ticker -->
+    <div class="pv-ticker" aria-hidden="true">
+      <div class="pv-ticker__track wk-mono wk-muted">
+        <span>tax notices</span><span class="wk-faint">·</span>
+        <span>pension letters</span><span class="wk-faint">·</span>
+        <span>health insurance</span><span class="wk-faint">·</span>
+        <span>immigration paperwork</span><span class="wk-faint">·</span>
+        <span>utility bills</span><span class="wk-faint">·</span>
+        <span>city hall correspondence</span><span class="wk-faint">·</span>
+        <span>tax notices</span><span class="wk-faint">·</span>
+        <span>pension letters</span><span class="wk-faint">·</span>
+        <span>health insurance</span><span class="wk-faint">·</span>
+        <span>immigration paperwork</span><span class="wk-faint">·</span>
+        <span>utility bills</span><span class="wk-faint">·</span>
+        <span>city hall correspondence</span><span class="wk-faint">·</span>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="wk-section" id="how">
+      <div class="wk-container wk-stack wk-stack--lg">
+        <div class="wk-stack">
+          <p class="wk-eyebrow">01 — how it works</p>
+          <h2 class="pv-statement">from mystery envelope to <em>done</em> in three moves.</h2>
+        </div>
+        <div class="wk-grid wk-grid--3">
+          <div class="wk-card">
+            <p class="wk-card__eyebrow wk-mono wk-faint">step 01</p>
+            <h3 class="wk-card__title">photograph it</h3>
+            <p class="wk-card__body">Snap the letter, bill, or notice with your phone. Crooked, creased, konbini-counter lighting — all fine.</p>
+          </div>
+          <div class="wk-card">
+            <p class="wk-card__eyebrow wk-mono wk-faint">step 02</p>
+            <h3 class="wk-card__title">get the analysis</h3>
+            <p class="wk-card__body">What it is, the deadline, the next steps, and the full translation — in under 30 seconds.</p>
+          </div>
+          <div class="wk-card">
+            <p class="wk-card__eyebrow wk-mono wk-faint">step 03</p>
+            <h3 class="wk-card__title">ask anything</h3>
+            <p class="wk-card__body">Follow up in chat: “can I pay this at the konbini?” “what happens if I'm late?” Answers about <em>your</em> document.</p>
+          </div>
+        </div>
+        <div class="wk-grid wk-grid--3">
+          <div class="wk-stat"><span class="wk-stat__value">&lt;30s</span><span class="wk-stat__label">from photo to answer</span></div>
+          <div class="wk-stat"><span class="wk-stat__value">0</span><span class="wk-stat__label">documents stored after analysis</span></div>
+          <div class="wk-stat"><span class="wk-stat__value">¥0</span><span class="wk-stat__label">first analysis, no signup</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demo: the analysis, in paper theme -->
+    <section class="wk-section" id="demo" data-theme="paper" style="background: var(--wk-bg); color: var(--wk-text)">
+      <div class="wk-container wk-stack wk-stack--lg">
+        <div class="wk-stack">
+          <p class="wk-eyebrow">02 — see it read</p>
+          <h2 class="pv-statement">documents are paper. the analysis reads like one.</h2>
+          <p class="wk-lead">A real result, for a real resident-tax bill.</p>
+        </div>
+
+        <div class="pv-demo">
+          <div class="pv-analysis wk-stack">
+            <div class="wk-doc__meta">
+              <span class="wk-badge wk-badge--urgent">urgent · due mar 15</span>
+              <span class="wk-doc__date">scanned 2026-03-02</span>
+            </div>
+            <p class="wk-jp wk-muted">市民税・県民税納税通知書</p>
+            <h3>resident tax bill</h3>
+            <p class="wk-card__body">City hall is billing your 2025 resident tax: ¥64,500 for the first of four installments. Pay at any konbini before March 15 to avoid late fees.</p>
+            <ol class="wk-steps">
+              <li class="wk-steps__item">
+                <div>
+                  <p class="wk-steps__title">check the amount</p>
+                  <p class="wk-steps__body">Page 1, bottom-right box: ¥64,500 for the first installment.</p>
+                </div>
+              </li>
+              <li class="wk-steps__item">
+                <div>
+                  <p class="wk-steps__title">pay at any konbini</p>
+                  <p class="wk-steps__body">Hand slip ① to the cashier. Cash only at most chains.</p>
+                </div>
+              </li>
+              <li class="wk-steps__item">
+                <div>
+                  <p class="wk-steps__title">keep the stamped receipt</p>
+                  <p class="wk-steps__body">You may need it for visa renewal or city-hall procedures.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="wk-stack wk-stack--lg">
+            <div class="wk-pair">
+              <p class="wk-pair__jp">納期限までに納付されない場合は、延滞金が加算されます。</p>
+              <p class="wk-pair__en">If payment is not made by the due date, a late fee will be added.</p>
+            </div>
+            <div class="wk-pair">
+              <p class="wk-pair__jp">口座振替をご希望の方は、同封の申込書をご利用ください。</p>
+              <p class="wk-pair__en">If you prefer automatic bank transfer, use the enclosed application form.</p>
+            </div>
+            <div class="wk-chat">
+              <p class="wk-chat__msg wk-chat__msg--user">can i pay this in installments?</p>
+              <p class="wk-chat__msg wk-chat__msg--app">Yes — this bill is already split into four installments. The slips are attached in payment order; you only need to pay slip ① by March 15.</p>
+              <p class="wk-chat__msg wk-chat__msg--user">what if i already moved to another city?</p>
+              <p class="wk-chat__msg wk-chat__msg--app">You still owe this bill: resident tax is charged by the city you lived in on January 1. Your new city will bill you next year.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Urgency -->
+    <section class="wk-section">
+      <div class="wk-container wk-stack wk-stack--lg">
+        <div class="wk-stack">
+          <p class="wk-eyebrow">03 — urgency</p>
+          <h2 class="pv-statement">one glance tells you if it can wait.</h2>
+          <p class="wk-lead">Every document gets exactly one urgency level. Orange means act now — and orange is never used for anything else.</p>
+        </div>
+        <div class="wk-grid wk-grid--2">
+          <a class="wk-card wk-doc wk-card--accent wk-card--interactive" href="#">
+            <div class="wk-doc__meta">
+              <span class="wk-badge wk-badge--urgent">urgent · due mar 15</span>
+              <span class="wk-doc__date">scanned 2026-03-02</span>
+            </div>
+            <span class="wk-doc__jp">市民税・県民税納税通知書</span>
+            <span class="wk-card__title">resident tax bill</span>
+            <span class="wk-link">see what to do</span>
+          </a>
+          <a class="wk-card wk-doc wk-card--interactive" href="#">
+            <div class="wk-doc__meta">
+              <span class="wk-badge wk-badge--ok">no action needed</span>
+              <span class="wk-doc__date">scanned 2026-02-27</span>
+            </div>
+            <span class="wk-doc__jp">ねんきん定期便</span>
+            <span class="wk-card__title">annual pension statement</span>
+            <span class="wk-link">read the summary</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="wk-section" id="privacy">
+      <div class="wk-container wk-stack wk-stack--lg">
+        <div class="wk-stack">
+          <p class="wk-eyebrow">04 — privacy</p>
+          <h2 class="pv-statement">your paperwork is nobody's business. <em>including ours.</em></h2>
+        </div>
+        <div class="wk-grid wk-grid--3">
+          <div class="wk-card">
+            <h3 class="wk-card__title">deleted after analysis</h3>
+            <p class="wk-card__body">Your photo and its text are processed, answered, and deleted. Nothing is kept to train on.</p>
+          </div>
+          <div class="wk-card">
+            <h3 class="wk-card__title">no signup to try</h3>
+            <p class="wk-card__body">The first analysis asks for nothing — no email, no account, no card.</p>
+          </div>
+          <div class="wk-card">
+            <h3 class="wk-card__title">guidance, not legal advice</h3>
+            <p class="wk-card__body">Wakaru is an educational translation and guidance tool. For legal matters, consult a licensed professional.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="wk-container pv-cta" id="cta">
+      <p class="wk-eyebrow">wakaru — 分かる — to understand</p>
+      <h2 class="wk-hero-title" style="max-width: 14ch">stop guessing. start understanding.</h2>
+      <a class="wk-btn wk-btn--primary wk-btn--lg" href="#">analyze your first document free <span class="wk-btn__arrow">→</span></a>
+      <p class="wk-mono wk-faint">no signup · under 30 seconds</p>
+    </section>
+
+  </main>
+
+  <footer class="wk-footer">
+    <div class="wk-container wk-stack">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:var(--wk-space-4)">
+        <span class="wk-nav__brand">wakaru</span>
+        <span class="wk-mono">built for english speakers in japan · english · español · português</span>
+      </div>
+      <p class="wk-footer__legal">wakaru is an educational translation and guidance tool. it does not prepare or submit documents. for legal matters, consult a licensed professional.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
