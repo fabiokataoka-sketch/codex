@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Wakaru — Design Tokens
+   Aesthetic reference: retrofuture hardware minimalism
+   (near-black, one luminous-orange accent, lowercase grotesque display,
+   monospace data labels, rounded-square "device" surfaces)
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     Primitive color palette
+     ------------------------------------------------------------------ */
+
+  /* Accent — luminous orange (the only saturated color in a view) */
+  --wk-orange-100: #FFE3D1;
+  --wk-orange-200: #FFC0A3;
+  --wk-orange-300: #FF9A66;
+  --wk-orange-400: #FF6F2E;
+  --wk-orange-500: #FF4D00;   /* brand primary */
+  --wk-orange-600: #D64000;
+  --wk-orange-700: #A83200;
+  --wk-orange-800: #7A2400;
+
+  /* Neutrals — warm ink scale (paper-adjacent, never blue-gray) */
+  --wk-ink:      #111110;
+  --wk-ink-900:  #171716;
+  --wk-ink-800:  #1D1D1B;
+  --wk-ink-700:  #262624;
+  --wk-ink-600:  #333331;
+  --wk-ink-500:  #4A4A47;
+  --wk-gray-400: #75756F;
+  --wk-gray-300: #A3A39C;
+  --wk-gray-200: #CFCFC8;
+  --wk-gray-100: #E9E9E3;
+  --wk-paper:    #FAF8F2;    /* warm document white */
+  --wk-white:    #FFFFFF;
+
+  /* Status — urgency language of the product */
+  --wk-urgent:  var(--wk-orange-500);  /* deadline / act now */
+  --wk-soon:    #FFB020;               /* upcoming deadline */
+  --wk-ok:      #3DC97B;               /* handled / no action */
+  --wk-info:    var(--wk-gray-300);    /* informational only */
+  --wk-danger:  #FF3B30;               /* errors (system, not documents) */
+
+  /* ------------------------------------------------------------------
+     Semantic aliases (dark-first)
+     ------------------------------------------------------------------ */
+  --wk-bg:             var(--wk-ink);
+  --wk-surface:        var(--wk-ink-900);
+  --wk-surface-raised: var(--wk-ink-800);
+  --wk-surface-hover:  var(--wk-ink-700);
+  --wk-border:         var(--wk-ink-600);
+  --wk-border-strong:  var(--wk-ink-500);
+
+  --wk-text:           var(--wk-paper);
+  --wk-text-muted:     var(--wk-gray-300);
+  --wk-text-faint:     var(--wk-gray-400);
+
+  --wk-accent:          var(--wk-orange-500);
+  --wk-accent-hover:    var(--wk-orange-400);
+  --wk-accent-soft:     rgba(255, 77, 0, 0.12);  /* tinted fills */
+  --wk-accent-contrast: var(--wk-ink);           /* text placed on accent */
+
+  --wk-focus-ring: var(--wk-orange-400);
+
+  /* ------------------------------------------------------------------
+     Typography
+     lowercase display is a brand rule, enforced in base.css
+     ------------------------------------------------------------------ */
+  --wk-font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --wk-font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --wk-font-mono:    "Space Mono", "SFMono-Regular", Consolas, monospace;
+  --wk-font-jp:      "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+
+  /* Fluid type scale */
+  --wk-text-xs:   0.75rem;                                  /* 12 — mono labels */
+  --wk-text-sm:   0.875rem;                                 /* 14 — secondary body */
+  --wk-text-md:   1rem;                                     /* 16 — body */
+  --wk-text-lg:   1.125rem;                                 /* 18 — lead body */
+  --wk-text-xl:   clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --wk-text-2xl:  clamp(1.5rem, 1.2rem + 1.4vw, 2.125rem);  /* h3 */
+  --wk-text-3xl:  clamp(1.875rem, 1.4rem + 2.2vw, 3.125rem);/* h2 */
+  --wk-text-4xl:  clamp(2.5rem, 1.7rem + 4vw, 4.75rem);     /* h1 */
+  --wk-text-hero: clamp(3rem, 1.8rem + 7vw, 7.5rem);        /* display hero */
+
+  --wk-leading-tight:  1.0;
+  --wk-leading-snug:   1.2;
+  --wk-leading-normal: 1.55;
+  --wk-leading-loose:  1.75;
+
+  --wk-tracking-tight:  -0.02em;   /* large display */
+  --wk-tracking-normal: 0;
+  --wk-tracking-wide:   0.06em;    /* mono labels */
+  --wk-tracking-wider:  0.14em;    /* eyebrows */
+
+  --wk-weight-regular:  400;
+  --wk-weight-medium:   500;
+  --wk-weight-semibold: 600;
+  --wk-weight-bold:     700;
+
+  /* ------------------------------------------------------------------
+     Spacing — 4px base scale
+     ------------------------------------------------------------------ */
+  --wk-space-1:  0.25rem;   /*  4 */
+  --wk-space-2:  0.5rem;    /*  8 */
+  --wk-space-3:  0.75rem;   /* 12 */
+  --wk-space-4:  1rem;      /* 16 */
+  --wk-space-5:  1.5rem;    /* 24 */
+  --wk-space-6:  2rem;      /* 32 */
+  --wk-space-7:  3rem;      /* 48 */
+  --wk-space-8:  4rem;      /* 64 */
+  --wk-space-9:  6rem;      /* 96 */
+  --wk-space-10: 8rem;      /* 128 */
+
+  --wk-container-max: 72rem;      /* 1152 — the product is a focused tool */
+  --wk-container-pad: clamp(1rem, 4vw, 2.5rem);
+
+  /* ------------------------------------------------------------------
+     Radii — rounded-square "device" surfaces, pill controls
+     ------------------------------------------------------------------ */
+  --wk-radius-sm:     6px;     /* chips, small tags */
+  --wk-radius-md:     12px;    /* inputs, chat bubbles */
+  --wk-radius-device: 24px;    /* cards, panels, media — the signature radius */
+  --wk-radius-pill:   999px;   /* buttons, badges */
+
+  /* ------------------------------------------------------------------
+     Elevation — flat by default; orange glow reserved for the scanner
+     ------------------------------------------------------------------ */
+  --wk-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --wk-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.40);
+  --wk-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.50);
+  --wk-glow-accent: 0 0 0 1px rgba(255, 77, 0, 0.40),
+                    0 0 40px rgba(255, 77, 0, 0.18);
+
+  /* ------------------------------------------------------------------
+     Motion — calm and mechanical, like good hardware
+     ------------------------------------------------------------------ */
+  --wk-duration-fast: 150ms;
+  --wk-duration-base: 250ms;
+  --wk-duration-slow: 500ms;
+  --wk-ease-out:    cubic-bezier(0.22, 1, 0.36, 1);   /* signature ease */
+  --wk-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ------------------------------------------------------------------
+     Z-index scale
+     ------------------------------------------------------------------ */
+  --wk-z-nav:     100;
+  --wk-z-overlay: 200;
+  --wk-z-modal:   300;
+  --wk-z-toast:   400;
+}
+
+/* Paper theme override — opt in with data-theme="paper" on <html> or a
+   subtree. Documents are paper: use it for analysis results / long reading. */
+[data-theme="paper"] {
+  --wk-bg:             var(--wk-paper);
+  --wk-surface:        var(--wk-white);
+  --wk-surface-raised: var(--wk-white);
+  --wk-surface-hover:  var(--wk-gray-100);
+  --wk-border:         var(--wk-gray-200);
+  --wk-border-strong:  var(--wk-gray-300);
+
+  --wk-text:           var(--wk-ink);
+  --wk-text-muted:     var(--wk-ink-500);
+  --wk-text-faint:     var(--wk-gray-400);
+
+  --wk-accent:          var(--wk-orange-600);  /* darker for small-text contrast */
+  --wk-accent-hover:    var(--wk-orange-500);
+  --wk-accent-soft:     rgba(255, 77, 0, 0.08);
+  --wk-accent-contrast: var(--wk-white);
+
+  --wk-shadow-sm: 0 1px 2px rgba(17, 17, 16, 0.08);
+  --wk-shadow-md: 0 8px 24px rgba(17, 17, 16, 0.10);
+  --wk-shadow-lg: 0 24px 64px rgba(17, 17, 16, 0.14);
+}

@@ -1,0 +1,488 @@
+/* ==========================================================================
+   Wakaru — Components
+   Requires tokens.css + base.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Buttons — pill controls, lowercase display type, arrow affordance
+   -------------------------------------------------------------------------- */
+
+.wk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wk-space-2);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--wk-font-display);
+  font-size: var(--wk-text-md);
+  font-weight: var(--wk-weight-medium);
+  text-transform: lowercase;
+  letter-spacing: var(--wk-tracking-normal);
+  border-radius: var(--wk-radius-pill);
+  border: 1px solid transparent;
+  transition: background var(--wk-duration-fast) var(--wk-ease-out),
+              border-color var(--wk-duration-fast) var(--wk-ease-out),
+              color var(--wk-duration-fast) var(--wk-ease-out),
+              transform var(--wk-duration-fast) var(--wk-ease-out);
+}
+
+.wk-btn:active { transform: scale(0.97); }
+
+/* Arrow — append to the primary action of a view: "scan a document →" */
+.wk-btn__arrow {
+  transition: transform var(--wk-duration-base) var(--wk-ease-out);
+}
+
+.wk-btn:hover .wk-btn__arrow { transform: translateX(4px); }
+
+.wk-btn--primary {
+  background: var(--wk-accent);
+  color: var(--wk-accent-contrast);
+}
+
+.wk-btn--primary:hover {
+  background: var(--wk-accent-hover);
+  color: var(--wk-accent-contrast);
+}
+
+.wk-btn--secondary {
+  border-color: var(--wk-border-strong);
+  color: var(--wk-text);
+}
+
+.wk-btn--secondary:hover {
+  border-color: var(--wk-accent);
+  color: var(--wk-accent);
+}
+
+.wk-btn--ghost { color: var(--wk-text-muted); }
+
+.wk-btn--ghost:hover {
+  color: var(--wk-text);
+  background: var(--wk-surface-hover);
+}
+
+.wk-btn--lg { padding: 1rem 2rem; font-size: var(--wk-text-lg); }
+.wk-btn--sm { padding: 0.5rem 1rem; font-size: var(--wk-text-sm); }
+
+.wk-btn[disabled],
+.wk-btn--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Text link with arrow: "learn more →" */
+.wk-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wk-space-1);
+  font-family: var(--wk-font-display);
+  text-transform: lowercase;
+  color: var(--wk-text);
+}
+
+.wk-link::after {
+  content: "→";
+  transition: transform var(--wk-duration-base) var(--wk-ease-out);
+}
+
+.wk-link:hover { color: var(--wk-accent); }
+.wk-link:hover::after { transform: translateX(4px); }
+
+/* --------------------------------------------------------------------------
+   Urgency badges — the product's core signal. One per document card.
+   Mono, lowercase, pill. Colors come from status tokens.
+   -------------------------------------------------------------------------- */
+
+.wk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wk-space-2);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-xs);
+  letter-spacing: var(--wk-tracking-wide);
+  text-transform: lowercase;
+  border-radius: var(--wk-radius-pill);
+  border: 1px solid var(--wk-border);
+  color: var(--wk-text-muted);
+}
+
+.wk-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.wk-badge--urgent {
+  color: var(--wk-urgent);
+  border-color: color-mix(in srgb, var(--wk-urgent) 45%, transparent);
+  background: var(--wk-accent-soft);
+}
+
+.wk-badge--soon {
+  color: var(--wk-soon);
+  border-color: color-mix(in srgb, var(--wk-soon) 45%, transparent);
+}
+
+.wk-badge--ok {
+  color: var(--wk-ok);
+  border-color: color-mix(in srgb, var(--wk-ok) 45%, transparent);
+}
+
+.wk-badge--info { color: var(--wk-info); }
+
+/* --------------------------------------------------------------------------
+   Navigation — slim bar, wordmark left, actions right
+   -------------------------------------------------------------------------- */
+
+.wk-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--wk-z-nav);
+  background: color-mix(in srgb, var(--wk-bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--wk-border);
+}
+
+.wk-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wk-space-5);
+  height: 4rem;
+}
+
+.wk-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wk-space-2);
+  font-family: var(--wk-font-display);
+  font-weight: var(--wk-weight-semibold);
+  font-size: var(--wk-text-lg);
+  text-transform: lowercase;
+}
+
+.wk-nav__brand:hover { color: var(--wk-text); }
+
+.wk-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--wk-space-5);
+  list-style: none;
+}
+
+.wk-nav__link {
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-sm);
+  text-transform: lowercase;
+  color: var(--wk-text-muted);
+}
+
+.wk-nav__link:hover,
+.wk-nav__link[aria-current="page"] { color: var(--wk-text); }
+
+@media (max-width: 40rem) {
+  .wk-nav__links { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Cards — rounded-square "device" surfaces
+   -------------------------------------------------------------------------- */
+
+.wk-card {
+  background: var(--wk-surface-raised);
+  border: 1px solid var(--wk-border);
+  border-radius: var(--wk-radius-device);
+  padding: var(--wk-space-6);
+  transition: border-color var(--wk-duration-base) var(--wk-ease-out),
+              transform var(--wk-duration-base) var(--wk-ease-out);
+}
+
+a.wk-card:hover,
+.wk-card--interactive:hover {
+  border-color: var(--wk-border-strong);
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+.wk-card--accent { border-color: color-mix(in srgb, var(--wk-accent) 50%, transparent); }
+
+.wk-card__eyebrow { margin-bottom: var(--wk-space-3); }
+
+.wk-card__title {
+  font-size: var(--wk-text-xl);
+  margin-bottom: var(--wk-space-2);
+}
+
+.wk-card__body {
+  color: var(--wk-text-muted);
+  font-size: var(--wk-text-sm);
+}
+
+/* Document card — a scanned document in the user's history */
+.wk-doc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wk-space-3);
+}
+
+.wk-doc__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wk-space-3);
+}
+
+.wk-doc__date {
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-xs);
+  color: var(--wk-text-faint);
+}
+
+.wk-doc__jp {
+  font-family: var(--wk-font-jp);
+  font-size: var(--wk-text-sm);
+  color: var(--wk-text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Scan frame — viewfinder corners + sweep line. The signature moment.
+   Wrap any media or drop zone.
+   -------------------------------------------------------------------------- */
+
+.wk-scan {
+  position: relative;
+  border-radius: var(--wk-radius-device);
+  overflow: hidden;
+  background: var(--wk-surface);
+}
+
+.wk-scan__corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--wk-accent);
+  z-index: 2;
+}
+
+.wk-scan__corner--tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-top-left-radius: 12px; }
+.wk-scan__corner--tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; border-top-right-radius: 12px; }
+.wk-scan__corner--bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; border-bottom-left-radius: 12px; }
+.wk-scan__corner--br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; border-bottom-right-radius: 12px; }
+
+.wk-scan--active { box-shadow: var(--wk-glow-accent); }
+
+.wk-scan--active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--wk-accent), transparent);
+  animation: wk-sweep 2.4s var(--wk-ease-in-out) infinite;
+  z-index: 1;
+}
+
+@keyframes wk-sweep {
+  0%   { top: 8%; opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { top: 92%; opacity: 0; }
+}
+
+/* Drop zone variant — empty state inviting a photo/upload */
+.wk-scan--drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wk-space-3);
+  min-height: 16rem;
+  border: 1px dashed var(--wk-border-strong);
+  color: var(--wk-text-muted);
+  cursor: pointer;
+  transition: border-color var(--wk-duration-fast) var(--wk-ease-out);
+}
+
+.wk-scan--drop:hover { border-color: var(--wk-accent); }
+
+/* --------------------------------------------------------------------------
+   Steps — "what to do next". Numbered with mono counters.
+   -------------------------------------------------------------------------- */
+
+.wk-steps {
+  list-style: none;
+  counter-reset: wk-step;
+  display: flex;
+  flex-direction: column;
+}
+
+.wk-steps__item {
+  counter-increment: wk-step;
+  display: flex;
+  gap: var(--wk-space-4);
+  padding-block: var(--wk-space-4);
+  border-bottom: 1px solid var(--wk-border);
+}
+
+.wk-steps__item:last-child { border-bottom: 0; }
+
+.wk-steps__item::before {
+  content: "0" counter(wk-step);
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-sm);
+  color: var(--wk-accent);
+  min-width: 2rem;
+  padding-top: 2px;
+}
+
+.wk-steps__title {
+  font-family: var(--wk-font-display);
+  font-weight: var(--wk-weight-medium);
+  text-transform: lowercase;
+  margin-bottom: var(--wk-space-1);
+}
+
+.wk-steps__body {
+  font-size: var(--wk-text-sm);
+  color: var(--wk-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Bilingual pair — Japanese source above, translation below
+   -------------------------------------------------------------------------- */
+
+.wk-pair {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wk-space-2);
+  padding: var(--wk-space-4);
+  background: var(--wk-surface);
+  border-left: 2px solid var(--wk-accent);
+  border-radius: 0 var(--wk-radius-md) var(--wk-radius-md) 0;
+}
+
+.wk-pair__jp {
+  font-family: var(--wk-font-jp);
+  color: var(--wk-text);
+}
+
+.wk-pair__en {
+  font-size: var(--wk-text-sm);
+  color: var(--wk-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Chat — follow-up questions about a document
+   -------------------------------------------------------------------------- */
+
+.wk-chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wk-space-3);
+}
+
+.wk-chat__msg {
+  max-width: 44ch;
+  padding: var(--wk-space-3) var(--wk-space-4);
+  border-radius: var(--wk-radius-device);
+  font-size: var(--wk-text-sm);
+  line-height: var(--wk-leading-normal);
+}
+
+.wk-chat__msg--user {
+  align-self: flex-end;
+  background: var(--wk-accent);
+  color: var(--wk-accent-contrast);
+  border-bottom-right-radius: var(--wk-radius-sm);
+}
+
+.wk-chat__msg--app {
+  align-self: flex-start;
+  background: var(--wk-surface-raised);
+  border: 1px solid var(--wk-border);
+  border-bottom-left-radius: var(--wk-radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Forms
+   -------------------------------------------------------------------------- */
+
+.wk-field { display: flex; flex-direction: column; gap: var(--wk-space-2); }
+
+.wk-label {
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-xs);
+  letter-spacing: var(--wk-tracking-wide);
+  text-transform: lowercase;
+  color: var(--wk-text-muted);
+}
+
+.wk-input,
+.wk-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  color: var(--wk-text);
+  background: var(--wk-surface);
+  border: 1px solid var(--wk-border-strong);
+  border-radius: var(--wk-radius-md);
+  transition: border-color var(--wk-duration-fast) var(--wk-ease-out);
+}
+
+.wk-input::placeholder,
+.wk-textarea::placeholder { color: var(--wk-text-faint); }
+
+.wk-input:focus,
+.wk-textarea:focus {
+  outline: none;
+  border-color: var(--wk-accent);
+}
+
+.wk-textarea { min-height: 6rem; resize: vertical; }
+
+/* --------------------------------------------------------------------------
+   Stat — mono number + lowercase caption ("under 30 seconds")
+   -------------------------------------------------------------------------- */
+
+.wk-stat { display: flex; flex-direction: column; gap: var(--wk-space-1); }
+
+.wk-stat__value {
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-3xl);
+  color: var(--wk-accent);
+  line-height: var(--wk-leading-tight);
+}
+
+.wk-stat__label {
+  font-family: var(--wk-font-display);
+  text-transform: lowercase;
+  color: var(--wk-text-muted);
+  font-size: var(--wk-text-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Divider + footer
+   -------------------------------------------------------------------------- */
+
+.wk-divider {
+  border: 0;
+  border-top: 1px solid var(--wk-border);
+  margin-block: var(--wk-space-7);
+}
+
+.wk-footer {
+  border-top: 1px solid var(--wk-border);
+  padding-block: var(--wk-space-7);
+  color: var(--wk-text-muted);
+  font-size: var(--wk-text-sm);
+}
+
+.wk-footer__legal {
+  font-family: var(--wk-font-mono);
+  font-size: var(--wk-text-xs);
+  color: var(--wk-text-faint);
+  max-width: 70ch;
+}
