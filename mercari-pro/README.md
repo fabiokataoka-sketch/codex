@@ -138,6 +138,49 @@ hex, que existia só por causa do contraste do `#FF0211`.
 Inter Tight substitui a PP Neue Montreal da referência (licença paga) — é o
 grotesco livre mais próximo que aguenta 9rem com tracking negativo.
 
+## Aplicando em Tailwind v4 + shadcn
+
+O sistema nasceu em CSS puro, mas foi aplicado num app Tailwind v4 + shadcn
+(new-york). Três coisas que só apareceram na prática e que valem para qualquer
+port futuro:
+
+**1. O contrato do shadcn vira alias das semânticas, não uma paleta paralela.**
+
+```css
+:root {
+  --primary:    var(--mp-t-action);
+  --background: var(--mp-t-bg);
+  --border:     var(--mp-t-line);
+  /* … */
+}
+```
+
+Com isso os 40+ componentes shadcn herdam o sistema sem nenhum ser tocado. Se
+o projeto já tiver outros conjuntos de variáveis (modos de tema, paletas de
+marketing), transforme-os em alias também — dois mapas de cor concorrentes é
+como o sistema morre.
+
+**2. Helpers de tipografia vão em `@layer components`, nunca em `utilities`.**
+
+Uma classe como `.type-eyebrow` que define `color` dentro de `@layer utilities`
+empata em especificidade com o `text-*` do Tailwind, e vence por ordem de
+saída. Resultado: `class="type-eyebrow text-on-action"` ignora o `text-on-action`
+— e uma sobrelinha sobre superfície colorida fica ilegível. Em
+`@layer components` a ordem `components → utilities` resolve: o helper dá o
+padrão, a utility sobrescreve. Isso vale para qualquer helper que fixe cor.
+
+**3. Blocos "sempre escuros" não precisam de tokens próprios.**
+
+Com `@custom-variant dark (&:is(.dark *))` e o mapa escuro declarado em `.dark`,
+a classe funciona em qualquer nível — não só na raiz:
+
+```tsx
+<section className="dark bg-bg text-text">  {/* escuro independente do tema */}
+```
+
+É o mesmo mecanismo do `.mp-dark` deste sistema. Um herói editorial preto dentro
+de um app claro custa uma classe, não um conjunto novo de variáveis.
+
 ## Acessibilidade
 
 Garantido pelos tokens:
