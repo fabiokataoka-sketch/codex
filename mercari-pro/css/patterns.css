@@ -1,0 +1,622 @@
+/* ==========================================================================
+   Mercari Pro — Patterns
+   Composed, product-specific structures: the console shell, the listings
+   table, KPI tiles, the filter toolbar, and the editorial surfaces
+   (hero, numbered feature slider) carried over from the reference site.
+   Requires tokens.css + base.css + components.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   App shell
+   -------------------------------------------------------------------------- */
+
+.mp-app {
+  display: grid;
+  grid-template-columns: var(--mp-sidebar-w) minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--mp-t-bg-sunken);
+}
+
+.mp-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-6);
+  padding: var(--mp-space-5) var(--mp-space-4);
+  background: var(--mp-t-surface);
+  border-right: 1px solid var(--mp-t-line);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.mp-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-2);
+  padding-inline: var(--mp-space-2);
+}
+
+.mp-brand__mark {
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+
+.mp-brand__word {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-lg);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: -0.03em;
+}
+
+.mp-brand__pro {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  letter-spacing: var(--mp-tracking-label);
+  text-transform: uppercase;
+  color: var(--mp-t-action);
+  padding-top: 2px;
+}
+
+.mp-nav { display: flex; flex-direction: column; gap: 2px; }
+
+.mp-nav__group + .mp-nav__group { margin-top: var(--mp-space-5); }
+
+.mp-nav__heading {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  letter-spacing: var(--mp-tracking-label);
+  text-transform: uppercase;
+  color: var(--mp-t-text-faint);
+  padding: 0 var(--mp-space-3) var(--mp-space-2);
+}
+
+.mp-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-2) var(--mp-space-3);
+  border-radius: var(--mp-radius-sm);
+  font-size: var(--mp-text-sm);
+  font-weight: var(--mp-weight-medium);
+  color: var(--mp-t-text-muted);
+  position: relative;
+  transition: background-color var(--mp-duration-fast) var(--mp-ease-out),
+              color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-nav__item:hover {
+  background: var(--mp-t-surface-hover);
+  color: var(--mp-t-text);
+}
+
+.mp-nav__item.is-active {
+  background: var(--mp-t-surface-sel);
+  color: var(--mp-t-action);
+  font-weight: var(--mp-weight-semibold);
+}
+
+/* Active state is a red rule *and* a fill *and* weight — three signals, so
+   the nav still reads without color. */
+.mp-nav__item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-accent);
+}
+
+.mp-nav__icon { width: 16px; text-align: center; flex: none; opacity: 0.9; }
+
+.mp-nav__badge {
+  margin-left: auto;
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  color: var(--mp-t-text-faint);
+}
+
+.mp-nav__badge--alert { color: var(--mp-t-warning); font-weight: var(--mp-weight-semibold); }
+
+/* Sidebar footer card — the Pro plan / account manager slot. */
+.mp-plan-card {
+  margin-top: auto;
+  padding: var(--mp-space-4);
+  border-radius: var(--mp-radius-md);
+  background: var(--mp-t-bg-sunken);
+  border: 1px solid var(--mp-t-line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-3);
+}
+
+.mp-main { display: flex; flex-direction: column; min-width: 0; }
+
+.mp-topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--mp-z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-4);
+  height: var(--mp-topbar-h);
+  padding-inline: var(--mp-space-6);
+  background: color-mix(in srgb, var(--mp-t-surface) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--mp-t-line);
+}
+
+.mp-topbar__search { flex: 1; max-width: 460px; }
+
+.mp-page {
+  flex: 1;
+  padding: var(--mp-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-6);
+}
+
+.mp-page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--mp-space-6);
+  flex-wrap: wrap;
+}
+
+.mp-page__title {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-h1);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: var(--mp-tracking-display);
+  line-height: 1;
+}
+
+.mp-page__sub {
+  color: var(--mp-t-text-muted);
+  font-size: var(--mp-text-sm);
+  margin-top: var(--mp-space-2);
+}
+
+@media (max-width: 1080px) {
+  .mp-app { grid-template-columns: 1fr; }
+
+  .mp-sidebar {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--mp-t-line);
+  }
+
+  .mp-nav { flex-direction: row; }
+  .mp-nav__group + .mp-nav__group { margin-top: 0; }
+  .mp-nav__heading, .mp-plan-card { display: none; }
+  .mp-page { padding: var(--mp-space-4); }
+}
+
+/* --------------------------------------------------------------------------
+   KPI tiles
+   The dashboard's headline numbers. Display type, tabular figures, and a
+   delta that states its direction in words as well as color.
+   -------------------------------------------------------------------------- */
+
+.mp-kpis {
+  display: grid;
+  gap: var(--mp-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+}
+
+.mp-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-2);
+  padding: var(--mp-space-5);
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-lg);
+}
+
+.mp-kpi__label {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  letter-spacing: var(--mp-tracking-label);
+  text-transform: uppercase;
+  color: var(--mp-t-text-muted);
+}
+
+.mp-kpi__value {
+  font-family: var(--mp-font-display);
+  font-size: clamp(1.75rem, 2.4vw, 2.5rem);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: var(--mp-tracking-display);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.mp-kpi__value sup {
+  font-size: 0.42em;
+  font-weight: var(--mp-weight-semibold);
+  vertical-align: super;
+  letter-spacing: 0;
+}
+
+.mp-kpi__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--mp-text-xs);
+  font-weight: var(--mp-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--mp-t-text-muted);
+}
+
+.mp-kpi__delta--up   { color: var(--mp-t-success); }
+.mp-kpi__delta--down { color: var(--mp-t-critical); }
+
+/* Bar sparkline, drawn from a flex row of divs — no chart library needed for
+   a 12-bucket trend. */
+.mp-spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 34px;
+  margin-top: var(--mp-space-1);
+}
+
+.mp-spark span {
+  flex: 1;
+  min-height: 2px;
+  border-radius: 1px;
+  background: var(--mp-t-line-strong);
+  transition: background-color var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-spark span:last-child { background: var(--mp-t-accent); }
+.mp-kpi:hover .mp-spark span { background: var(--mp-t-data-bright); }
+.mp-kpi:hover .mp-spark span:last-child { background: var(--mp-t-accent); }
+
+/* --------------------------------------------------------------------------
+   Toolbar (filters, bulk actions, view switch)
+   -------------------------------------------------------------------------- */
+
+.mp-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  flex-wrap: wrap;
+  padding: var(--mp-space-3) var(--mp-space-4);
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-md);
+}
+
+.mp-toolbar__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--mp-t-line);
+}
+
+/* Bulk-action bar. Appears in place of the toolbar's left side once rows are
+   selected — Pro's bulk deactivate / relist / repricing entry point. */
+.mp-bulkbar {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  flex-wrap: wrap;
+  padding: var(--mp-space-3) var(--mp-space-4);
+  border-radius: var(--mp-radius-md);
+  background: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+  animation: mp-rise var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-bulkbar__count {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-xs);
+  letter-spacing: var(--mp-tracking-wide);
+}
+
+.mp-bulkbar .mp-btn--ghost { color: inherit; opacity: 0.8; }
+.mp-bulkbar .mp-btn--ghost:hover { background: rgb(255 255 255 / 0.14); opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   Data table
+   Built for 4,000 listings: sticky header, tabular figures, hairline rows,
+   no vertical rules. Density is controlled by [data-density] on any ancestor.
+   -------------------------------------------------------------------------- */
+
+.mp-table-wrap {
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-lg);
+  overflow: auto;
+  max-width: 100%;
+}
+
+.mp-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--mp-text-sm);
+}
+
+.mp-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--mp-t-surface);
+  padding: var(--mp-space-3) var(--mp-cell-pad-x);
+  text-align: left;
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  font-weight: var(--mp-weight-medium);
+  letter-spacing: var(--mp-tracking-label);
+  text-transform: uppercase;
+  color: var(--mp-t-text-muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--mp-t-line);
+}
+
+.mp-table th[aria-sort] { cursor: pointer; user-select: none; }
+.mp-table th[aria-sort]:hover { color: var(--mp-t-text); }
+
+.mp-table th[aria-sort="ascending"]::after  { content: " ↑"; color: var(--mp-t-action); }
+.mp-table th[aria-sort="descending"]::after { content: " ↓"; color: var(--mp-t-action); }
+
+.mp-table tbody td {
+  height: var(--mp-row-h);
+  padding: var(--mp-cell-pad-y) var(--mp-cell-pad-x);
+  border-bottom: 1px solid var(--mp-t-line-soft);
+  vertical-align: middle;
+}
+
+.mp-table tbody tr {
+  transition: background-color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-table tbody tr:hover { background: var(--mp-t-surface-hover); }
+.mp-table tbody tr.is-selected { background: var(--mp-t-surface-sel); }
+.mp-table tbody tr:last-child td { border-bottom: 0; }
+
+.mp-table__num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mp-table__check { width: 44px; padding-right: 0 !important; }
+
+/* Product cell: thumbnail + title + SKU, the row's identity. */
+.mp-table__product {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  min-width: 240px;
+}
+
+.mp-table__thumb {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: var(--mp-radius-xs);
+  object-fit: cover;
+  background: var(--mp-t-bg-sunken);
+}
+
+.mp-table__title {
+  font-weight: var(--mp-weight-medium);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 32ch;
+}
+
+.mp-table__sku {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  color: var(--mp-t-text-faint);
+}
+
+.mp-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mp-space-4);
+  padding: var(--mp-space-3) var(--mp-space-4);
+  border-top: 1px solid var(--mp-t-line);
+  font-size: var(--mp-text-xs);
+  color: var(--mp-t-text-muted);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Editorial surfaces
+   The reference site's register: a black hero with type at display scale,
+   and a numbered slider that opens each item into a modal.
+   -------------------------------------------------------------------------- */
+
+.mp-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 12vw, 10rem);
+  background: var(--mp-t-bg);
+}
+
+.mp-hero__eyebrow { margin-bottom: var(--mp-space-5); }
+
+.mp-hero__title {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-display-1);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: var(--mp-tracking-display);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.mp-hero__title em {
+  color: var(--mp-t-accent);
+  font-style: italic;
+  font-weight: var(--mp-weight-medium);
+  text-transform: lowercase;
+  letter-spacing: -0.045em;
+}
+
+.mp-hero__actions {
+  display: flex;
+  gap: var(--mp-space-3);
+  flex-wrap: wrap;
+  margin-top: var(--mp-space-8);
+}
+
+/* Numbered feature slider. Horizontal scroll with snap, a progress rail
+   beneath, and a monospaced index per item — lifted straight from the
+   reference's .slider / .slider__bar pattern. */
+.mp-slider { display: flex; flex-direction: column; gap: var(--mp-space-5); }
+
+.mp-slider__track {
+  display: flex;
+  gap: var(--mp-space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: var(--mp-space-2);
+}
+
+.mp-slider__track::-webkit-scrollbar { display: none; }
+
+.mp-slide {
+  flex: 0 0 clamp(240px, 26vw, 340px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-3);
+  padding-top: var(--mp-space-4);
+  border-top: 1px solid var(--mp-t-line);
+  cursor: pointer;
+  transition: border-color var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-slide:hover { border-color: var(--mp-t-accent); }
+
+.mp-slide__index {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  letter-spacing: var(--mp-tracking-label);
+  color: var(--mp-t-text-faint);
+}
+
+.mp-slide__title {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-h3);
+  font-weight: var(--mp-weight-bold);
+  letter-spacing: var(--mp-tracking-heading);
+  line-height: 1.1;
+}
+
+.mp-slide__text {
+  font-size: var(--mp-text-sm);
+  color: var(--mp-t-text-muted);
+  line-height: var(--mp-leading-snug);
+}
+
+.mp-slide__media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--mp-radius-md);
+  background: var(--mp-t-bg-sunken);
+  overflow: hidden;
+}
+
+.mp-slide__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.mp-slider__rail {
+  height: 2px;
+  background: var(--mp-t-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.mp-slider__rail span {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  background: var(--mp-t-accent);
+  transition: width var(--mp-duration-base) var(--mp-ease-out);
+}
+
+/* Ticker — live marketplace numbers scrolling across a dark band. */
+.mp-ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--mp-t-line);
+  padding-block: var(--mp-space-3);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.mp-ticker__inner {
+  display: flex;
+  gap: var(--mp-space-10);
+  width: max-content;
+  animation: mp-marquee 38s linear infinite;
+}
+
+.mp-ticker:hover .mp-ticker__inner { animation-play-state: paused; }
+
+.mp-ticker__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--mp-space-2);
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-xs);
+  letter-spacing: var(--mp-tracking-wide);
+  color: var(--mp-t-text-muted);
+  white-space: nowrap;
+}
+
+.mp-ticker__item b {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-md);
+  font-weight: var(--mp-weight-bold);
+  color: var(--mp-t-text);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes mp-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-ticker__inner { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Insight row — the "why" line under a metric. Pro's analytics voice:
+   one sentence, one number, one action.
+   -------------------------------------------------------------------------- */
+
+.mp-insight {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-3) var(--mp-space-4);
+  border-radius: var(--mp-radius-md);
+  background: var(--mp-t-bg-sunken);
+  font-size: var(--mp-text-sm);
+}
+
+.mp-insight__rule {
+  width: 2px;
+  align-self: stretch;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-accent);
+  flex: none;
+}
+
+.mp-insight strong { font-weight: var(--mp-weight-semibold); }

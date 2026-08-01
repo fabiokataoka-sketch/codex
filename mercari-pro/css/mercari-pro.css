@@ -1,0 +1,10 @@
+/* ==========================================================================
+   Mercari Pro — Design System
+   Single entry point. Import order matters: tokens define the variables the
+   later layers consume.
+   ========================================================================== */
+
+@import "tokens.css";
+@import "base.css";
+@import "components.css";
+@import "patterns.css";

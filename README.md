@@ -1,3 +1,9 @@
+> **Este repositório hospeda dois sistemas de design.** O de baixo é o AI Lab
+> Global. O de **Mercari Pro** — console de vendedores profissionais, referência
+> estética em [ai-in-banking-ux-design.videinfra.com](https://ai-in-banking-ux-design.videinfra.com/)
+> — vive em [`mercari-pro/`](mercari-pro/README.md); abra `mercari-pro/index.html`
+> para o guia de estilo e `mercari-pro/preview.html` para o console.
+
 # AI Lab Global — Design System
 
 A dark-first, high-contrast design system for AI Lab Global. Visual direction inspired by

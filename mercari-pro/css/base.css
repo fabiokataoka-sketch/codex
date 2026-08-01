@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Mercari Pro — Base
+   Reset, editorial typography defaults, layout primitives, a11y helpers.
+   Requires tokens.css.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  tab-size: 2;
+}
+
+body {
+  background: var(--mp-t-bg);
+  color: var(--mp-t-text);
+  font-family: var(--mp-font-body);
+  font-size: var(--mp-text-md);
+  line-height: var(--mp-leading-normal);
+  letter-spacing: var(--mp-tracking-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Components in this system set explicit display values, which would otherwise
+   beat the UA rule for [hidden]. */
+[hidden] { display: none !important; }
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  letter-spacing: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--mp-t-line);
+}
+
+::selection {
+  background: var(--mp-t-accent);
+  color: var(--mp-c-white);
+}
+
+/* --------------------------------------------------------------------------
+   Typography
+   Display type is the loud part of this system: oversized, tightly tracked,
+   set on the shortest possible leading. Everything else stays quiet.
+   -------------------------------------------------------------------------- */
+
+.mp-display-1,
+.mp-display-2,
+.mp-h1,
+.mp-h2,
+.mp-h3,
+.mp-h4,
+h1, h2, h3, h4 {
+  font-family: var(--mp-font-display);
+  font-weight: var(--mp-weight-bold);
+  letter-spacing: var(--mp-tracking-heading);
+  line-height: var(--mp-leading-tight);
+  text-wrap: balance;
+}
+
+.mp-display-1 {
+  font-size: var(--mp-text-display-1);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: var(--mp-tracking-display);
+  line-height: 0.92;
+}
+
+.mp-display-2 {
+  font-size: var(--mp-text-display-2);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: var(--mp-tracking-display);
+  line-height: 0.96;
+}
+
+.mp-h1, h1 { font-size: var(--mp-text-h1); line-height: 1.02; }
+.mp-h2, h2 { font-size: var(--mp-text-h2); line-height: 1.1; }
+.mp-h3, h3 { font-size: var(--mp-text-h3); line-height: 1.2; }
+.mp-h4, h4 { font-size: var(--mp-text-h4); line-height: 1.3; font-weight: var(--mp-weight-semibold); }
+
+/* One-off: an italic, lowercase display line. The Mercari mark is a script —
+   this is the only place the system lets that softness into the type. */
+.mp-display-script {
+  font-style: italic;
+  font-weight: var(--mp-weight-medium);
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+}
+
+.mp-lead {
+  font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
+  line-height: var(--mp-leading-snug);
+  color: var(--mp-t-text-muted);
+  max-width: var(--mp-measure);
+  text-wrap: pretty;
+}
+
+.mp-body     { font-size: var(--mp-text-md); }
+.mp-body-sm  { font-size: var(--mp-text-sm); }
+.mp-body-xs  { font-size: var(--mp-text-xs); }
+
+.mp-prose {
+  max-width: var(--mp-measure);
+  line-height: var(--mp-leading-relaxed);
+  text-wrap: pretty;
+}
+
+.mp-prose > * + * { margin-top: var(--mp-space-4); }
+
+/* Eyebrow / overline / table label. Mono, because it is data, not prose. */
+.mp-label {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  font-weight: var(--mp-weight-medium);
+  letter-spacing: var(--mp-tracking-label);
+  text-transform: uppercase;
+  color: var(--mp-t-text-muted);
+  line-height: 1;
+}
+
+/* Numbers that have to line up in a column, or be compared at a glance. */
+.mp-numeric {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "cv01" 1;
+}
+
+.mp-mono {
+  font-family: var(--mp-font-mono);
+  font-size: 0.9em;
+  letter-spacing: 0;
+}
+
+.mp-muted   { color: var(--mp-t-text-muted); }
+.mp-faint   { color: var(--mp-t-text-faint); }
+.mp-accent  { color: var(--mp-t-action); }
+
+/* Inline text link. Underlined by default — in a red-branded product, color
+   alone can never be the only affordance. */
+.mp-link {
+  color: var(--mp-t-action);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-link:hover { color: var(--mp-t-action-hover); }
+
+/* --------------------------------------------------------------------------
+   Layout primitives
+   -------------------------------------------------------------------------- */
+
+.mp-container {
+  width: 100%;
+  max-width: var(--mp-container);
+  margin-inline: auto;
+  padding-inline: var(--mp-gutter);
+}
+
+.mp-container--wide { max-width: none; }
+.mp-container--narrow { max-width: 900px; }
+
+.mp-section { padding-block: clamp(3rem, 7vw, 7rem); }
+.mp-section--tight { padding-block: clamp(2rem, 4vw, 3.5rem); }
+
+.mp-stack        { display: flex; flex-direction: column; gap: var(--mp-space-4); }
+.mp-stack--sm    { gap: var(--mp-space-2); }
+.mp-stack--lg    { gap: var(--mp-space-8); }
+
+.mp-row {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+}
+
+.mp-row--between { justify-content: space-between; }
+.mp-row--wrap    { flex-wrap: wrap; }
+.mp-row--top     { align-items: flex-start; }
+
+.mp-grid {
+  display: grid;
+  gap: var(--mp-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+}
+
+.mp-grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); }
+.mp-grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); }
+
+.mp-spacer { flex: 1 1 auto; }
+
+/* Hairline rules do the structural work that boxes would do elsewhere. */
+.mp-rule {
+  height: 1px;
+  background: var(--mp-t-line);
+  border: 0;
+}
+
+.mp-rule--accent { background: var(--mp-t-accent); height: 2px; }
+
+/* Surface: the one place a themed background + hairline gets applied. */
+.mp-surface {
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--mp-focus-ring);
+  border-radius: var(--mp-radius-xs);
+}
+
+.mp-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.mp-skip-link {
+  position: absolute;
+  top: var(--mp-space-2);
+  left: var(--mp-space-2);
+  z-index: var(--mp-z-toast);
+  padding: var(--mp-space-2) var(--mp-space-4);
+  background: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+  border-radius: var(--mp-radius-pill);
+  transform: translateY(-200%);
+}
+
+.mp-skip-link:focus-visible { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

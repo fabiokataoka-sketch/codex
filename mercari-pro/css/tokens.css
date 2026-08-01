@@ -1,0 +1,324 @@
+/* ==========================================================================
+   Mercari Pro — Design Tokens
+   ---------------------------------------------------------------------------
+   Aesthetic reference: editorial minimalism in the manner of
+   ai-in-banking-ux-design.videinfra.com — oversized grotesk display type,
+   hairline rules instead of boxes, one chromatic voice, theme-flippable
+   subtrees, motion that is smooth rather than showy.
+
+   Token architecture (two layers, borrowed from the reference build):
+
+     --mp-c-*   PRIMITIVES. Raw palette + raw scales. Never referenced by a
+                component. Change these to re-brand.
+     --mp-t-*   THEMED SEMANTICS. What components actually consume. Redefined
+                by .mp-light / .mp-dark, so *any subtree* can flip theme —
+                not just :root.
+
+   Everything else (space, type, radius, motion, layout) is theme-independent
+   and lives on :root once.
+   ========================================================================== */
+
+:root {
+  /* ======================================================================
+     1. PRIMITIVES — color
+     ====================================================================== */
+
+  /* Brand red. #FF0211 is Mercari's hero red and it is a hard color to put
+     text on: white-on-FF0211 lands at 3.99:1, under the 4.5:1 floor. So the
+     ramp splits the job — 500 is the *brand* (marks, large display, accent
+     rules, non-text fills), 600 is the *action* red (5.0:1 against white in
+     both directions, so it works as a button fill AND as red text). */
+  --mp-c-red-50:  #FFF0F1;
+  --mp-c-red-100: #FFDADC;
+  --mp-c-red-200: #FFB0B4;
+  --mp-c-red-300: #FF7B82;
+  --mp-c-red-400: #FF3D47;
+  --mp-c-red-500: #FF0211;  /* Mercari Red — brand */
+  --mp-c-red-600: #E00010;  /* Action red — safe with white text */
+  --mp-c-red-700: #B8000D;
+  --mp-c-red-800: #8A000A;
+  --mp-c-red-900: #5C0007;
+
+  /* Mercari Blue. Secondary voice: data, information, selection. Never the
+     primary action — that seat belongs to red. */
+  --mp-c-blue-50:  #EAF8FF;
+  --mp-c-blue-100: #CDEFFF;
+  --mp-c-blue-200: #A6E3FF;
+  --mp-c-blue-300: #7AD6FF;
+  --mp-c-blue-400: #4DC9FF;  /* Mercari Blue */
+  --mp-c-blue-500: #1FB2F0;
+  --mp-c-blue-600: #0B90C9;
+  --mp-c-blue-700: #0A6F9B;
+  --mp-c-blue-800: #08526F;
+
+  /* Neutrals, anchored on Mercari Black #222222. Very slightly cool so they
+     sit under red without going muddy. */
+  --mp-c-white:    #FFFFFF;
+  --mp-c-gray-25:  #FAFAFB;
+  --mp-c-gray-50:  #F5F5F7;
+  --mp-c-gray-100: #EEEEF0;
+  --mp-c-gray-200: #E2E2E5;
+  --mp-c-gray-300: #C9C9CE;
+  --mp-c-gray-400: #A0A0A7;
+  --mp-c-gray-500: #74747B;
+  --mp-c-gray-600: #55555C;
+  --mp-c-gray-700: #3B3B41;
+  --mp-c-gray-800: #2C2C31;
+  --mp-c-gray-900: #222222;  /* Mercari Black */
+  --mp-c-gray-950: #171719;
+  --mp-c-black:    #0E0E10;
+
+  /* Status. Deliberately non-red where possible: in this system red is the
+     brand's speaking voice, so it cannot also be the only signal for alarm.
+     See README — "Red is not an alarm". */
+  --mp-c-green-50:  #E7F7F0;
+  --mp-c-green-500: #12B981;
+  --mp-c-green-600: #0E9F6E;
+  --mp-c-green-700: #0A7A54;
+
+  --mp-c-amber-50:  #FFF6E5;
+  --mp-c-amber-500: #F59E0B;
+  --mp-c-amber-600: #C97A05;
+  --mp-c-amber-700: #93590A;
+
+  --mp-c-violet-50:  #F1EDFE;
+  --mp-c-violet-500: #7C5CE0;
+  --mp-c-violet-600: #6544C9;
+
+  /* ======================================================================
+     2. TYPOGRAPHY
+     ====================================================================== */
+
+  /* Inter Tight stands in for the reference's PP Neue Montreal: a neutral
+     grotesk that holds up at 9rem with negative tracking. Inter carries UI
+     and body. JetBrains Mono carries anything that is data, not prose —
+     SKUs, order IDs, eyebrows, table labels. */
+  --mp-font-display: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mp-font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mp-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --mp-weight-regular:  400;
+  --mp-weight-medium:   500;
+  --mp-weight-semibold: 600;
+  --mp-weight-bold:     700;
+  --mp-weight-black:    800;
+
+  /* Editorial display sizes — fluid, in the reference's spirit of type that
+     fills the viewport. Console UI sizes below are fixed on purpose: data
+     density should not drift with window width. */
+  --mp-text-display-1: clamp(3.25rem, 8.5vw, 9rem);
+  --mp-text-display-2: clamp(2.5rem, 5.6vw, 5.5rem);
+  --mp-text-h1:        clamp(2rem, 3.4vw, 3.25rem);
+  --mp-text-h2:        clamp(1.5rem, 2.2vw, 2.125rem);
+  --mp-text-h3:        1.375rem;
+  --mp-text-h4:        1.125rem;
+
+  --mp-text-lg: 1.0625rem;
+  --mp-text-md: 0.9375rem;  /* console body — 15px */
+  --mp-text-sm: 0.8125rem;
+  --mp-text-xs: 0.75rem;
+  --mp-text-2xs: 0.6875rem; /* eyebrows, table labels */
+
+  --mp-leading-tight:   1.05;
+  --mp-leading-snug:    1.25;
+  --mp-leading-normal:  1.5;
+  --mp-leading-relaxed: 1.65;
+
+  /* Big type needs negative tracking; small type needs the opposite. */
+  --mp-tracking-display: -0.035em;
+  --mp-tracking-heading: -0.02em;
+  --mp-tracking-normal:  -0.006em;
+  --mp-tracking-wide:    0.02em;
+  --mp-tracking-label:   0.11em;
+
+  /* ======================================================================
+     3. SPACE, RADIUS, ELEVATION
+     ====================================================================== */
+
+  --mp-space-1:  0.25rem;
+  --mp-space-2:  0.5rem;
+  --mp-space-3:  0.75rem;
+  --mp-space-4:  1rem;
+  --mp-space-5:  1.25rem;
+  --mp-space-6:  1.5rem;
+  --mp-space-8:  2rem;
+  --mp-space-10: 2.5rem;
+  --mp-space-12: 3rem;
+  --mp-space-16: 4rem;
+  --mp-space-20: 5rem;
+  --mp-space-24: 6rem;
+  --mp-space-32: 8rem;
+
+  /* The reference keeps corners sharp; Mercari's mark is soft and script.
+     The compromise is the system's signature: structural surfaces stay
+     nearly square, things you touch go fully round. */
+  --mp-radius-xs:   4px;
+  --mp-radius-sm:   6px;
+  --mp-radius-md:   10px;
+  --mp-radius-lg:   14px;
+  --mp-radius-xl:   20px;
+  --mp-radius-pill: 999px;
+
+  /* Light-first elevation: shadows are near-invisible and do the work of a
+     hairline, not a drop shadow. */
+  --mp-shadow-1: 0 1px 2px rgba(14, 14, 16, 0.06);
+  --mp-shadow-2: 0 4px 16px -4px rgba(14, 14, 16, 0.10);
+  --mp-shadow-3: 0 18px 48px -12px rgba(14, 14, 16, 0.18);
+  --mp-shadow-pop: 0 24px 64px -16px rgba(14, 14, 16, 0.28);
+
+  /* ======================================================================
+     4. MOTION
+     ====================================================================== */
+
+  --mp-duration-fast: 140ms;
+  --mp-duration-base: 220ms;
+  --mp-duration-slow: 420ms;
+  --mp-duration-page: 640ms;
+
+  --mp-ease-out:   cubic-bezier(0.22, 1, 0.36, 1);   /* signature */
+  --mp-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --mp-ease-in:    cubic-bezier(0.5, 0, 0.75, 0);
+
+  /* ======================================================================
+     5. LAYOUT & DENSITY
+     ====================================================================== */
+
+  --mp-container:  1440px;
+  --mp-measure:    68ch;
+  --mp-gutter:     clamp(1.25rem, 4vw, 4rem);
+  --mp-sidebar-w:  264px;
+  --mp-topbar-h:   60px;
+
+  /* Density is a first-class token, not a per-table override. A seller with
+     4 listings and one with 4,000 want different row heights. */
+  --mp-row-h:      52px;
+  --mp-cell-pad-y: var(--mp-space-3);
+  --mp-cell-pad-x: var(--mp-space-4);
+  --mp-control-h:  38px;
+
+  --mp-z-base:    0;
+  --mp-z-sticky:  100;
+  --mp-z-drawer:  200;
+  --mp-z-modal:   300;
+  --mp-z-toast:   400;
+
+  --mp-focus-ring: 0 0 0 2px var(--mp-t-bg), 0 0 0 4px var(--mp-t-focus);
+}
+
+[data-density="compact"] {
+  --mp-row-h:      40px;
+  --mp-cell-pad-y: var(--mp-space-2);
+  --mp-cell-pad-x: var(--mp-space-3);
+  --mp-control-h:  32px;
+  --mp-text-md:    0.875rem;
+}
+
+/* ==========================================================================
+   6. THEMED SEMANTICS
+   --------------------------------------------------------------------------
+   :root and .mp-light are the same map. .mp-dark overrides it. Both are
+   plain class selectors so a single section, card, or modal can invert —
+   the reference site's .ui-light / .ui-dark trick, which is how you get an
+   editorial black hero sitting inside a white console.
+   ========================================================================== */
+
+:root,
+.mp-light {
+  color-scheme: light;
+
+  --mp-t-bg:            var(--mp-c-white);
+  --mp-t-bg-sunken:     var(--mp-c-gray-50);
+  --mp-t-surface:       var(--mp-c-white);
+  --mp-t-surface-alt:   var(--mp-c-gray-25);
+  --mp-t-surface-hover: var(--mp-c-gray-50);
+  --mp-t-surface-sel:   var(--mp-c-red-50);
+  --mp-t-inverse:       var(--mp-c-gray-900);
+
+  --mp-t-line:          var(--mp-c-gray-200);
+  --mp-t-line-soft:     var(--mp-c-gray-100);
+  --mp-t-line-strong:   var(--mp-c-gray-300);
+
+  --mp-t-text:          var(--mp-c-gray-900);
+  --mp-t-text-muted:    var(--mp-c-gray-500);
+  --mp-t-text-faint:    var(--mp-c-gray-400);
+  --mp-t-text-inverse:  var(--mp-c-white);
+
+  /* accent  = the brand. Fills, marks, rules, display type. Not small text.
+     action  = the same red, tuned to carry text at 4.5:1 either direction. */
+  --mp-t-accent:        var(--mp-c-red-500);
+  --mp-t-accent-soft:   var(--mp-c-red-50);
+  --mp-t-action:        var(--mp-c-red-600);
+  --mp-t-action-hover:  var(--mp-c-red-700);
+  --mp-t-action-press:  var(--mp-c-red-800);
+  --mp-t-on-action:     var(--mp-c-white);
+
+  --mp-t-data:          var(--mp-c-blue-600);
+  --mp-t-data-soft:     var(--mp-c-blue-50);
+  --mp-t-data-bright:   var(--mp-c-blue-400);
+
+  --mp-t-success:       var(--mp-c-green-600);
+  --mp-t-success-soft:  var(--mp-c-green-50);
+  --mp-t-warning:       var(--mp-c-amber-700);
+  --mp-t-warning-soft:  var(--mp-c-amber-50);
+  --mp-t-critical:      var(--mp-c-red-700);
+  --mp-t-critical-soft: var(--mp-c-red-50);
+  --mp-t-info:          var(--mp-c-violet-600);
+  --mp-t-info-soft:     var(--mp-c-violet-50);
+
+  --mp-t-focus:         var(--mp-c-blue-600);
+  --mp-t-overlay:       rgba(14, 14, 16, 0.42);
+  --mp-t-skeleton:      var(--mp-c-gray-100);
+}
+
+.mp-dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --mp-t-bg:            var(--mp-c-black);
+  --mp-t-bg-sunken:     #08080A;
+  --mp-t-surface:       var(--mp-c-gray-950);
+  --mp-t-surface-alt:   #131315;
+  --mp-t-surface-hover: var(--mp-c-gray-800);
+  --mp-t-surface-sel:   rgba(255, 2, 17, 0.14);
+  --mp-t-inverse:       var(--mp-c-white);
+
+  --mp-t-line:          #2A2A2F;
+  --mp-t-line-soft:     #1F1F23;
+  --mp-t-line-strong:   #3D3D44;
+
+  --mp-t-text:          #F4F4F5;
+  --mp-t-text-muted:    var(--mp-c-gray-400);
+  --mp-t-text-faint:    var(--mp-c-gray-500);
+  --mp-t-text-inverse:  var(--mp-c-gray-900);
+
+  /* On near-black, the hero red carries text fine (5.3:1) and the darker
+     action red does not — so the pair inverts in dark mode. */
+  --mp-t-accent:        var(--mp-c-red-500);
+  --mp-t-accent-soft:   rgba(255, 2, 17, 0.12);
+  --mp-t-action:        var(--mp-c-red-500);
+  --mp-t-action-hover:  var(--mp-c-red-400);
+  --mp-t-action-press:  var(--mp-c-red-300);
+  --mp-t-on-action:     var(--mp-c-white);
+
+  --mp-t-data:          var(--mp-c-blue-400);
+  --mp-t-data-soft:     rgba(77, 201, 255, 0.14);
+  --mp-t-data-bright:   var(--mp-c-blue-300);
+
+  --mp-t-success:       var(--mp-c-green-500);
+  --mp-t-success-soft:  rgba(18, 185, 129, 0.14);
+  --mp-t-warning:       var(--mp-c-amber-500);
+  --mp-t-warning-soft:  rgba(245, 158, 11, 0.14);
+  --mp-t-critical:      var(--mp-c-red-400);
+  --mp-t-critical-soft: rgba(255, 61, 71, 0.14);
+  --mp-t-info:          var(--mp-c-violet-500);
+  --mp-t-info-soft:     rgba(124, 92, 224, 0.16);
+
+  --mp-t-focus:         var(--mp-c-blue-400);
+  --mp-t-overlay:       rgba(0, 0, 0, 0.66);
+  --mp-t-skeleton:      #202024;
+
+  --mp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --mp-shadow-2: 0 4px 16px -4px rgba(0, 0, 0, 0.6);
+  --mp-shadow-3: 0 18px 48px -12px rgba(0, 0, 0, 0.7);
+  --mp-shadow-pop: 0 24px 64px -16px rgba(0, 0, 0, 0.8);
+}

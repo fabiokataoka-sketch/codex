@@ -1,0 +1,985 @@
+/* ==========================================================================
+   Mercari Pro — Components
+   The generic UI kit. Console-specific composition lives in patterns.css.
+   Requires tokens.css + base.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Buttons
+   Fully round, because the brand is soft where you touch it. One filled red
+   button per view: it is the happy path, not an alarm.
+   -------------------------------------------------------------------------- */
+
+.mp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mp-space-2);
+  height: var(--mp-control-h);
+  padding-inline: var(--mp-space-5);
+  border-radius: var(--mp-radius-pill);
+  border: 1px solid transparent;
+  font-size: var(--mp-text-sm);
+  font-weight: var(--mp-weight-semibold);
+  letter-spacing: var(--mp-tracking-normal);
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    background-color var(--mp-duration-fast) var(--mp-ease-out),
+    border-color var(--mp-duration-fast) var(--mp-ease-out),
+    color var(--mp-duration-fast) var(--mp-ease-out),
+    transform var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-btn:active { transform: scale(0.975); }
+
+.mp-btn:disabled,
+.mp-btn[aria-disabled="true"] {
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.mp-btn--primary {
+  background: var(--mp-t-action);
+  color: var(--mp-t-on-action);
+}
+
+.mp-btn--primary:hover { background: var(--mp-t-action-hover); }
+.mp-btn--primary:active { background: var(--mp-t-action-press); }
+
+/* Brand red at full saturation. Reserved for hero / marketing surfaces where
+   the label is large and bold — at console text sizes it misses 4.5:1. */
+.mp-btn--brand {
+  background: var(--mp-t-accent);
+  color: var(--mp-c-white);
+  font-size: var(--mp-text-md);
+  font-weight: var(--mp-weight-bold);
+  height: 48px;
+  padding-inline: var(--mp-space-8);
+}
+
+.mp-btn--brand:hover { background: var(--mp-t-action-hover); }
+
+.mp-btn--secondary {
+  background: var(--mp-t-surface);
+  border-color: var(--mp-t-line-strong);
+  color: var(--mp-t-text);
+}
+
+.mp-btn--secondary:hover {
+  background: var(--mp-t-surface-hover);
+  border-color: var(--mp-t-text-faint);
+}
+
+.mp-btn--ghost { color: var(--mp-t-text-muted); }
+
+.mp-btn--ghost:hover {
+  background: var(--mp-t-surface-hover);
+  color: var(--mp-t-text);
+}
+
+/* Destructive is outlined, never filled — a filled red button in this system
+   means "go", so alarm has to look structurally different, not just darker. */
+.mp-btn--destructive {
+  border-color: var(--mp-t-critical);
+  color: var(--mp-t-critical);
+  background: transparent;
+}
+
+.mp-btn--destructive:hover {
+  background: var(--mp-t-critical-soft);
+}
+
+.mp-btn--inverse {
+  background: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+}
+
+.mp-btn--inverse:hover { opacity: 0.86; }
+
+.mp-btn--sm {
+  height: 30px;
+  padding-inline: var(--mp-space-3);
+  font-size: var(--mp-text-xs);
+}
+
+.mp-btn--lg {
+  height: 46px;
+  padding-inline: var(--mp-space-6);
+  font-size: var(--mp-text-md);
+}
+
+.mp-btn--block { width: 100%; }
+
+.mp-btn--icon {
+  width: var(--mp-control-h);
+  padding-inline: 0;
+  border-radius: var(--mp-radius-pill);
+}
+
+.mp-btn__count {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  padding: 2px 6px;
+  border-radius: var(--mp-radius-pill);
+  background: rgb(255 255 255 / 0.22);
+}
+
+/* Text link styled as a control — the reference's "explore →" affordance. */
+.mp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mp-space-2);
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  letter-spacing: var(--mp-tracking-label);
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--mp-t-line-strong);
+  transition: gap var(--mp-duration-base) var(--mp-ease-out),
+              border-color var(--mp-duration-fast) var(--mp-ease-out),
+              color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-cta:hover {
+  gap: var(--mp-space-3);
+  color: var(--mp-t-action);
+  border-color: var(--mp-t-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Icons
+   Stroke icons on a 16px grid, inheriting color. The system ships a minimal
+   sprite (see assets/icons.svg); swap in your own set — only the sizing and
+   `currentColor` contract matter.
+   -------------------------------------------------------------------------- */
+
+.mp-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mp-icon--lg { width: 20px; height: 20px; }
+.mp-icon--sm { width: 13px; height: 13px; stroke-width: 1.8; }
+
+/* --------------------------------------------------------------------------
+   Badges & status
+   -------------------------------------------------------------------------- */
+
+.mp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-surface-hover);
+  color: var(--mp-t-text-muted);
+  font-size: var(--mp-text-2xs);
+  font-weight: var(--mp-weight-semibold);
+  letter-spacing: var(--mp-tracking-wide);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.mp-badge--live     { background: var(--mp-t-success-soft);  color: var(--mp-t-success); }
+.mp-badge--sold     { background: var(--mp-t-data-soft);     color: var(--mp-t-data); }
+.mp-badge--action   { background: var(--mp-t-warning-soft);  color: var(--mp-t-warning); }
+.mp-badge--blocked  { background: var(--mp-t-critical-soft); color: var(--mp-t-critical); }
+.mp-badge--draft    { background: var(--mp-t-surface-hover); color: var(--mp-t-text-muted); }
+.mp-badge--promoted { background: var(--mp-t-info-soft);     color: var(--mp-t-info); }
+
+/* Status carries a dot as well as a color — colorblind sellers scanning 400
+   rows should not have to decode hue. */
+.mp-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* The Pro seller mark. The single most brand-loaded element in the product,
+   so it gets the hero red and nothing else does. */
+.mp-pro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 7px;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-accent);
+  color: var(--mp-c-white);
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-2xs);
+  font-weight: var(--mp-weight-black);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.mp-pro-badge--outline {
+  background: transparent;
+  color: var(--mp-t-action);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.mp-pro-badge__mark {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar & identity
+   -------------------------------------------------------------------------- */
+
+.mp-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mp-t-surface-hover);
+  color: var(--mp-t-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--mp-text-xs);
+  font-weight: var(--mp-weight-semibold);
+  overflow: hidden;
+  flex: none;
+}
+
+.mp-avatar--lg { width: 44px; height: 44px; font-size: var(--mp-text-md); }
+.mp-avatar--sm { width: 24px; height: 24px; font-size: var(--mp-text-2xs); }
+
+.mp-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.mp-identity { display: flex; align-items: center; gap: var(--mp-space-3); }
+.mp-identity__name { font-weight: var(--mp-weight-semibold); font-size: var(--mp-text-sm); }
+.mp-identity__meta { font-size: var(--mp-text-xs); color: var(--mp-t-text-muted); }
+
+/* --------------------------------------------------------------------------
+   Form fields
+   -------------------------------------------------------------------------- */
+
+.mp-field { display: flex; flex-direction: column; gap: var(--mp-space-2); }
+
+.mp-field__label {
+  font-size: var(--mp-text-sm);
+  font-weight: var(--mp-weight-medium);
+}
+
+.mp-field__hint {
+  font-size: var(--mp-text-xs);
+  color: var(--mp-t-text-muted);
+}
+
+.mp-field__error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--mp-text-xs);
+  color: var(--mp-t-critical);
+  font-weight: var(--mp-weight-medium);
+}
+
+.mp-input,
+.mp-select,
+.mp-textarea {
+  width: 100%;
+  min-height: var(--mp-control-h);
+  padding: var(--mp-space-2) var(--mp-space-3);
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line-strong);
+  border-radius: var(--mp-radius-sm);
+  font-size: var(--mp-text-md);
+  color: var(--mp-t-text);
+  transition: border-color var(--mp-duration-fast) var(--mp-ease-out),
+              background-color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-textarea { min-height: 110px; resize: vertical; line-height: var(--mp-leading-normal); }
+
+.mp-input::placeholder,
+.mp-textarea::placeholder { color: var(--mp-t-text-faint); }
+
+.mp-input:hover,
+.mp-select:hover,
+.mp-textarea:hover { border-color: var(--mp-t-text-faint); }
+
+.mp-input:focus-visible,
+.mp-select:focus-visible,
+.mp-textarea:focus-visible { border-color: var(--mp-t-focus); }
+
+.mp-input[aria-invalid="true"],
+.mp-select[aria-invalid="true"],
+.mp-textarea[aria-invalid="true"] { border-color: var(--mp-t-critical); }
+
+.mp-input:disabled,
+.mp-select:disabled,
+.mp-textarea:disabled {
+  background: var(--mp-t-bg-sunken);
+  color: var(--mp-t-text-faint);
+  cursor: not-allowed;
+}
+
+.mp-select {
+  appearance: none;
+  padding-right: var(--mp-space-8);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+/* Money input — the currency sits inside the field, in mono, so the number
+   column stays visually aligned with the tables it feeds. */
+.mp-input-group {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--mp-t-line-strong);
+  border-radius: var(--mp-radius-sm);
+  background: var(--mp-t-surface);
+  overflow: hidden;
+}
+
+.mp-input-group:focus-within { border-color: var(--mp-t-focus); }
+
+.mp-input-group__affix {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--mp-space-3);
+  background: var(--mp-t-bg-sunken);
+  border-right: 1px solid var(--mp-t-line);
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-sm);
+  color: var(--mp-t-text-muted);
+}
+
+.mp-input-group .mp-input {
+  border: 0;
+  border-radius: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.mp-search {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-2);
+  height: var(--mp-control-h);
+  padding-inline: var(--mp-space-3);
+  background: var(--mp-t-bg-sunken);
+  border: 1px solid transparent;
+  border-radius: var(--mp-radius-pill);
+  transition: border-color var(--mp-duration-fast) var(--mp-ease-out),
+              background-color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-search:focus-within {
+  background: var(--mp-t-surface);
+  border-color: var(--mp-t-focus);
+}
+
+.mp-search input {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--mp-text-sm);
+}
+
+.mp-search input:focus-visible { box-shadow: none; }
+
+/* Checkbox / radio — custom so bulk-select in tables stays on-brand. */
+.mp-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mp-space-2);
+  cursor: pointer;
+  font-size: var(--mp-text-sm);
+}
+
+.mp-check input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 1.5px solid var(--mp-t-line-strong);
+  border-radius: var(--mp-radius-xs);
+  background: var(--mp-t-surface);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: background-color var(--mp-duration-fast) var(--mp-ease-out),
+              border-color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-check input[type="radio"] { border-radius: 50%; }
+
+.mp-check input::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  transform: scale(0);
+  transition: transform var(--mp-duration-fast) var(--mp-ease-out);
+  background: var(--mp-c-white);
+  clip-path: polygon(14% 47%, 0 61%, 39% 100%, 100% 22%, 85% 9%, 37% 71%);
+}
+
+.mp-check input[type="radio"]::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  clip-path: none;
+}
+
+.mp-check input:checked {
+  background: var(--mp-t-action);
+  border-color: var(--mp-t-action);
+}
+
+.mp-check input:checked::after { transform: scale(1); }
+
+.mp-check input:indeterminate {
+  background: var(--mp-t-action);
+  border-color: var(--mp-t-action);
+}
+
+.mp-check input:indeterminate::after {
+  transform: scale(1);
+  clip-path: none;
+  width: 8px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.mp-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  cursor: pointer;
+  font-size: var(--mp-text-sm);
+}
+
+.mp-switch input {
+  appearance: none;
+  width: 38px;
+  height: 22px;
+  flex: none;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-line-strong);
+  position: relative;
+  cursor: pointer;
+  transition: background-color var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-switch input::after {
+  content: "";
+  position: absolute;
+  inset: 3px auto 3px 3px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--mp-c-white);
+  transition: transform var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-switch input:checked { background: var(--mp-t-action); }
+.mp-switch input:checked::after { transform: translateX(16px); }
+
+/* --------------------------------------------------------------------------
+   Chips, segmented control, tabs
+   -------------------------------------------------------------------------- */
+
+.mp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mp-space-2);
+  height: 30px;
+  padding-inline: var(--mp-space-3);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-surface);
+  font-size: var(--mp-text-xs);
+  font-weight: var(--mp-weight-medium);
+  color: var(--mp-t-text-muted);
+  transition: all var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-chip:hover { border-color: var(--mp-t-line-strong); color: var(--mp-t-text); }
+
+.mp-chip[aria-pressed="true"],
+.mp-chip.is-active {
+  background: var(--mp-t-inverse);
+  border-color: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+}
+
+.mp-chip__remove {
+  display: grid;
+  place-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.mp-chip__remove:hover { opacity: 1; }
+
+.mp-segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--mp-t-bg-sunken);
+  border-radius: var(--mp-radius-pill);
+}
+
+.mp-segmented button {
+  padding: 6px var(--mp-space-4);
+  border-radius: var(--mp-radius-pill);
+  font-size: var(--mp-text-xs);
+  font-weight: var(--mp-weight-medium);
+  color: var(--mp-t-text-muted);
+  transition: background-color var(--mp-duration-fast) var(--mp-ease-out),
+              color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-segmented button[aria-selected="true"] {
+  background: var(--mp-t-surface);
+  color: var(--mp-t-text);
+  box-shadow: var(--mp-shadow-1);
+}
+
+/* Tabs sit on a hairline, with the active tab marked in brand red — the one
+   navigational use of the hero color. */
+.mp-tabs {
+  display: flex;
+  gap: var(--mp-space-6);
+  border-bottom: 1px solid var(--mp-t-line);
+}
+
+.mp-tabs__tab {
+  position: relative;
+  padding: var(--mp-space-3) 0;
+  font-size: var(--mp-text-sm);
+  font-weight: var(--mp-weight-medium);
+  color: var(--mp-t-text-muted);
+  white-space: nowrap;
+  transition: color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-tabs__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--mp-t-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-tabs__tab:hover { color: var(--mp-t-text); }
+
+.mp-tabs__tab[aria-selected="true"] {
+  color: var(--mp-t-text);
+  font-weight: var(--mp-weight-semibold);
+}
+
+.mp-tabs__tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+.mp-tabs__count {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  color: var(--mp-t-text-faint);
+  margin-left: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+
+.mp-card {
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-lg);
+  padding: var(--mp-space-5);
+  transition: border-color var(--mp-duration-base) var(--mp-ease-out),
+              box-shadow var(--mp-duration-base) var(--mp-ease-out),
+              transform var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-card--interactive:hover {
+  border-color: var(--mp-t-line-strong);
+  box-shadow: var(--mp-shadow-2);
+  transform: translateY(-2px);
+}
+
+.mp-card--flat { border: 0; background: var(--mp-t-bg-sunken); }
+.mp-card--flush { padding: 0; overflow: hidden; }
+
+.mp-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--mp-space-4);
+  margin-bottom: var(--mp-space-4);
+}
+
+.mp-card__title {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-h4);
+  font-weight: var(--mp-weight-semibold);
+  letter-spacing: var(--mp-tracking-heading);
+}
+
+.mp-card__footer {
+  margin-top: var(--mp-space-5);
+  padding-top: var(--mp-space-4);
+  border-top: 1px solid var(--mp-t-line-soft);
+}
+
+/* Listing card — the marketplace's atom. Square image, price in tabular
+   mono-aligned numerals, status pill top-left over the media. */
+.mp-listing {
+  display: flex;
+  flex-direction: column;
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-md);
+  overflow: hidden;
+  transition: border-color var(--mp-duration-base) var(--mp-ease-out),
+              box-shadow var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-listing:hover {
+  border-color: var(--mp-t-line-strong);
+  box-shadow: var(--mp-shadow-2);
+}
+
+.mp-listing__media {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--mp-t-bg-sunken);
+  overflow: hidden;
+}
+
+.mp-listing__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--mp-duration-slow) var(--mp-ease-out);
+}
+
+.mp-listing:hover .mp-listing__media img { transform: scale(1.04); }
+
+.mp-listing__status {
+  position: absolute;
+  top: var(--mp-space-2);
+  left: var(--mp-space-2);
+}
+
+.mp-listing__body {
+  padding: var(--mp-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--mp-space-1);
+}
+
+.mp-listing__title {
+  font-size: var(--mp-text-sm);
+  font-weight: var(--mp-weight-medium);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mp-listing__price {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-h4);
+  font-weight: var(--mp-weight-bold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--mp-tracking-heading);
+}
+
+.mp-listing__meta {
+  font-family: var(--mp-font-mono);
+  font-size: var(--mp-text-2xs);
+  color: var(--mp-t-text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Feedback: banner, toast, tooltip, progress, skeleton, empty state
+   -------------------------------------------------------------------------- */
+
+.mp-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-4);
+  border-radius: var(--mp-radius-md);
+  border-left: 3px solid var(--mp-t-text-muted);
+  background: var(--mp-t-bg-sunken);
+  font-size: var(--mp-text-sm);
+}
+
+.mp-banner--info     { border-left-color: var(--mp-t-info);     background: var(--mp-t-info-soft); }
+.mp-banner--success  { border-left-color: var(--mp-t-success);  background: var(--mp-t-success-soft); }
+.mp-banner--warning  { border-left-color: var(--mp-t-warning);  background: var(--mp-t-warning-soft); }
+.mp-banner--critical { border-left-color: var(--mp-t-critical); background: var(--mp-t-critical-soft); }
+
+.mp-banner__icon { flex: none; font-size: var(--mp-text-md); line-height: 1.4; }
+.mp-banner__title { font-weight: var(--mp-weight-semibold); margin-bottom: 2px; }
+
+.mp-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-3) var(--mp-space-4);
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+  font-size: var(--mp-text-sm);
+  font-weight: var(--mp-weight-medium);
+  box-shadow: var(--mp-shadow-3);
+}
+
+.mp-toast__action {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  font-weight: var(--mp-weight-semibold);
+}
+
+.mp-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.mp-tooltip__bubble {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  translate: -50% 4px;
+  padding: 6px 10px;
+  border-radius: var(--mp-radius-sm);
+  background: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+  font-size: var(--mp-text-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--mp-duration-fast) var(--mp-ease-out),
+              translate var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-tooltip:hover .mp-tooltip__bubble,
+.mp-tooltip:focus-within .mp-tooltip__bubble {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.mp-progress {
+  height: 4px;
+  border-radius: var(--mp-radius-pill);
+  background: var(--mp-t-line-soft);
+  overflow: hidden;
+}
+
+.mp-progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--mp-t-accent);
+  transition: width var(--mp-duration-slow) var(--mp-ease-out);
+}
+
+.mp-progress--data .mp-progress__bar { background: var(--mp-t-data); }
+.mp-progress--success .mp-progress__bar { background: var(--mp-t-success); }
+
+.mp-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--mp-t-skeleton) 0%,
+    var(--mp-t-surface-hover) 50%,
+    var(--mp-t-skeleton) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--mp-radius-sm);
+  animation: mp-shimmer 1.4s linear infinite;
+}
+
+@keyframes mp-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+.mp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-16) var(--mp-space-6);
+  text-align: center;
+}
+
+.mp-empty__title {
+  font-family: var(--mp-font-display);
+  font-size: var(--mp-text-h3);
+  font-weight: var(--mp-weight-bold);
+  letter-spacing: var(--mp-tracking-heading);
+}
+
+.mp-empty__text {
+  color: var(--mp-t-text-muted);
+  font-size: var(--mp-text-sm);
+  max-width: 44ch;
+}
+
+/* --------------------------------------------------------------------------
+   Overlays: modal & drawer
+   Progressive disclosure is the reference site's core interaction — a compact
+   surface opens into the full story rather than navigating away.
+   -------------------------------------------------------------------------- */
+
+.mp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--mp-z-modal);
+  background: var(--mp-t-overlay);
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  padding: var(--mp-space-6);
+  animation: mp-fade var(--mp-duration-base) var(--mp-ease-out);
+}
+
+.mp-modal {
+  width: min(560px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--mp-t-surface);
+  border: 1px solid var(--mp-t-line);
+  border-radius: var(--mp-radius-xl);
+  box-shadow: var(--mp-shadow-pop);
+  animation: mp-rise var(--mp-duration-slow) var(--mp-ease-out);
+}
+
+.mp-modal--wide { width: min(920px, 100%); }
+
+.mp-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--mp-space-4);
+  padding: var(--mp-space-6) var(--mp-space-6) var(--mp-space-4);
+}
+
+.mp-modal__body { padding: 0 var(--mp-space-6) var(--mp-space-6); }
+
+.mp-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-4) var(--mp-space-6);
+  border-top: 1px solid var(--mp-t-line);
+  position: sticky;
+  bottom: 0;
+  background: var(--mp-t-surface);
+}
+
+.mp-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--mp-z-drawer);
+  width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--mp-t-surface);
+  border-left: 1px solid var(--mp-t-line);
+  box-shadow: var(--mp-shadow-3);
+  animation: mp-slide-in var(--mp-duration-slow) var(--mp-ease-out);
+}
+
+.mp-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mp-space-4);
+  padding: var(--mp-space-5) var(--mp-space-6);
+  border-bottom: 1px solid var(--mp-t-line);
+}
+
+.mp-drawer__body { flex: 1; overflow-y: auto; padding: var(--mp-space-6); }
+
+.mp-drawer__footer {
+  display: flex;
+  gap: var(--mp-space-3);
+  padding: var(--mp-space-4) var(--mp-space-6);
+  border-top: 1px solid var(--mp-t-line);
+}
+
+@keyframes mp-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes mp-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes mp-slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Pagination & breadcrumb
+   -------------------------------------------------------------------------- */
+
+.mp-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-1);
+}
+
+.mp-pagination button {
+  min-width: 30px;
+  height: 30px;
+  padding-inline: var(--mp-space-2);
+  border-radius: var(--mp-radius-sm);
+  font-size: var(--mp-text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--mp-t-text-muted);
+  transition: background-color var(--mp-duration-fast) var(--mp-ease-out);
+}
+
+.mp-pagination button:hover { background: var(--mp-t-surface-hover); color: var(--mp-t-text); }
+
+.mp-pagination button[aria-current="page"] {
+  background: var(--mp-t-inverse);
+  color: var(--mp-t-bg);
+  font-weight: var(--mp-weight-semibold);
+}
+
+.mp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--mp-space-2);
+  font-size: var(--mp-text-xs);
+  color: var(--mp-t-text-muted);
+}
+
+.mp-breadcrumb a:hover { color: var(--mp-t-text); }
+.mp-breadcrumb__sep { color: var(--mp-t-text-faint); }

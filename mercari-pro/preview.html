@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mercari Pro — Console do vendedor</title>
+<meta name="description" content="Tela real do console Mercari Pro construída inteiramente sobre o design system.">
+<link rel="icon" href="assets/mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/mercari-pro.css">
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" hidden aria-hidden="true" id="mp-icon-sprite">
+  <!-- Mercari Pro icon sprite. 16px grid, stroke-based, inherits currentColor
+       via .mp-icon. Reference with <svg class="mp-icon"><use href="#i-name"/></svg>. -->
+  <symbol id="i-overview" viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></symbol>
+  <symbol id="i-listings" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6.5h12M6 6.5V13"/></symbol>
+  <symbol id="i-orders" viewBox="0 0 16 16"><path d="M2.5 4.5h11l-1 8.5h-9z"/><path d="M5.5 4.5a2.5 2.5 0 0 1 5 0"/></symbol>
+  <symbol id="i-messages" viewBox="0 0 16 16"><path d="M13.5 9.5a1.5 1.5 0 0 1-1.5 1.5H5l-2.5 2.5V4a1.5 1.5 0 0 1 1.5-1.5h8A1.5 1.5 0 0 1 13.5 4z"/></symbol>
+  <symbol id="i-import" viewBox="0 0 16 16"><path d="M8 2v7.5M5 7l3 3 3-3M2.5 12.5h11"/></symbol>
+  <symbol id="i-pricing" viewBox="0 0 16 16"><path d="M8.5 2.5H13v4.5l-6 6-4.5-4.5z"/><circle cx="10.75" cy="5.25" r=".9"/></symbol>
+  <symbol id="i-network" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2"/><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v-1M8 14.5v-1M2.5 8h-1M14.5 8h-1"/></symbol>
+  <symbol id="i-analytics" viewBox="0 0 16 16"><path d="M2.5 13.5V9M6.5 13.5V4M10.5 13.5v-6M14 13.5V6"/></symbol>
+  <symbol id="i-payouts" viewBox="0 0 16 16"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M2 7.5h12"/><circle cx="11.25" cy="10.5" r=".9"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v1.6M8 12.9v1.6M14.5 8h-1.6M3.1 8H1.5M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1M12.6 12.6l-1.1-1.1M4.5 4.5L3.4 3.4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7.2" cy="7.2" r="4.4"/><path d="M10.5 10.5L13.5 13.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 16 16"><path d="M4 6.5a4 4 0 0 1 8 0c0 3 1 4 1 4H3s1-1 1-4z"/><path d="M6.5 13a1.6 1.6 0 0 0 3 0"/></symbol>
+  <symbol id="i-theme" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5a5.5 5.5 0 0 0 0 11z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3.5v9M3.5 8h9"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 16 16"><path d="M2.5 4h11M4.5 8h7M6.5 12h3"/></symbol>
+  <symbol id="i-more" viewBox="0 0 16 16"><circle cx="4" cy="8" r=".9" fill="currentColor" stroke="none"/><circle cx="8" cy="8" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="8" r=".9" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-close" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3.5 3.5L13 4.5"/></symbol>
+  <symbol id="i-warning" viewBox="0 0 16 16"><path d="M8 2.5l6 10.5H2z"/><path d="M8 6.5v3M8 11.4v.1"/></symbol>
+  <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 7.4v3.4M8 5.3v.1"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 16 16"><path d="M8 13V3.5M4 7.5L8 3.5l4 4"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 16 16"><path d="M8 3v9.5M4 8.5l4 4 4-4"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 16 16"><path d="M3.5 8h9"/></symbol>
+</svg>
+
+<a class="mp-skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<div class="mp-app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="mp-sidebar">
+    <a class="mp-brand" href="index.html">
+      <img class="mp-brand__mark" src="assets/mark.svg" alt="">
+      <span class="mp-brand__word">Mercari</span>
+      <span class="mp-brand__pro">Pro</span>
+    </a>
+
+    <nav class="mp-nav" aria-label="Navegação principal">
+      <div class="mp-nav__group">
+        <p class="mp-nav__heading">Vender</p>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-overview"/></svg></span> Visão geral</a>
+        <a class="mp-nav__item is-active" href="#conteudo" aria-current="page"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-listings"/></svg></span> Anúncios <span class="mp-nav__badge">1.209</span></a>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-orders"/></svg></span> Pedidos <span class="mp-nav__badge mp-nav__badge--alert">3</span></a>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-messages"/></svg></span> Mensagens <span class="mp-nav__badge">12</span></a>
+      </div>
+
+      <div class="mp-nav__group">
+        <p class="mp-nav__heading">Ferramentas Pro</p>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-import"/></svg></span> Importação em massa</a>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-pricing"/></svg></span> Smart Pricing</a>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-network"/></svg></span> Rede de anúncios</a>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-analytics"/></svg></span> Analytics</a>
+      </div>
+
+      <div class="mp-nav__group">
+        <p class="mp-nav__heading">Conta</p>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-payouts"/></svg></span> Repasses</a>
+        <a class="mp-nav__item" href="#conteudo"><span class="mp-nav__icon"><svg class="mp-icon" aria-hidden="true"><use href="#i-settings"/></svg></span> Configurações</a>
+      </div>
+    </nav>
+
+    <div class="mp-plan-card">
+      <div class="mp-row mp-row--between">
+        <span class="mp-pro-badge"><img class="mp-pro-badge__mark" src="assets/mark.svg" alt="">Pro</span>
+        <span class="mp-label">Taxa 8,5%</span>
+      </div>
+      <p class="mp-body-xs mp-muted">Gerente de contas dedicado, resposta em até 24h.</p>
+      <button class="mp-btn mp-btn--secondary mp-btn--sm mp-btn--block">Falar com Yuki</button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="mp-main">
+
+    <header class="mp-topbar">
+      <div class="mp-search mp-topbar__search">
+        <span class="mp-faint"><svg class="mp-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+        <input type="search" placeholder="Buscar por título, SKU ou número do pedido" aria-label="Buscar">
+        <kbd class="mp-mono mp-faint" style="font-size:11px">⌘K</kbd>
+      </div>
+      <span class="mp-spacer"></span>
+      <div class="mp-segmented" role="group" aria-label="Densidade da tabela">
+        <button data-density-set="comfortable" aria-selected="true">Confortável</button>
+        <button data-density-set="compact" aria-selected="false">Compacta</button>
+      </div>
+      <button class="mp-btn mp-btn--ghost mp-btn--icon" id="theme-toggle" aria-pressed="false" aria-label="Alternar tema"><svg class="mp-icon" aria-hidden="true"><use href="#i-theme"/></svg></button>
+      <button class="mp-btn mp-btn--ghost mp-btn--icon" aria-label="Notificações"><svg class="mp-icon" aria-hidden="true"><use href="#i-bell"/></svg></button>
+      <span class="mp-identity">
+        <span class="mp-avatar">AK</span>
+      </span>
+    </header>
+
+    <main class="mp-page" id="conteudo">
+
+      <!-- Page header -->
+      <div class="mp-page__header">
+        <div>
+          <nav class="mp-breadcrumb" aria-label="Trilha">
+            <a href="#conteudo">Vender</a>
+            <span class="mp-breadcrumb__sep" aria-hidden="true">/</span>
+            <span>Anúncios</span>
+          </nav>
+          <h1 class="mp-page__title" style="margin-top:var(--mp-space-3)">Anúncios</h1>
+          <p class="mp-page__sub">
+            Ateliê Kobayashi <span class="mp-pro-badge" style="vertical-align:1px">Pro</span>
+            · <span class="mp-numeric">1.209 ativos · 38 rascunhos · 412 importados do eBay</span>
+          </p>
+        </div>
+        <div class="mp-row">
+          <button class="mp-btn mp-btn--secondary"><svg class="mp-icon" aria-hidden="true"><use href="#i-import"/></svg> Importar do eBay</button>
+          <button class="mp-btn mp-btn--primary"><svg class="mp-icon" aria-hidden="true"><use href="#i-plus"/></svg> Novo anúncio</button>
+        </div>
+      </div>
+
+      <!-- Alert -->
+      <div class="mp-banner mp-banner--warning">
+        <span class="mp-banner__icon"><svg class="mp-icon mp-icon--lg" aria-hidden="true"><use href="#i-warning"/></svg></span>
+        <div>
+          <div class="mp-banner__title">3 pedidos com prazo de envio em risco</div>
+          Os pedidos <span class="mp-mono">#88214</span>, <span class="mp-mono">#88219</span> e <span class="mp-mono">#88231</span> vencem em menos de 24 horas.
+        </div>
+        <span class="mp-spacer"></span>
+        <button class="mp-btn mp-btn--secondary mp-btn--sm">Ver pedidos</button>
+      </div>
+
+      <!-- KPIs -->
+      <section aria-label="Indicadores dos últimos 30 dias">
+        <div class="mp-kpis">
+          <div class="mp-kpi">
+            <span class="mp-kpi__label">GMV · 30 dias</span>
+            <span class="mp-kpi__value">R$ 84.210</span>
+            <span class="mp-kpi__delta mp-kpi__delta--up"><svg class="mp-icon mp-icon--sm" aria-hidden="true"><use href="#i-arrow-up"/></svg> 12,4% vs. mês anterior</span>
+            <div class="mp-spark" aria-hidden="true">
+              <span style="height:34%"></span><span style="height:48%"></span><span style="height:41%"></span>
+              <span style="height:60%"></span><span style="height:52%"></span><span style="height:71%"></span>
+              <span style="height:64%"></span><span style="height:82%"></span><span style="height:76%"></span>
+              <span style="height:88%"></span><span style="height:94%"></span><span style="height:100%"></span>
+            </div>
+          </div>
+          <div class="mp-kpi">
+            <span class="mp-kpi__label">Anúncios ativos</span>
+            <span class="mp-kpi__value">1.209</span>
+            <span class="mp-kpi__delta"><svg class="mp-icon mp-icon--sm" aria-hidden="true"><use href="#i-dash"/></svg> 38 aguardando revisão</span>
+            <div class="mp-spark" aria-hidden="true">
+              <span style="height:62%"></span><span style="height:58%"></span><span style="height:66%"></span>
+              <span style="height:70%"></span><span style="height:68%"></span><span style="height:74%"></span>
+              <span style="height:72%"></span><span style="height:78%"></span><span style="height:80%"></span>
+              <span style="height:84%"></span><span style="height:86%"></span><span style="height:90%"></span>
+            </div>
+          </div>
+          <div class="mp-kpi">
+            <span class="mp-kpi__label">Conversão</span>
+            <span class="mp-kpi__value">8,4<sup>%</sup></span>
+            <span class="mp-kpi__delta mp-kpi__delta--down"><svg class="mp-icon mp-icon--sm" aria-hidden="true"><use href="#i-arrow-down"/></svg> 0,6 p.p. vs. mês anterior</span>
+            <div class="mp-spark" aria-hidden="true">
+              <span style="height:88%"></span><span style="height:92%"></span><span style="height:84%"></span>
+              <span style="height:80%"></span><span style="height:86%"></span><span style="height:74%"></span>
+              <span style="height:78%"></span><span style="height:70%"></span><span style="height:66%"></span>
+              <span style="height:62%"></span><span style="height:58%"></span><span style="height:54%"></span>
+            </div>
+          </div>
+          <div class="mp-kpi">
+            <span class="mp-kpi__label">Tempo até a venda</span>
+            <span class="mp-kpi__value">6,1<sup>d</sup></span>
+            <span class="mp-kpi__delta mp-kpi__delta--up"><svg class="mp-icon mp-icon--sm" aria-hidden="true"><use href="#i-arrow-up"/></svg> 1,3 dia mais rápido</span>
+            <div class="mp-spark" aria-hidden="true">
+              <span style="height:96%"></span><span style="height:90%"></span><span style="height:88%"></span>
+              <span style="height:82%"></span><span style="height:78%"></span><span style="height:80%"></span>
+              <span style="height:72%"></span><span style="height:68%"></span><span style="height:64%"></span>
+              <span style="height:58%"></span><span style="height:52%"></span><span style="height:48%"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Insight -->
+      <div class="mp-insight">
+        <span class="mp-insight__rule"></span>
+        <span><strong>142 anúncios</strong> estão sem visualizações há 14 dias. Aplicar Smart Pricing neles recupera cerca de <strong>30%</strong> em duas semanas.</span>
+        <span class="mp-spacer"></span>
+        <button class="mp-btn mp-btn--secondary mp-btn--sm" data-open-modal>Revisar os 142</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mp-tabs" role="tablist" aria-label="Filtro por status">
+        <button class="mp-tabs__tab" role="tab" aria-selected="true">Todos <span class="mp-tabs__count">1.209</span></button>
+        <button class="mp-tabs__tab" role="tab" aria-selected="false">Ativos <span class="mp-tabs__count">1.038</span></button>
+        <button class="mp-tabs__tab" role="tab" aria-selected="false">Vendidos <span class="mp-tabs__count">96</span></button>
+        <button class="mp-tabs__tab" role="tab" aria-selected="false">Ação necessária <span class="mp-tabs__count">37</span></button>
+        <button class="mp-tabs__tab" role="tab" aria-selected="false">Rascunhos <span class="mp-tabs__count">38</span></button>
+      </div>
+
+      <!-- Toolbar / bulk bar -->
+      <div id="toolbar" class="mp-toolbar">
+        <button class="mp-chip is-active">Últimos 30 dias <span class="mp-chip__remove" aria-hidden="true">×</span></button>
+        <button class="mp-chip">Categoria</button>
+        <button class="mp-chip">Faixa de preço</button>
+        <button class="mp-chip">Sem visitas há 14d</button>
+        <div class="mp-toolbar__divider"></div>
+        <button class="mp-btn mp-btn--ghost mp-btn--sm"><svg class="mp-icon" aria-hidden="true"><use href="#i-filter"/></svg> Mais filtros</button>
+        <span class="mp-spacer"></span>
+        <span class="mp-label">Ordenar por</span>
+        <select class="mp-select" style="width:auto;min-height:30px;font-size:var(--mp-text-xs)">
+          <option>Maior preço</option>
+          <option>Mais visitas</option>
+          <option>Mais antigo no ar</option>
+        </select>
+      </div>
+
+      <div id="bulkbar" class="mp-bulkbar" hidden>
+        <span class="mp-bulkbar__count" id="bulk-count">0 selecionados</span>
+        <div class="mp-toolbar__divider" style="background:currentColor;opacity:.3"></div>
+        <button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-modal>Reprecificar</button>
+        <button class="mp-btn mp-btn--ghost mp-btn--sm">Promover</button>
+        <button class="mp-btn mp-btn--ghost mp-btn--sm">Editar categoria</button>
+        <button class="mp-btn mp-btn--ghost mp-btn--sm">Desativar</button>
+        <span class="mp-spacer"></span>
+        <button class="mp-btn mp-btn--ghost mp-btn--sm" id="bulk-clear">Limpar seleção</button>
+      </div>
+
+      <!-- Table -->
+      <div class="mp-table-wrap">
+        <table class="mp-table">
+          <caption class="mp-visually-hidden">Anúncios do vendedor Ateliê Kobayashi</caption>
+          <thead>
+            <tr>
+              <th class="mp-table__check"><label class="mp-check"><input type="checkbox" id="check-all"><span class="mp-visually-hidden">Selecionar todos</span></label></th>
+              <th aria-sort="none">Produto</th>
+              <th>Status</th>
+              <th class="mp-table__num" aria-sort="descending">Preço</th>
+              <th class="mp-table__num">Visitas</th>
+              <th class="mp-table__num">Curtidas</th>
+              <th class="mp-table__num">No ar</th>
+              <th class="mp-table__num">Origem</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Jaqueta de couro vintage — tam. M</span><span class="mp-table__sku">MP-2481-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--live"><i class="mp-badge__dot"></i>Ativo</span></td>
+              <td class="mp-table__num">R$ 289,00</td>
+              <td class="mp-table__num">1.284</td>
+              <td class="mp-table__num">96</td>
+              <td class="mp-table__num">12d</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">manual</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes de Jaqueta de couro vintage"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Câmera analógica 35mm com case</span><span class="mp-table__sku">MP-1177-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--promoted"><i class="mp-badge__dot"></i>Promovido</span></td>
+              <td class="mp-table__num">R$ 640,00</td>
+              <td class="mp-table__num">3.902</td>
+              <td class="mp-table__num">311</td>
+              <td class="mp-table__num">4d</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">manual</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Tênis de corrida — 42 BR, pouco uso</span><span class="mp-table__sku">MP-0934-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--action"><i class="mp-badge__dot"></i>Sem visitas</span></td>
+              <td class="mp-table__num">R$ 175,00</td>
+              <td class="mp-table__num">218</td>
+              <td class="mp-table__num">9</td>
+              <td class="mp-table__num">31d</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">eBay</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Coleção de vinis — lote com 12 discos</span><span class="mp-table__sku">MP-3320-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--sold"><i class="mp-badge__dot"></i>Vendido</span></td>
+              <td class="mp-table__num">R$ 1.480,00</td>
+              <td class="mp-table__num">5.117</td>
+              <td class="mp-table__num">742</td>
+              <td class="mp-table__num">—</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">manual</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Perfume importado 100ml</span><span class="mp-table__sku">MP-5108-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--blocked"><i class="mp-badge__dot"></i>Bloqueado</span></td>
+              <td class="mp-table__num">R$ 420,00</td>
+              <td class="mp-table__num">64</td>
+              <td class="mp-table__num">2</td>
+              <td class="mp-table__num">2d</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">eBay</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Cadeira de escritório ergonômica</span><span class="mp-table__sku">MP-4502-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--draft"><i class="mp-badge__dot"></i>Rascunho</span></td>
+              <td class="mp-table__num">—</td>
+              <td class="mp-table__num">—</td>
+              <td class="mp-table__num">—</td>
+              <td class="mp-table__num">—</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">manual</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+            <tr>
+              <td class="mp-table__check"><label class="mp-check"><input type="checkbox" class="row-check"><span class="mp-visually-hidden">Selecionar</span></label></td>
+              <td><span class="mp-table__product"><span class="mp-table__thumb"></span><span><span class="mp-table__title">Relógio automático — caixa de aço 40mm</span><span class="mp-table__sku">MP-7741-KB</span></span></span></td>
+              <td><span class="mp-badge mp-badge--live"><i class="mp-badge__dot"></i>Ativo</span></td>
+              <td class="mp-table__num">R$ 2.150,00</td>
+              <td class="mp-table__num">8.410</td>
+              <td class="mp-table__num">1.204</td>
+              <td class="mp-table__num">7d</td>
+              <td class="mp-table__num"><span class="mp-mono mp-faint">eBay</span></td>
+              <td class="mp-table__num"><button class="mp-btn mp-btn--ghost mp-btn--sm" data-open-drawer aria-label="Abrir detalhes"><svg class="mp-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mp-table__footer">
+          <span class="mp-numeric">1–7 de 1.209 anúncios</span>
+          <div class="mp-row">
+            <span class="mp-label">Linhas</span>
+            <div class="mp-pagination">
+              <button aria-label="Anterior">‹</button>
+              <button aria-current="page">1</button>
+              <button>2</button>
+              <button>3</button>
+              <button>…</button>
+              <button>173</button>
+              <button aria-label="Próxima">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editorial upsell block, dark inside a light console -->
+      <section class="mp-dark" style="border-radius:var(--mp-radius-xl);background:var(--mp-t-bg);color:var(--mp-t-text);padding:clamp(2rem,4vw,3.5rem)">
+        <p class="mp-label">Analytics avançado · em breve para Pro</p>
+        <h2 class="mp-hero__title" style="font-size:clamp(2rem,4.4vw,3.5rem);margin-top:var(--mp-space-4)">Saiba por que<br>um anúncio <em>não vende</em></h2>
+        <p class="mp-lead" style="margin-top:var(--mp-space-5)">Comparação com a categoria, curva de preço e o momento exato em que o interesse cai.</p>
+        <div class="mp-hero__actions">
+          <button class="mp-btn mp-btn--brand">Entrar na lista</button>
+          <a class="mp-cta" href="index.html">Ver o design system <svg class="mp-icon mp-icon--sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ============ DRAWER ============ -->
+<aside class="mp-drawer" id="drawer" hidden aria-label="Detalhes do anúncio">
+  <div class="mp-drawer__header">
+    <div>
+      <p class="mp-label">MP-2481-KB</p>
+      <h2 class="mp-card__title" style="margin-top:var(--mp-space-2)">Jaqueta de couro vintage</h2>
+    </div>
+    <button class="mp-btn mp-btn--ghost mp-btn--icon" data-close-drawer aria-label="Fechar"><svg class="mp-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="mp-drawer__body mp-stack mp-stack--lg">
+    <div class="mp-row">
+      <span class="mp-badge mp-badge--live"><i class="mp-badge__dot"></i>Ativo</span>
+      <span class="mp-badge">12 dias no ar</span>
+      <span class="mp-badge">Moda · Casacos</span>
+    </div>
+
+    <div class="mp-kpis" style="grid-template-columns:repeat(3,1fr)">
+      <div class="mp-kpi" style="padding:var(--mp-space-4)">
+        <span class="mp-kpi__label">Visitas</span>
+        <span class="mp-kpi__value" style="font-size:1.5rem">1.284</span>
+      </div>
+      <div class="mp-kpi" style="padding:var(--mp-space-4)">
+        <span class="mp-kpi__label">Curtidas</span>
+        <span class="mp-kpi__value" style="font-size:1.5rem">96</span>
+      </div>
+      <div class="mp-kpi" style="padding:var(--mp-space-4)">
+        <span class="mp-kpi__label">Ofertas</span>
+        <span class="mp-kpi__value" style="font-size:1.5rem">7</span>
+      </div>
+    </div>
+
+    <div class="mp-insight">
+      <span class="mp-insight__rule"></span>
+      <span>Está <strong>18% acima</strong> da mediana da categoria. Anúncios semelhantes vendem em torno de R$ 236.</span>
+    </div>
+
+    <div class="mp-field">
+      <label class="mp-field__label" for="d-price">Preço</label>
+      <div class="mp-input-group">
+        <span class="mp-input-group__affix">R$</span>
+        <input class="mp-input mp-numeric" id="d-price" value="289,00" inputmode="decimal">
+      </div>
+      <span class="mp-field__hint">Smart Pricing sugere R$ 265,00 como ponto de partida.</span>
+    </div>
+
+    <div class="mp-stack mp-stack--sm">
+      <span class="mp-field__label">Automações</span>
+      <label class="mp-switch"><input type="checkbox" checked> Smart Pricing (−3% ao dia até R$ 210)</label>
+      <label class="mp-switch"><input type="checkbox"> Promover na Rede de Anúncios</label>
+      <label class="mp-switch"><input type="checkbox" checked> Aceitar ofertas</label>
+    </div>
+
+    <div>
+      <p class="mp-label" style="margin-bottom:var(--mp-space-3)">Histórico</p>
+      <div class="mp-stack mp-stack--sm mp-body-sm mp-muted">
+        <div class="mp-row mp-row--between"><span>Preço ajustado para R$ 289,00</span><span class="mp-mono mp-faint">3 dias atrás</span></div>
+        <div class="mp-rule"></div>
+        <div class="mp-row mp-row--between"><span>Oferta de R$ 240,00 recusada</span><span class="mp-mono mp-faint">5 dias atrás</span></div>
+        <div class="mp-rule"></div>
+        <div class="mp-row mp-row--between"><span>Anúncio publicado</span><span class="mp-mono mp-faint">12 dias atrás</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="mp-drawer__footer">
+    <button class="mp-btn mp-btn--destructive">Desativar</button>
+    <span class="mp-spacer"></span>
+    <button class="mp-btn mp-btn--ghost" data-close-drawer>Cancelar</button>
+    <button class="mp-btn mp-btn--primary">Salvar alterações</button>
+  </div>
+</aside>
+
+<!-- ============ MODAL ============ -->
+<div class="mp-overlay" id="overlay" hidden>
+  <div class="mp-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="mp-modal__header">
+      <div>
+        <p class="mp-label" style="margin-bottom:var(--mp-space-2)">Ação em massa</p>
+        <h2 class="mp-card__title" id="modal-title">Aplicar Smart Pricing</h2>
+      </div>
+      <button class="mp-btn mp-btn--ghost mp-btn--icon mp-btn--sm" data-close-modal aria-label="Fechar"><svg class="mp-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="mp-modal__body mp-stack">
+      <p class="mp-muted mp-body-sm">A cada dia sem venda, o preço cai pela porcentagem definida até chegar ao piso. Você pode desligar a qualquer momento.</p>
+      <div class="mp-field">
+        <label class="mp-field__label" for="mm-step">Redução diária</label>
+        <div class="mp-input-group">
+          <input class="mp-input mp-numeric" id="mm-step" value="3" inputmode="decimal">
+          <span class="mp-input-group__affix" style="border-right:0;border-left:1px solid var(--mp-t-line)">%</span>
+        </div>
+      </div>
+      <div class="mp-field">
+        <label class="mp-field__label" for="mm-floor">Piso de preço</label>
+        <div class="mp-input-group">
+          <span class="mp-input-group__affix">R$</span>
+          <input class="mp-input mp-numeric" id="mm-floor" value="120,00" inputmode="decimal">
+        </div>
+        <span class="mp-field__hint">Nenhum anúncio será reduzido abaixo deste valor.</span>
+      </div>
+      <div class="mp-banner mp-banner--info">
+        <span class="mp-banner__icon"><svg class="mp-icon mp-icon--lg" aria-hidden="true"><use href="#i-info"/></svg></span>
+        <div>Estimativa: cerca de <strong>43 dos 142 anúncios</strong> devem vender em duas semanas com essa configuração.</div>
+      </div>
+    </div>
+    <div class="mp-modal__footer">
+      <button class="mp-btn mp-btn--ghost" data-close-modal>Cancelar</button>
+      <button class="mp-btn mp-btn--primary" data-close-modal>Aplicar em 142 anúncios</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-slot" aria-live="polite"
+     style="position:fixed;bottom:var(--mp-space-6);left:50%;translate:-50% 0;z-index:var(--mp-z-toast)"></div>
+
+<script>
+  const root = document.documentElement;
+
+  /* Theme + density ------------------------------------------------------ */
+  document.getElementById('theme-toggle').addEventListener('click', (e) => {
+    const dark = root.dataset.theme !== 'dark';
+    root.dataset.theme = dark ? 'dark' : 'light';
+    e.currentTarget.setAttribute('aria-pressed', String(dark));
+  });
+
+  document.querySelectorAll('[data-density-set]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      root.dataset.density = btn.dataset.densitySet;
+      document.querySelectorAll('[data-density-set]').forEach((b) =>
+        b.setAttribute('aria-selected', String(b === btn))
+      );
+    });
+  });
+
+  /* Bulk selection ------------------------------------------------------- */
+  const rowChecks = [...document.querySelectorAll('.row-check')];
+  const checkAll = document.getElementById('check-all');
+  const toolbar = document.getElementById('toolbar');
+  const bulkbar = document.getElementById('bulkbar');
+  const bulkCount = document.getElementById('bulk-count');
+
+  function syncSelection() {
+    const selected = rowChecks.filter((c) => c.checked);
+    rowChecks.forEach((c) => c.closest('tr').classList.toggle('is-selected', c.checked));
+
+    checkAll.checked = selected.length === rowChecks.length;
+    checkAll.indeterminate = selected.length > 0 && selected.length < rowChecks.length;
+
+    bulkbar.hidden = selected.length === 0;
+    toolbar.hidden = selected.length > 0;
+    bulkCount.textContent =
+      selected.length === 1 ? '1 selecionado' : selected.length + ' selecionados';
+  }
+
+  rowChecks.forEach((c) => c.addEventListener('change', syncSelection));
+  checkAll.addEventListener('change', () => {
+    rowChecks.forEach((c) => { c.checked = checkAll.checked; });
+    syncSelection();
+  });
+  document.getElementById('bulk-clear').addEventListener('click', () => {
+    rowChecks.forEach((c) => { c.checked = false; });
+    syncSelection();
+  });
+
+  /* Tabs ----------------------------------------------------------------- */
+  document.querySelectorAll('.mp-tabs__tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.mp-tabs__tab').forEach((t) =>
+        t.setAttribute('aria-selected', String(t === tab))
+      );
+    });
+  });
+
+  document.querySelectorAll('.mp-chip').forEach((chip) => {
+    chip.addEventListener('click', () => chip.classList.toggle('is-active'));
+  });
+
+  /* Overlays — focus is returned to whatever opened them ------------------ */
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  let lastFocused = null;
+
+  function open(el) {
+    lastFocused = document.activeElement;
+    el.hidden = false;
+    el.querySelector('button, input, select, textarea, a[href]')?.focus();
+  }
+
+  function close(el) {
+    el.hidden = true;
+    lastFocused?.focus();
+  }
+
+  document.querySelectorAll('[data-open-drawer]').forEach((b) =>
+    b.addEventListener('click', () => open(drawer))
+  );
+  document.querySelectorAll('[data-close-drawer]').forEach((b) =>
+    b.addEventListener('click', () => close(drawer))
+  );
+  document.querySelectorAll('[data-open-modal]').forEach((b) =>
+    b.addEventListener('click', () => open(overlay))
+  );
+  document.querySelectorAll('[data-close-modal]').forEach((b) =>
+    b.addEventListener('click', () => {
+      close(overlay);
+      if (b.classList.contains('mp-btn--primary')) toast('Smart Pricing aplicado em 142 anúncios');
+    })
+  );
+
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(overlay); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (!overlay.hidden) close(overlay);
+    else if (!drawer.hidden) close(drawer);
+  });
+
+  /* Toast ---------------------------------------------------------------- */
+  function toast(message) {
+    const slot = document.getElementById('toast-slot');
+    slot.innerHTML =
+      '<span class="mp-toast"><svg class="mp-icon" aria-hidden="true"><use href="#i-check"/></svg> ' + message +
+      ' <button class="mp-toast__action">Desfazer</button></span>';
+    setTimeout(() => { slot.innerHTML = ''; }, 4200);
+  }
+
+  syncSelection();
+</script>
+</body>
+</html>

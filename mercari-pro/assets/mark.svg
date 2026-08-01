@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Mercari Pro placeholder mark">
+  <rect width="32" height="32" rx="8" fill="#FF0211"/>
+  <path d="M7 22.5V11.2c0-.6.5-1.1 1.1-1.1h.6c.4 0 .8.2 1 .6l3.4 5.9c.4.7 1.4.7 1.8 0l3.4-5.9c.2-.4.6-.6 1-.6h.6c.6 0 1.1.5 1.1 1.1v11.3"
+        stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="24.2" cy="21.8" r="1.7" fill="#fff"/>
+</svg>
