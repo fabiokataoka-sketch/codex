@@ -194,7 +194,15 @@
   --mp-row-h:      52px;
   --mp-cell-pad-y: var(--mp-space-3);
   --mp-cell-pad-x: var(--mp-space-4);
-  --mp-control-h:  38px;
+
+  /* Control height is mobile-first: 44px is the touch-target floor, and a
+     finger does not care that this is a "dense console". The 38px that suits
+     a mouse comes back at the tablet breakpoint. Getting this backwards —
+     shipping 38px everywhere because the design was drawn on a desktop — is
+     the mistake this token exists to prevent. */
+  --mp-control-h:    44px;
+  --mp-control-h-sm: 36px;
+  --mp-control-h-lg: 48px;
 
   --mp-z-base:    0;
   --mp-z-sticky:  100;
@@ -203,6 +211,14 @@
   --mp-z-toast:   400;
 
   --mp-focus-ring: 0 0 0 2px var(--mp-t-bg), 0 0 0 4px var(--mp-t-focus);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --mp-control-h:    38px;
+    --mp-control-h-sm: 30px;
+    --mp-control-h-lg: 46px;
+  }
 }
 
 [data-density="compact"] {

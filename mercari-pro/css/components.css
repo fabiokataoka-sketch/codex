@@ -99,13 +99,13 @@
 .mp-btn--inverse:hover { opacity: 0.86; }
 
 .mp-btn--sm {
-  height: 30px;
+  height: var(--mp-control-h-sm);
   padding-inline: var(--mp-space-3);
   font-size: var(--mp-text-xs);
 }
 
 .mp-btn--lg {
-  height: 46px;
+  height: var(--mp-control-h-lg);
   padding-inline: var(--mp-space-6);
   font-size: var(--mp-text-md);
 }
@@ -147,6 +147,27 @@
   color: var(--mp-t-action);
   border-color: var(--mp-t-accent);
 }
+
+/* Expands a control's touch target to the 44px floor without changing how it
+   looks. For the things that genuinely cannot grow — a language switcher, a
+   password reveal, a 16px checkbox — the fix is a bigger hit area, not a
+   bigger control. Watch for adjacent targets: two of these side by side can
+   overlap and steal each other's taps. */
+.mp-tap { position: relative; }
+
+.mp-tap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Height only — for targets in a tight horizontal row, where 44px of width
+   each would collide with the neighbour. */
+.mp-tap-y::after { min-width: 100%; }
 
 /* --------------------------------------------------------------------------
    Icons

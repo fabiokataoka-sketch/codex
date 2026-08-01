@@ -66,6 +66,17 @@ dentro de um console branco:
 <html data-density="compact">  <!-- linha de 40px em vez de 52px -->
 ```
 
+### Altura de controle é mobile-first
+
+`--mp-control-h` vale **44px** por padrão e cai para 38px a partir de 768px.
+O piso de alvo de toque não é negociável, e um dedo não sabe que a tela é um
+"console denso" — a medida de mouse é a exceção, não a regra.
+
+Para o que não pode crescer visualmente (switcher de idioma, olho de senha,
+checkbox de 16px), use `.mp-tap`: ela expande só a área de toque com um
+pseudo-elemento, sem mover um pixel do layout. Em fileiras apertadas use
+`.mp-tap-y`, que garante a altura sem roubar o clique do vizinho.
+
 ## Princípios
 
 1. **O vermelho é a voz, não o alarme.** O vermelho da Mercari é a marca, então
