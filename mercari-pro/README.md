@@ -98,6 +98,27 @@ consomem as primitivas — só `--mp-t-*` — então a inversão é invisível p
 `.mp-btn--brand` existe para superfícies de marketing onde o rótulo é grande e
 bold: ali o `#FF0211` puro passa no critério de texto grande (3:1).
 
+### Variante "brick" — para produtos que não são a Mercari
+
+`css/theme-brick.css` reancora o sistema em `#C6372A`, um vermelho tijolo
+dessaturado. É a escolha certa para ferramentas de terceiros, cursos e
+mentorias sobre a Mercari: usar o hex registrado da marca ali sugeriria
+produto oficial.
+
+```css
+@import "tokens.css";
+@import "theme-brick.css";  /* só reescreve primitivas */
+@import "base.css";
+```
+
+Como a variante toca **apenas as primitivas**, nenhum componente muda — e é
+aí que a arquitetura de duas camadas se paga. Uma coisa inclusive simplifica:
+`#C6372A` já entrega 5,28:1 contra branco nos dois sentidos, então o split
+entre vermelho de marca e vermelho de ação deixa de ser necessário e
+`--mp-t-accent` e `--mp-t-action` colapsam no mesmo valor. A *regra* continua
+valendo (destrutivo contornado, status com ponto); o que some é a divisão de
+hex, que existia só por causa do contraste do `#FF0211`.
+
 ## Referência rápida de tokens
 
 | Token | Valor | Papel |

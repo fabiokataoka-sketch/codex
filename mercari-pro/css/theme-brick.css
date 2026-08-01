@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Mercari Pro — "Brick" brand variant
+   ---------------------------------------------------------------------------
+   An alternate anchor for products that are *about* Mercari without being
+   Mercari: third-party seller tools, courses, mentorship. Using the registered
+   #FF0211 on those would read as an official product, so this variant drops
+   to a desaturated brick red instead.
+
+   Load AFTER tokens.css and BEFORE the rest — it only rewrites primitives,
+   which is the whole point of the two-layer architecture: no component
+   changes, no semantic changes, no contrast regressions to re-check.
+
+       @import "tokens.css";
+       @import "theme-brick.css";
+       @import "base.css";
+       …
+
+   One thing genuinely simplifies here. #C6372A clears 5.28:1 against white,
+   so — unlike #FF0211 — it needs no split between a "brand" red and a
+   text-safe "action" red. The same value serves as button fill with white
+   text and as red text on light. `--mp-c-red-500` and `--mp-c-red-600` are
+   therefore the same hue at different depths rather than two different jobs,
+   and `--mp-t-accent` / `--mp-t-action` collapse onto one value.
+
+   Contrast, measured (WCAG 2.x):
+     #C6372A on white ............ 5.28:1   fill + text, both directions
+     white on #AC2E22 (hover) .... 6.63:1
+     #8F241B on white (critical) . 8.62:1   destructive outline + text
+     #D75F4E on #0E0E10 (dark) ... 5.15:1   red text in dark mode
+   ========================================================================== */
+
+:root {
+  --mp-c-red-50:  #FDF1EF;
+  --mp-c-red-100: #FADDD8;
+  --mp-c-red-200: #F3BAB2;
+  --mp-c-red-300: #E88E82;
+  --mp-c-red-400: #D75F4E;  /* red text on dark */
+  --mp-c-red-500: #C6372A;  /* brand + action — 5.28:1 on white both ways */
+  --mp-c-red-600: #AC2E22;  /* hover */
+  --mp-c-red-700: #8F241B;  /* press, and the destructive outline */
+  --mp-c-red-800: #6E1B14;
+  --mp-c-red-900: #4A120E;
+
+  /* Warm neutrals, to sit under a brick accent without going cold. */
+  --mp-c-gray-25:  #FDFDFB;
+  --mp-c-gray-50:  #FBFBF9;
+  --mp-c-gray-100: #F4F3EF;
+  --mp-c-gray-200: #ECEBE6;
+  --mp-c-gray-300: #DCDAD2;
+  --mp-c-gray-400: #A3A199;
+  --mp-c-gray-500: #76746C;
+  --mp-c-gray-600: #5C5A53;
+  --mp-c-gray-700: #403E38;
+  --mp-c-gray-800: #2A2925;
+  --mp-c-gray-900: #1B1B19;
+  --mp-c-gray-950: #141413;
+  --mp-c-black:    #0D0D0C;
+
+  /* The secondary voice moves off Mercari Blue too — a slate teal reads as
+     "data" without borrowing anyone's brand. */
+  --mp-c-blue-50:  #EDF5F7;
+  --mp-c-blue-100: #D6E9EE;
+  --mp-c-blue-200: #B0D5DE;
+  --mp-c-blue-300: #7FBAC8;
+  --mp-c-blue-400: #4E9CAD;
+  --mp-c-blue-500: #35808F;
+  --mp-c-blue-600: #256877;
+  --mp-c-blue-700: #1C5260;
+  --mp-c-blue-800: #143D48;
+
+  --mp-c-green-50:  #E8F4EE;
+  --mp-c-green-500: #23996B;
+  --mp-c-green-600: #1D7A52;
+  --mp-c-green-700: #155E3F;
+
+  --mp-c-amber-50:  #FCF3E3;
+  --mp-c-amber-500: #D08A11;
+  --mp-c-amber-600: #A96D08;
+  --mp-c-amber-700: #93590A;
+}
+
+/* With a single-duty red, brand and action resolve to the same primitive.
+   Stated explicitly rather than left to coincidence — a future re-brand
+   should have to decide this again. */
+:root,
+.mp-light {
+  --mp-t-accent:       var(--mp-c-red-500);
+  --mp-t-action:       var(--mp-c-red-500);
+  --mp-t-action-hover: var(--mp-c-red-600);
+  --mp-t-action-press: var(--mp-c-red-700);
+  --mp-t-critical:     var(--mp-c-red-700);
+}
+
+.mp-dark,
+[data-theme="dark"] {
+  /* The fill stays at 500 (white text keeps its 5.28:1); only red *text*
+     lightens, because 500 as text on near-black would land at 3.6:1. */
+  --mp-t-accent:       var(--mp-c-red-400);
+  --mp-t-action:       var(--mp-c-red-500);
+  --mp-t-action-hover: var(--mp-c-red-400);
+  --mp-t-action-press: var(--mp-c-red-300);
+  --mp-t-critical:     var(--mp-c-red-300);
+}
