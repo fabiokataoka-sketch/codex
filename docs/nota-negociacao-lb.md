@@ -69,43 +69,52 @@ perde:
 Chegar com isso pronto num negócio que custodia passaporte e certidão vale mais que qualquer
 argumento de venda.
 
-### As "três apresentações" viraram conteúdo no canal
+### As "três apresentações" viraram inserções no patrocínio que já existe
 
-A LB é forte no YouTube, então trocar três indicações por uma inserção no canal é claramente
-melhor: três apresentações valem três leads; um vídeo é **distribuição contínua** para exatamente
-o público certo, e continua rendendo por anos. Também deixa o pedido mais leve (uma coisa só, não
-uma lista de tarefas) valendo muito mais.
+Duas versões foram descartadas antes de chegar nesta. Vale registrar o raciocínio, porque ele se
+repete em toda negociação de permuta.
 
-**Sequência obrigatória: piloto → resultado → vídeo.** Nunca grave antes. Depoimento gravado sem
-número é fraco para você, arriscado para a LB, e se o piloto não performar você queimou a
-credibilidade dos dois. Está escrito assim na proposta.
+1. **Três apresentações** — valem três leads e acabam. Fraco.
+2. **Vídeo de caso** — alto valor, mas **exige produção nova**: roteiro, gravação, decisão
+   editorial, lugar na fila de conteúdo. Para a LB é um projeto, não um favor. Pedir isso de quem
+   já tem um canal rodando é pedir o mais caro que existe.
+3. **Inserção na rotação de patrocinadores** ✅ — a LB já faz isso, já tem formato, já tem preço.
+   É literalmente uma linha num roteiro que eles já escrevem.
 
-### Como precificar a inserção ⚠️
+**A sacada está numa frase, não no formato.** Uma leitura de patrocínio comum vale pouco — o
+público pula. O que transforma isso em prova é a menção dizer que **a LB usa o sistema no próprio
+atendimento**. Isso custa à LB exatamente o mesmo que uma leitura normal, e entrega a você a
+credibilidade que o vídeo de caso entregaria. Você ganha o valor do formato caro pagando o preço
+do formato barato.
 
-Método padrão de mercado:
+Por isso a sequência **piloto → resultado → menção** continua obrigatória: a frase só pode ser dita
+quando for verdade. Isso protege os dois, e é o que separa endosso de publicidade.
 
-```
-(média de views dos últimos 10 vídeos ÷ 1.000) × CPM do nicho × multiplicador de formato
-```
+### Como precificar — agora é simples
 
-- **Multiplicador de formato:** vídeo dedicado ≈ 2× · segmento integrado ≈ 1× ·
-  menção pre-roll ≈ 0,5–0,7×
-- **CPM por nicho ⚠️:** tech US$30–60 · finanças US$40–80 · gaming US$10–25. Conteúdo de
-  comunidade/lifestyle costuma ficar em 0,7–0,9× do baseline — mas a **audiência** da LB é de
-  pequenos negócios, o que puxa o valor para cima. Considere algo entre US$15 e US$35.
-- **Referência para canal pequeno (<10k inscritos) ⚠️:** US$50–250 por integração,
-  US$100–500 por vídeo dedicado.
+**A LB já vende patrocínio, logo já tem um valor por inserção. Pergunte.** É o número justo, é o
+número deles, e evita você chegar estimando o preço da casa dos outros — o que soa mal.
 
-**A conclusão que importa:** ¥40.000 equivale a mais ou menos **US$250–270** ⚠️ (o câmbio varia,
-confira no dia) — ou seja, aproximadamente **o preço de uma única integração em canal pequeno**.
-Por isso a proposta pede **um** conteúdo, não uma campanha. Pedir três seria cobrar 3× o desconto
-que você está dando.
+Fórmula de mercado só como **conferência de sanidade** ⚠️, caso o valor pareça muito fora:
+`(média de views dos últimos 10 vídeos ÷ 1.000) × CPM × formato`, com vídeo dedicado ≈ 2×,
+segmento integrado ≈ 1×, menção ≈ 0,5–0,7×. Referência para canal pequeno: US$50–250 por
+integração ⚠️.
 
-**Se o canal for grande, você está recebendo mais do que dá.** Rode a conta antes da reunião. Se
-uma inserção sozinha já valer bem mais que ¥40.000, seja você a apontar isso e ofereça compensar —
-mais escopo, ou o Caminho C entregue pelo preço do B. Ser a pessoa que aponta o desequilíbrio a
-favor do outro lado compra mais confiança do que qualquer argumento de venda, e numa comunidade
-pequena isso volta.
+**A âncora:** ¥40.000 ≈ **US$250–270** ⚠️ (câmbio varia, confira no dia). Três menções costumam
+caber nessa faixa em canal pequeno — daí o número três. Se a tabela da LB for maior, **reduza para
+duas ou uma**, não peça desconto no patrocínio deles. Você está trocando, não comprando.
+
+**Se o canal for grande, você está recebendo mais do que dá.** Seja você a apontar e ofereça
+compensar — mais escopo, ou o Caminho C pelo preço do B. Ser quem aponta o desequilíbrio a favor
+do outro lado compra mais confiança que qualquer argumento de venda, e em comunidade pequena isso
+volta.
+
+### O acompanhamento de 90 dias saiu da lista de contrapartidas
+
+Estava listado como contrapartida, mas nunca foi pagamento — é **entrega sua**, parte do serviço.
+Deixá-lo ali fazia o pedido parecer maior do que é. Foi movido para o escopo do Caminho B, onde
+sempre pertenceu. Sobraram três pedidos, e nenhum cria trabalho novo para a LB: aprovar um número
+e uma frase, encaixar uma menção no formato que já roda, autorizar um uso de dado.
 
 ### Declaração de publipost — traga você o assunto
 
@@ -191,10 +200,11 @@ Ordem certa: **piloto → caso → indicação → co-venda.** Não pule etapa.
 - [ ] Confirmar o desconto de 50% no Caminho B
 - [ ] Definir por escrito o escopo de uso do histórico de mensagens (entra / não entra / revogação
       / se calibra só a instância da LB ou também o produto) — ver seção 2
-- [ ] **Rodar a conta do canal antes da reunião** — média de views dos últimos 10 vídeos × CPM ×
-      formato. Se uma inserção valer bem mais que ¥40.000, chegue já com a compensação proposta
-- [ ] Definir o destino rastreável do vídeo (link ou QR dedicado) para medir conversão
-- [ ] Confirmar formato com a LB: segmento integrado ou vídeo próprio
+- [ ] **Perguntar o valor por inserção da LB** — é o número justo. Se três menções passarem de
+      ¥40.000, chegue já propondo reduzir para duas ou uma
+- [ ] Assistir a 2 ou 3 vídeos recentes para ver como as menções de patrocinador são feitas hoje,
+      e propor a sua no mesmo formato — não peça nada diferente do que já fazem
+- [ ] Definir o destino rastreável (link ou QR dedicado) para medir conversão
 - [ ] Preencher os prazos de implementação (dias úteis / semanas)
 - [ ] Seu contato no rodapé (email e/ou LINE ID)
 - [ ] Decidir se a seção 05 (parceria) vai na primeira versão ou fica para a reunião —
