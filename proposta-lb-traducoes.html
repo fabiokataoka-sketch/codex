@@ -1,0 +1,505 @@
+<title>Proposta — Atendimento via LINE · LB Traduções</title>
+
+<style>
+  /* ── AI Lab Global tokens (mirrors css/tokens.css) ───────────────────── */
+  :root {
+    --lime-500:#C6FF00; --lime-300:#DCFF57; --lime-700:#7FA800;
+    --black:#0A0A0B; --carbon-900:#101113; --carbon-800:#16181B;
+    --carbon-700:#1E2124; --carbon-600:#2A2E32; --carbon-500:#3C4147;
+    --gray-400:#6B7178; --gray-300:#9AA0A6; --gray-200:#C7CBD0; --gray-100:#E8EAEC;
+    --offwhite:#F4F5F3; --white:#FFFFFF;
+    --danger:#FF4D4F; --success:#3DDC84;
+
+    --ground:var(--black);
+    --surface:var(--carbon-800);
+    --surface-raised:var(--carbon-700);
+    --border:var(--carbon-600);
+    --border-soft:#1F2225;
+    --text:var(--offwhite);
+    --text-muted:var(--gray-300);
+    --text-faint:var(--gray-400);
+    --accent:var(--lime-500);
+    --accent-contrast:var(--black);
+    --accent-quiet:var(--lime-700);
+    --flag-bg:#2E2A0C;
+    --flag-text:var(--lime-300);
+
+    --font-display:"Archivo","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+    --measure:66ch;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground:var(--offwhite); --surface:var(--white); --surface-raised:#FBFBFA;
+      --border:#D5D8DA; --border-soft:#E4E6E7;
+      --text:#121315; --text-muted:#585E64; --text-faint:var(--gray-400);
+      --accent:var(--lime-500); --accent-contrast:var(--black); --accent-quiet:#5C7A00;
+      --flag-bg:#F2FFC2; --flag-text:#4A5F00;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:var(--black); --surface:var(--carbon-800); --surface-raised:var(--carbon-700);
+    --border:var(--carbon-600); --border-soft:#1F2225;
+    --text:var(--offwhite); --text-muted:var(--gray-300); --text-faint:var(--gray-400);
+    --accent-quiet:var(--lime-700); --flag-bg:#2E2A0C; --flag-text:var(--lime-300);
+  }
+  :root[data-theme="light"] {
+    --ground:var(--offwhite); --surface:var(--white); --surface-raised:#FBFBFA;
+    --border:#D5D8DA; --border-soft:#E4E6E7;
+    --text:#121315; --text-muted:#585E64; --text-faint:var(--gray-400);
+    --accent-quiet:#5C7A00; --flag-bg:#F2FFC2; --flag-text:#4A5F00;
+  }
+
+  /* ── base ─────────────────────────────────────────────────────────────── */
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--ground); color:var(--text);
+    font-family:var(--font-body); font-size:16px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:900px; margin:0 auto; padding:0 24px 96px; }
+
+  p { margin:0 0 1em; max-width:var(--measure); }
+  strong { color:var(--text); font-weight:600; }
+  a { color:var(--accent-quiet); }
+
+  .eyebrow {
+    font-family:var(--font-mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.18em; color:var(--text-faint); margin:0 0 12px;
+  }
+  h1,h2,h3 { font-family:var(--font-display); text-transform:uppercase; text-wrap:balance; margin:0; }
+  h1 { font-weight:900; font-size:clamp(30px,5.4vw,52px); line-height:1.02; letter-spacing:-0.03em; }
+  h2 { font-weight:900; font-size:clamp(20px,3vw,27px); line-height:1.12; letter-spacing:-0.02em; }
+  h3 { font-weight:800; font-size:15px; line-height:1.3; letter-spacing:0.01em; }
+
+  /* ── cover ────────────────────────────────────────────────────────────── */
+  .cover { padding:56px 0 40px; border-bottom:1px solid var(--border); }
+  .brandrow { display:flex; align-items:center; gap:12px; margin-bottom:40px; }
+  .brandrow svg { width:34px; height:34px; display:block; border-radius:2px; }
+  .brandrow .bn {
+    font-family:var(--font-display); font-weight:900; text-transform:uppercase;
+    letter-spacing:-0.01em; font-size:15px;
+  }
+  .brandrow .bs {
+    font-family:var(--font-mono); font-size:10px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--text-faint);
+  }
+  .cover h1 { margin-bottom:20px; }
+  .cover .lede { font-size:17px; color:var(--text-muted); max-width:58ch; }
+  .meta {
+    display:flex; flex-wrap:wrap; gap:8px 40px; margin-top:36px;
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.04em;
+  }
+  .meta div { display:flex; flex-direction:column; gap:3px; }
+  .meta dt { color:var(--text-faint); text-transform:uppercase; letter-spacing:0.14em; font-size:10px; }
+  .meta dd { margin:0; color:var(--text); }
+
+  /* ── sections ─────────────────────────────────────────────────────────── */
+  section { padding-top:64px; }
+  .shead { display:flex; align-items:baseline; gap:14px; margin-bottom:22px; }
+  .snum {
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em;
+    color:var(--accent-quiet); flex:none; padding-top:3px;
+  }
+
+  /* ── pain / fact blocks ───────────────────────────────────────────────── */
+  .facts { display:grid; gap:1px; background:var(--border-soft); border:1px solid var(--border-soft); margin:24px 0; }
+  .fact { background:var(--surface); padding:22px 24px; }
+  .fact h3 { margin-bottom:7px; }
+  .fact p { margin:0; font-size:14.5px; color:var(--text-muted); max-width:none; }
+  .fact .tick {
+    font-family:var(--font-mono); font-size:10px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--danger); display:block; margin-bottom:9px;
+  }
+
+  /* ── tables ───────────────────────────────────────────────────────────── */
+  .tw { overflow-x:auto; margin:26px 0; border:1px solid var(--border); }
+  table { border-collapse:collapse; width:100%; min-width:520px; font-size:14px; }
+  th,td { text-align:left; padding:12px 16px; border-bottom:1px solid var(--border-soft); vertical-align:top; }
+  thead th {
+    font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.14em; color:var(--text-faint); font-weight:400;
+    background:var(--surface-raised); border-bottom:1px solid var(--border);
+  }
+  tbody tr:last-child td { border-bottom:0; }
+  td.num, th.num { text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody th { font-weight:500; color:var(--text); }
+  .tot td, .tot th { background:var(--surface-raised); font-weight:600; border-top:1px solid var(--border); }
+  .no { color:var(--danger); }
+  .yes { color:var(--success); }
+
+  /* ── path cards ───────────────────────────────────────────────────────── */
+  .paths { display:grid; gap:16px; margin:28px 0; }
+  @media (min-width:760px) { .paths { grid-template-columns:repeat(3,1fr); } }
+  .path {
+    background:var(--surface); border:1px solid var(--border); border-radius:2px;
+    padding:24px 22px; display:flex; flex-direction:column; gap:14px;
+  }
+  .path--pick { border-color:var(--accent); }
+  .path .tag {
+    font-family:var(--font-mono); font-size:10px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--text-faint);
+  }
+  .path--pick .tag { color:var(--accent-quiet); }
+  .path h3 { font-size:17px; }
+  .path .price {
+    font-family:var(--font-display); font-weight:900; font-size:26px;
+    letter-spacing:-0.02em; font-variant-numeric:tabular-nums;
+  }
+  .path .price small {
+    display:block; font-family:var(--font-mono); font-size:10.5px; font-weight:400;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--text-faint); margin-top:5px;
+  }
+  .path ul { margin:0; padding-left:18px; font-size:13.5px; color:var(--text-muted); line-height:1.6; }
+  .path li { margin-bottom:6px; }
+  .path .who {
+    font-size:13px; color:var(--text-muted); border-top:1px solid var(--border-soft);
+    padding-top:13px; margin-top:auto;
+  }
+  .badge {
+    display:inline-block; background:var(--accent); color:var(--accent-contrast);
+    font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.16em;
+    text-transform:uppercase; padding:4px 11px; border-radius:999px; font-weight:500;
+  }
+
+  /* ── callout ──────────────────────────────────────────────────────────── */
+  .call {
+    border-left:2px solid var(--accent); background:var(--surface);
+    padding:20px 24px; margin:26px 0; border-radius:0 2px 2px 0;
+  }
+  .call p:last-child { margin-bottom:0; }
+  .call .eyebrow { color:var(--accent-quiet); }
+
+  /* ── steps ────────────────────────────────────────────────────────────── */
+  ol.steps { list-style:none; counter-reset:s; margin:24px 0 0; padding:0; display:grid; gap:1px;
+             background:var(--border-soft); border:1px solid var(--border-soft); }
+  ol.steps li {
+    counter-increment:s; background:var(--surface); padding:18px 24px 18px 62px; position:relative;
+  }
+  ol.steps li::before {
+    content:counter(s); position:absolute; left:24px; top:18px;
+    font-family:var(--font-mono); font-size:11px; color:var(--accent-quiet); letter-spacing:0.1em;
+  }
+  ol.steps strong { display:block; margin-bottom:3px; }
+  ol.steps p { margin:0; font-size:14px; color:var(--text-muted); max-width:none; }
+
+  /* ── counterparts ─────────────────────────────────────────────────────── */
+  ul.give { list-style:none; margin:20px 0 0; padding:0; display:grid; gap:10px; }
+  ul.give li {
+    display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start;
+    font-size:14.5px; color:var(--text-muted);
+  }
+  ul.give li::before {
+    content:"→"; font-family:var(--font-mono); color:var(--accent-quiet); font-size:13px; line-height:1.7;
+  }
+  ul.give strong { color:var(--text); }
+
+  /* ── fill-in flags (remove before sending) ────────────────────────────── */
+  .fill {
+    background:var(--flag-bg); color:var(--flag-text); padding:1px 7px; border-radius:2px;
+    font-family:var(--font-mono); font-size:0.86em; letter-spacing:0.02em; white-space:nowrap;
+  }
+
+  footer {
+    margin-top:80px; padding-top:28px; border-top:1px solid var(--border);
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.06em;
+    color:var(--text-faint); display:flex; flex-wrap:wrap; gap:8px 32px; justify-content:space-between;
+  }
+
+  @media (prefers-reduced-motion:no-preference) {
+    .path { transition:border-color 250ms var(--ease); }
+  }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+</style>
+
+<div class="wrap">
+
+  <header class="cover">
+    <div class="brandrow">
+      <svg viewBox="296 295 432 432" role="img" aria-label="AI Lab Global">
+        <rect x="296" y="295" width="432" height="432" fill="#0B0B0D"/>
+        <g fill="none" stroke="#F2EFE9" stroke-width="13" stroke-linecap="butt" stroke-linejoin="miter">
+          <path d="M370 350 H336 V673 H370"/><path d="M654 350 H688 V673 H654"/>
+        </g>
+        <path fill="#F2EFE9" fill-rule="evenodd" d="M441 640 L499 380 L536 380 L594 640 L546 640 L531 566 L504 566 L489 640 Z M517 447 L537 546 L498 546 Z"/>
+        <circle cx="612" cy="619" r="21" fill="#FF4628"/>
+      </svg>
+      <div>
+        <div class="bn">AI Lab</div>
+        <div class="bs">Automação com IA para LINE</div>
+      </div>
+    </div>
+
+    <p class="eyebrow">Proposta comercial</p>
+    <h1>Atendimento via LINE,<br>organizado e automatizado</h1>
+    <p class="lede">
+      Um caminho em fases para transformar o volume diário de mensagens da LB Traduções em
+      uma fila de trabalho organizada — sem trocar de ferramenta e sem parar a operação.
+    </p>
+
+    <dl class="meta">
+      <div><dt>Para</dt><dd>LB Traduções — a/c <span class="fill">[nome do contato]</span></dd></div>
+      <div><dt>De</dt><dd>Fabio Akio Kataoka · AI Lab</dd></div>
+      <div><dt>Data</dt><dd><span class="fill">[data]</span></dd></div>
+      <div><dt>Validade</dt><dd><span class="fill">[+30 dias]</span></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <div class="shead"><span class="snum">01</span><h2>O que estamos resolvendo</h2></div>
+    <p>
+      O gargalo de um serviço de tradução não é responder — é <strong>separar</strong>. Todo dia
+      chegam pedidos de orçamento, dúvidas de preço e prazo, documentos para avaliar e clientes
+      antigos voltando. Tudo na mesma caixa, na mesma ordem, sem distinção entre o que é urgente,
+      o que é trabalho novo e o que é só pergunta.
+    </p>
+    <p>
+      A consequência não é perder mensagem. É <strong>gastar o tempo do tradutor fazendo
+      triagem</strong> — a tarefa de menor valor da operação, feita pela pessoa de maior valor.
+    </p>
+
+    <div class="facts">
+      <div class="fact">
+        <span class="tick">Custo invisível 01</span>
+        <h3>A triagem consome o tempo de quem traduz</h3>
+        <p>Cada mensagem exige abrir, ler e decidir. Multiplicado pelo volume diário, é uma
+           jornada inteira por semana gasta antes de qualquer tradução começar.</p>
+      </div>
+      <div class="fact">
+        <span class="tick">Custo invisível 02</span>
+        <h3>Não existe fila de trabalho visível</h3>
+        <p>Sem saber de relance o que foi orçado, o que está pago e o que está pronto para
+           entrega, o controle vira memória — e memória não escala nem se divide entre pessoas.</p>
+      </div>
+      <div class="fact">
+        <span class="tick">Custo invisível 03</span>
+        <h3>O registro do serviço não é permanente</h3>
+        <p>A conversa é o comprovante do trabalho: documento recebido, prazo combinado, valor
+           acordado, entrega feita. No plano gratuito do LINE, esse registro é apagado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><span class="snum">02</span><h2>O diagnóstico técnico</h2></div>
+    <p>
+      Antes de propor qualquer coisa, três fatos verificáveis sobre como o LINE funciona — são
+      eles que determinam o que faz sentido fazer, e nessa ordem.
+    </p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Recurso</th><th>Plano gratuito</th><th>Chat Pro</th><th>Opção CRM</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Etiquetas (tags) criadas</th><td>5</td><td>300</td><td>300</td></tr>
+          <tr><th>Etiquetas <em>por conversa</em></th><td class="no">1</td><td>30</td><td>30</td></tr>
+          <tr><th>Anotações por cliente</th><td>1</td><td>1.000</td><td>1.000</td></tr>
+          <tr><th>Histórico da conversa</th><td class="no">6 meses</td><td>5 anos</td><td>5 anos</td></tr>
+          <tr><th>Exportar para backup</th><td class="no">Não</td><td class="yes">CSV semanal</td><td class="yes">CSV semanal</td></tr>
+          <tr><th>Filtros por status / responsável</th><td class="no">Não</td><td class="yes">Até 20</td><td class="yes">Até 20</td></tr>
+          <tr><th>Formulário com etiqueta automática</th><td class="no">Não</td><td class="no">Não</td><td class="yes">Sim</td></tr>
+          <tr class="tot"><th>Custo mensal (pago à LINE)</th><td class="num">¥0</td><td class="num">¥3.300</td><td class="num">¥5.500</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="facts">
+      <div class="fact">
+        <h3>Uma etiqueta por conversa inviabiliza a triagem</h3>
+        <p>Organizar exige dois eixos ao mesmo tempo: <strong>o que o cliente quer</strong>
+           (juramentada, simples, interpretação) e <strong>em que pé está</strong> (orçado, pago,
+           em tradução, pronto). O plano gratuito só permite marcar um dos dois. É o limite que
+           trava tudo.</p>
+      </div>
+      <div class="fact">
+        <h3>O histórico de 6 meses apaga o seu registro</h3>
+        <p>Para um cliente recorrente que volta depois de um ano, não há como consultar o que já
+           foi feito, por qual valor, com qual prazo. Em serviço de documento, isso é um problema
+           de registro — não de conveniência.</p>
+      </div>
+      <div class="fact">
+        <h3>Responder é grátis. Procurar o cliente é que custa.</h3>
+        <p>O LINE não cobra por resposta — cobra por mensagem enviada por iniciativa da empresa.
+           Isso significa que <strong>automatizar a resposta não gera custo de mensagem nenhum</strong>.
+           É a alavanca central desta proposta.</p>
+      </div>
+    </div>
+
+    <div class="call">
+      <p class="eyebrow">A consequência prática</p>
+      <p>
+        Um sistema que responde na hora, quantas vezes for, <strong>não aumenta a sua conta com a
+        LINE em nada</strong>. O que aumenta a conta é disparo em massa — e um serviço de tradução
+        quase não precisa disso. Por isso o caminho aqui é barato de operar: estamos usando
+        exatamente a parte gratuita da plataforma.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><span class="snum">03</span><h2>Três caminhos</h2></div>
+    <p>
+      Do mais conservador ao mais completo. A recomendação é começar pelo A e subir com dado —
+      não por suposição.
+    </p>
+
+    <div class="paths">
+      <article class="path path--pick">
+        <span class="tag">Caminho A · <span class="badge">Recomendado</span></span>
+        <h3>Base organizada</h3>
+        <div class="price">¥45.000<small>Pagamento único</small></div>
+        <ul>
+          <li>Menu fixo na conversa com as rotas de maior volume</li>
+          <li>Mensagem de saudação que já pede o que é preciso para orçar</li>
+          <li>Respostas automáticas de horário e dúvidas frequentes</li>
+          <li>Dicionário de etiquetas em dois eixos: serviço e status</li>
+          <li>Configuração do Chat Pro e backup semanal ativado</li>
+          <li>Treinamento da equipe + 30 dias de ajuste</li>
+        </ul>
+        <p class="who">Resolve a maior parte da dor por uma fração do custo — e gera o dado real
+          que torna a fase seguinte precisa. Sem mensalidade AI Lab.</p>
+      </article>
+
+      <article class="path">
+        <span class="tag">Caminho B · Piloto</span>
+        <h3>Triagem com IA</h3>
+        <div class="price">¥40.000<small>Setup · com contrapartida</small></div>
+        <ul>
+          <li>Tudo do Caminho A</li>
+          <li>IA que lê a mensagem e identifica tipo de documento, idioma, prazo e finalidade</li>
+          <li>Resposta imediata e relevante, sem custo de mensagem</li>
+          <li>Base própria de clientes e pedidos, fora do LINE</li>
+          <li>Acompanhamento de pedido: orçado → pago → em tradução → pronto</li>
+        </ul>
+        <p class="who">Setup com 50% de desconto sobre a tabela (¥80.000) mediante as
+          contrapartidas da seção 05. Manutenção ¥15.000/mês, congelada por 12 meses.</p>
+      </article>
+
+      <article class="path">
+        <span class="tag">Caminho C · Completo</span>
+        <h3>Operação sob medida</h3>
+        <div class="price">¥150.000<small>Setup · preço de tabela</small></div>
+        <ul>
+          <li>Tudo do Caminho B, sem contrapartidas</li>
+          <li>Painel de pedidos e produtividade por tradutor</li>
+          <li>Múltiplas portas de entrada e fluxos por tipo de serviço</li>
+          <li>Relatórios de volume, tempo de resposta e conversão</li>
+        </ul>
+        <p class="who">Para quando o volume justificar operação instrumentada.
+          Manutenção ¥15.000/mês.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><span class="snum">04</span><h2>Investimento, com as contas separadas</h2></div>
+    <p>
+      Duas faturas diferentes, de duas empresas diferentes. Deixar isso explícito desde o começo
+      evita surpresa depois.
+    </p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>O que você paga</th><th>Para quem</th><th class="num">Setup</th><th class="num">Por mês</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Caminho A — implementação</th><td>AI Lab</td><td class="num">¥45.000</td><td class="num">—</td></tr>
+          <tr><th>Chat Pro (etiquetas e histórico)</th><td>LINE</td><td class="num">—</td><td class="num">¥3.300</td></tr>
+          <tr class="tot"><th>Caminho A — ano 1</th><td></td><td class="num">¥45.000</td><td class="num">¥84.600 total</td></tr>
+          <tr><th>Caminho B — implementação</th><td>AI Lab</td><td class="num">¥40.000</td><td class="num">¥15.000</td></tr>
+          <tr><th>Plano LINE</th><td>LINE</td><td class="num">—</td><td class="num">¥0 – 3.300</td></tr>
+          <tr class="tot"><th>Caminho B — ano 1</th><td></td><td class="num">¥40.000</td><td class="num">¥259.600 total</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="call">
+      <p class="eyebrow">Por que o plano LINE fica quase em zero</p>
+      <p>
+        Porque o desenho usa <strong>resposta</strong>, que é gratuita, e não disparo em massa,
+        que é cobrado. O acompanhamento de pedido envia poucas mensagens por cliente e cabe
+        folgadamente nas cotas mais baixas. Se em algum momento a LB quiser fazer campanha para
+        toda a base, aí sim entra um plano maior — e avisamos antes, com o cálculo na mão.
+      </p>
+    </div>
+
+    <p>
+      <span class="fill">[Fabio: confirmar se ¥45.000 e o desconto de 50% no B batem com a sua
+      tabela antes de enviar.]</span>
+    </p>
+  </section>
+
+  <section>
+    <div class="shead"><span class="snum">05</span><h2>Piloto e parceria</h2></div>
+    <p>
+      O Caminho B é oferecido com desconto real porque a LB Traduções tem algo que dinheiro não
+      compra: <strong>volume de mensagens reais, em português, no contexto exato</strong> em que
+      este sistema precisa funcionar bem. Um classificador treinado em pedidos de tradução
+      verdadeiros é muito melhor do que um treinado em suposição.
+    </p>
+    <p>Em troca do desconto de ¥40.000 no setup, a proposta é:</p>
+
+    <ul class="give">
+      <li><span><strong>Caso documentado.</strong> Direito de publicar os números de antes e
+        depois — tempo médio de triagem e de primeira resposta — junto com um depoimento curto.
+        Nada de conteúdo de cliente, nenhum documento, nenhum dado pessoal.</span></li>
+      <li><span><strong>Três apresentações.</strong> Indicação a três negócios brasileiros no
+        Japão que possam ter o mesmo problema, dentro dos 90 dias do piloto.</span></li>
+      <li><span><strong>Permuta de tradução.</strong> <span class="fill">[definir volume]</span>
+        de tradução PT ↔ JA de materiais da AI Lab, abatida do valor ou somada como
+        contrapartida.</span></li>
+      <li><span><strong>90 dias de acompanhamento conjunto.</strong> Reunião quinzenal curta para
+        ajustar as respostas com base no que realmente chegou.</span></li>
+    </ul>
+
+    <p style="margin-top:22px">
+      Se as contrapartidas não se concretizarem no prazo, o combinado é simples e sem atrito:
+      a diferença de ¥40.000 passa a ser faturada, parcelada, ou o piloto encerra sem custo
+      adicional — o que a LB preferir. Fica escrito para que ninguém precise adivinhar depois.
+    </p>
+  </section>
+
+  <section>
+    <div class="shead"><span class="snum">06</span><h2>Como começamos</h2></div>
+    <ol class="steps">
+      <li>
+        <strong>Conversa de diagnóstico — 45 minutos, sem custo</strong>
+        <p>Olhamos juntos a conta atual, o volume de um dia típico e os tipos de pedido mais
+           frequentes. Saímos com o mapa de triagem desenhado.</p>
+      </li>
+      <li>
+        <strong>Ajuste da proposta</strong>
+        <p>Com o volume real na mão, confirmamos o caminho e o escopo. Se o Caminho A já
+           resolver, dizemos isso — não vendemos camada que você não precisa.</p>
+      </li>
+      <li>
+        <strong>Implementação</strong>
+        <p>Caminho A: <span class="fill">[X]</span> dias úteis. Caminho B: <span class="fill">[X]</span>
+           semanas, com a operação rodando normalmente durante toda a transição.</p>
+      </li>
+    </ol>
+
+    <div class="call" style="margin-top:32px">
+      <p class="eyebrow">Uma observação honesta</p>
+      <p>
+        Se a LB nunca usou etiquetas nem menu fixo, <strong>o Caminho A sozinho já muda o dia a
+        dia</strong> — e custa 2% do que custaria a implementação completa. É por isso que ele é
+        o recomendado, e não o mais caro. A camada de IA fica muito melhor depois de 60 a 90 dias
+        de dado organizado, porque aí ela é treinada no que realmente chega.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <span>AI Lab · sub-marca de Fabio Akio Kataoka</span>
+    <span><span class="fill">[contato: email / LINE ID]</span></span>
+  </footer>
+
+</div>
