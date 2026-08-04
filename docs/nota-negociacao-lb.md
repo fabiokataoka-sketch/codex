@@ -38,9 +38,36 @@ não vêm, e sobra o desconto.
 - **Saída escrita**: se não vier, fatura a diferença, parcela, ou encerra sem custo. Está lá em
   linguagem amigável justamente para não virar conflito depois.
 
-**O que falta você decidir antes de enviar:** o volume da permuta de tradução. Sugestão: peça algo
-pequeno e concreto (materiais da AI Lab em JA), não "crédito de tradução" aberto — crédito aberto
-vira dívida sem prazo.
+### Por que a permuta de tradução saiu
+
+Estava na primeira versão e foi removida: **não há demanda real de tradução na AI Lab**. Aceitar
+permuta que você não precisa é pior do que não pedir contrapartida nenhuma — infla o valor
+aparente do que a LB "pagou", cria uma obrigação de consumir algo que não serve, e ainda enfraquece
+a contrapartida que importa, porque dilui o pedido em quatro itens onde um deles é decorativo.
+
+**Princípio para as próximas negociações:** só aceite como contrapartida aquilo que você pagaria em
+dinheiro se não viesse de graça. Se não pagaria, não vale como moeda.
+
+### O que entrou no lugar
+
+**Autorização de uso do histórico de mensagens para calibrar o classificador.** Essa sempre foi a
+contrapartida mais valiosa — é literalmente o motivo nº 1 da seção 1 desta nota — e estava apenas
+implícita. Agora está nomeada.
+
+**Defina o escopo por escrito antes da reunião**, porque é aqui que a confiança se ganha ou se
+perde:
+
+- **Entra:** o padrão da pergunta — como a pessoa formula o pedido, que tipo de serviço menciona,
+  como expressa urgência.
+- **Não entra:** nome, telefone, ID do LINE, conteúdo de documento, qualquer imagem, qualquer
+  dado identificável de cliente da LB.
+- **Controle da LB:** revisa e aprova antes do uso, e pode revogar quando quiser.
+- **Decida e deixe claro:** o dado calibra só a instância da LB, ou também o produto que você vai
+  vender para outros? As duas respostas são defensáveis; a que destrói confiança é não ter
+  resposta quando perguntarem. Se for a segunda, diga na reunião — não deixe para o contrato.
+
+Chegar com isso pronto num negócio que custodia passaporte e certidão vale mais que qualquer
+argumento de venda.
 
 ---
 
@@ -117,7 +144,8 @@ Ordem certa: **piloto → caso → indicação → co-venda.** Não pule etapa.
 - [ ] **Confirmar os ¥45.000 do Caminho A** — é um SKU novo, menor que o "Setup Essencial" de
       ¥80.000 da sua tabela, porque não inclui IA nem Supabase. Precisa fazer sentido para você.
 - [ ] Confirmar o desconto de 50% no Caminho B
-- [ ] Definir o volume da permuta de tradução
+- [ ] Definir por escrito o escopo de uso do histórico de mensagens (entra / não entra / revogação
+      / se calibra só a instância da LB ou também o produto) — ver seção 2
 - [ ] Preencher os prazos de implementação (dias úteis / semanas)
 - [ ] Seu contato no rodapé (email e/ou LINE ID)
 - [ ] Decidir se a seção 05 (parceria) vai na primeira versão ou fica para a reunião —
