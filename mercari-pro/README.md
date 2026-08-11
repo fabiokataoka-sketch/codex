@@ -180,7 +180,24 @@ saída. Resultado: `class="type-eyebrow text-on-action"` ignora o `text-on-actio
 `@layer components` a ordem `components → utilities` resolve: o helper dá o
 padrão, a utility sobrescreve. Isso vale para qualquer helper que fixe cor.
 
-**3. Blocos "sempre escuros" não precisam de tokens próprios.**
+**3. Superfície colorida não tem nível de texto secundário.**
+
+Fora da superfície colorida existe `--mp-t-text-muted` para a linha de apoio.
+Sobre um preenchimento de ação não existe equivalente — e quem precisa de um
+alcança o `opacity-85`, que é onde o contraste morre. Medido nos três ancoramentos
+do sistema:
+
+| Par | Cheio | Falha abaixo de |
+| --- | --- | --- |
+| branco sobre `#E00010` (claro) | 5,03:1 | α 0,94 |
+| branco sobre `#C6372A` (brick) | 5,27:1 | α 0,90 |
+| `#1B1B19` sobre `#D75F4E` (escuro) | 4,63:1 | α 0,98 |
+
+A margem de manobra é de 2% a 10% de opacidade. Isso não é um nível de cor, é
+erro de arredondamento — por isso o token não existe. Sobre superfície colorida
+a hierarquia vem de peso, tamanho e espaço.
+
+**4. Blocos "sempre escuros" não precisam de tokens próprios.**
 
 Com `@custom-variant dark (&:is(.dark *))` e o mapa escuro declarado em `.dark`,
 a classe funciona em qualquer nível — não só na raiz:

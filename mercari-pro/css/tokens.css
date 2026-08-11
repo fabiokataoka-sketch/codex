@@ -276,6 +276,19 @@
   --mp-t-action:        var(--mp-c-red-600);
   --mp-t-action-hover:  var(--mp-c-red-700);
   --mp-t-action-press:  var(--mp-c-red-800);
+  /* There is deliberately no --mp-t-on-action-muted, and there cannot be one.
+     White on the action red clears 4.5:1 by a hair (5.03:1), so a dimmed
+     second level has nowhere to go: below alpha 0.94 it fails. Measured
+     floors for the whole family —
+
+         white on #E00010 (light) ...... 5.03:1, fails under alpha 0.94
+         white on #C6372A (brick) ...... 5.27:1, fails under alpha 0.90
+         #1B1B19 on #D75F4E (dark) ..... 4.63:1, fails under alpha 0.98
+
+     — which is to say: on a saturated fill the usable range of a muted text
+     color is two to ten percent of opacity. That is not a color level, it is
+     rounding error. On colored surfaces hierarchy comes from weight, size and
+     spacing; never from opacity, and never from a second color. */
   --mp-t-on-action:     var(--mp-c-white);
 
   --mp-t-data:          var(--mp-c-blue-600);
