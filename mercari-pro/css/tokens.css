@@ -60,6 +60,9 @@
   --mp-c-gray-200: #E2E2E5;
   --mp-c-gray-300: #C9C9CE;
   --mp-c-gray-400: #A0A0A7;
+  /* Sits between 400 and 500 for one reason: a form control's border needs
+     3:1, and every step of the decorative ramp is far below it. 3.25:1. */
+  --mp-c-gray-450: #8E8E96;
   --mp-c-gray-500: #74747B;
   --mp-c-gray-600: #55555C;
   --mp-c-gray-700: #3B3B41;
@@ -253,10 +256,17 @@
   --mp-t-line:          var(--mp-c-gray-200);
   --mp-t-line-soft:     var(--mp-c-gray-100);
   --mp-t-line-strong:   var(--mp-c-gray-300);
+  /* line/line-strong are decorative dividers (1.65:1 at best). A control's
+     border is an interface element and owes 3:1 — it gets its own token. */
+  --mp-t-line-control:  var(--mp-c-gray-450);
 
   --mp-t-text:          var(--mp-c-gray-900);
-  --mp-t-text-muted:    var(--mp-c-gray-500);
-  --mp-t-text-faint:    var(--mp-c-gray-400);
+  --mp-t-text-muted:    var(--mp-c-gray-600);  /* 7.40:1 */
+  --mp-t-text-faint:    var(--mp-c-gray-500);  /* 4.64:1 */
+  /* NEVER on text: 2.60:1 fails at any size. Decorative icons, ornament,
+     and disabled glyphs only. The scale shifted up a step precisely because
+     this value was carrying body copy. */
+  --mp-t-text-ghost:    var(--mp-c-gray-400);
   --mp-t-text-inverse:  var(--mp-c-white);
 
   /* accent  = the brand. Fills, marks, rules, display type. Not small text.
@@ -301,10 +311,12 @@
   --mp-t-line:          #2A2A2F;
   --mp-t-line-soft:     #1F1F23;
   --mp-t-line-strong:   #3D3D44;
+  --mp-t-line-control:  var(--mp-c-gray-500);
 
   --mp-t-text:          #F4F4F5;
-  --mp-t-text-muted:    var(--mp-c-gray-400);
-  --mp-t-text-faint:    var(--mp-c-gray-500);
+  --mp-t-text-muted:    var(--mp-c-gray-300);
+  --mp-t-text-faint:    var(--mp-c-gray-400);
+  --mp-t-text-ghost:    var(--mp-c-gray-500);  /* idem: never on text */
   --mp-t-text-inverse:  var(--mp-c-gray-900);
 
   /* On near-black, the hero red carries text fine (5.3:1) and the darker

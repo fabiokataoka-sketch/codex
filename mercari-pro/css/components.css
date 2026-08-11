@@ -316,7 +316,7 @@
   min-height: var(--mp-control-h);
   padding: var(--mp-space-2) var(--mp-space-3);
   background: var(--mp-t-surface);
-  border: 1px solid var(--mp-t-line-strong);
+  border: 1px solid var(--mp-t-line-control);
   border-radius: var(--mp-radius-sm);
   font-size: var(--mp-text-md);
   color: var(--mp-t-text);
@@ -365,7 +365,7 @@
 .mp-input-group {
   display: flex;
   align-items: stretch;
-  border: 1px solid var(--mp-t-line-strong);
+  border: 1px solid var(--mp-t-line-control);
   border-radius: var(--mp-radius-sm);
   background: var(--mp-t-surface);
   overflow: hidden;
@@ -430,7 +430,7 @@
   width: 16px;
   height: 16px;
   flex: none;
-  border: 1.5px solid var(--mp-t-line-strong);
+  border: 1.5px solid var(--mp-t-line-control);
   border-radius: var(--mp-radius-xs);
   background: var(--mp-t-surface);
   display: grid;
@@ -493,7 +493,7 @@
   height: 22px;
   flex: none;
   border-radius: var(--mp-radius-pill);
-  background: var(--mp-t-line-strong);
+  background: var(--mp-t-line-control);
   position: relative;
   cursor: pointer;
   transition: background-color var(--mp-duration-base) var(--mp-ease-out);
