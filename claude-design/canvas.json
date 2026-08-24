@@ -1,10 +1,10 @@
 {
   "artboards": [
-    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 1950 },
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 2150 },
     { "file": "Colors.dc.html", "x": 1520, "y": 0, "w": 1440, "h": 2050 },
-    { "file": "Typography.dc.html", "x": 0, "y": 2200, "w": 1440, "h": 2250 },
-    { "file": "Components.dc.html", "x": 1520, "y": 2200, "w": 1440, "h": 2950 },
-    { "file": "Foundations.dc.html", "x": 0, "y": 5300, "w": 1440, "h": 1800 }
+    { "file": "Typography.dc.html", "x": 0, "y": 2300, "w": 1440, "h": 2250 },
+    { "file": "Components.dc.html", "x": 1520, "y": 2300, "w": 1440, "h": 2950 },
+    { "file": "Foundations.dc.html", "x": 0, "y": 5400, "w": 1440, "h": 1800 }
   ],
   "launch": { "view": "canvas" }
 }
