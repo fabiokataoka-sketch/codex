@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --al-black:#0A0A0B;--al-carbon-900:#101113;--al-carbon-800:#16181B;--al-carbon-700:#1E2124;
+      --al-bg:var(--al-black);--al-border:#2A2E32;--al-border-strong:#3C4147;
+      --al-text:#F4F5F3;--al-text-muted:#9AA0A6;--al-text-faint:#6B7178;
+      --al-accent:#C6FF00;--al-accent-hover:#DCFF57;--al-accent-contrast:#0A0A0B;
+      --al-success:#3DDC84;--al-warning:#FFC53D;--al-danger:#FF4D4F;
+      --al-font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+      --al-font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+      --al-font-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+      --al-glow-accent:0 0 0 1px rgba(198,255,0,.35),0 0 32px rgba(198,255,0,.18);
+      --al-ease-out:cubic-bezier(.16,1,.3,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--al-bg);color:var(--al-text);font-family:var(--al-font-body);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--al-accent)}
+    button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+    ::selection{background:var(--al-accent);color:var(--al-accent-contrast)}
+    .note{font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint); letter-spacing:0.08em; display:block; margin-bottom:16px;}
+    .disp{font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em;}
+    .row{display:flex; flex-wrap:wrap; align-items:center; gap:16px;}
+    .block{border:1px solid var(--al-border); border-radius:2px; padding:32px; margin-bottom:56px;}
+
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0.875rem 2rem; border-radius:999px; font-family:var(--al-font-display); font-size:0.875rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; line-height:1; white-space:nowrap; transition:background-color 150ms var(--al-ease-out), border-color 150ms var(--al-ease-out), color 150ms var(--al-ease-out), box-shadow 250ms var(--al-ease-out), transform 150ms var(--al-ease-out);}
+    .btn:active{transform:scale(0.97)}
+    .btn--primary{background:var(--al-accent); color:var(--al-accent-contrast);}
+    .btn--primary:hover{background:var(--al-accent-hover); box-shadow:var(--al-glow-accent);}
+    .btn--secondary{background:transparent; color:var(--al-text); border:1px solid var(--al-border-strong);}
+    .btn--secondary:hover{border-color:var(--al-accent); color:var(--al-accent);}
+    .btn--ghost{background:transparent; color:var(--al-text-muted); padding-inline:16px;}
+    .btn--ghost:hover{color:var(--al-accent);}
+    .btn--sm{padding:0.625rem 1.25rem; font-size:0.75rem;}
+    .btn--lg{padding:1.125rem 2.75rem; font-size:1rem;}
+    .btn--disabled{opacity:0.4; pointer-events:none;}
+
+    .badge{display:inline-flex; align-items:center; gap:4px; padding:0.25rem 0.75rem; border-radius:999px; border:1px solid var(--al-border-strong); font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);}
+    .badge--accent{border-color:var(--al-accent); color:var(--al-accent);}
+    .badge--solid{border-color:var(--al-accent); background:var(--al-accent); color:var(--al-accent-contrast);}
+    .badge--success{border-color:var(--al-success); color:var(--al-success);}
+    .badge--warning{border-color:var(--al-warning); color:var(--al-warning);}
+    .badge--danger{border-color:var(--al-danger); color:var(--al-danger);}
+
+    .card{display:flex; flex-direction:column; background:var(--al-carbon-800); border:1px solid var(--al-border); border-radius:2px; overflow:hidden; transition:border-color 250ms var(--al-ease-out), transform 250ms var(--al-ease-out), box-shadow 250ms var(--al-ease-out);}
+    .card__media{aspect-ratio:16/10; background:var(--al-carbon-700); display:flex; align-items:center; justify-content:center;}
+    .card__body{display:flex; flex-direction:column; gap:12px; padding:24px;}
+    .card__title{font-family:var(--al-font-display); font-size:1.5rem; font-weight:700; text-transform:uppercase; line-height:1.15;}
+    .card__meta{font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint);}
+
+    .stat{display:flex; flex-direction:column; gap:8px; padding:24px; border-left:2px solid var(--al-accent);}
+    .stat__value{font-family:var(--al-font-display); font-size:2.75rem; font-weight:900; line-height:0.95;}
+    .stat__label{font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-text-muted);}
+
+    .field{display:flex; flex-direction:column; gap:8px;}
+    .label{font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);}
+    .input{width:100%; padding:0.875rem 1rem; background:var(--al-carbon-900); border:1px solid var(--al-border-strong); border-radius:6px; color:var(--al-text); font-family:var(--al-font-body); font-size:1rem;}
+    .field__hint{font-size:0.75rem; color:var(--al-text-faint);}
+    .field--error .input{border-color:var(--al-danger);}
+    .field--error .field__hint{color:var(--al-danger);}
+  </style>
+</helmet>
+<div style="min-height:2900px; background:var(--al-bg); padding:80px 40px 96px;">
+  <div style="max-width:1280px; margin-inline:auto; display:flex; flex-direction:column; gap:12px; margin-bottom:56px;">
+    <span style="font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">03 &mdash; Components</span>
+    <h1 class="disp" style="font-size:clamp(2.75rem, 1.8rem + 4.5vw, 4.5rem);">Components</h1>
+    <p style="font-size:1.125rem; line-height:1.7; color:var(--al-text-muted); max-width:60ch;">Pill-shaped, uppercase, decisive. Every control shares the same 150&ndash;450ms signature ease.</p>
+  </div>
+
+  <div style="max-width:1280px; margin-inline:auto;">
+
+    <!-- Buttons -->
+    <div class="block">
+      <span class="note">.al-btn</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Buttons</h4>
+      <div class="row" style="margin-bottom:20px;">
+        <a class="btn btn--primary" href="#">Primary</a>
+        <a class="btn btn--secondary" href="#">Secondary</a>
+        <a class="btn btn--ghost" href="#">Ghost</a>
+        <a class="btn btn--primary btn--disabled" href="#">Disabled</a>
+      </div>
+      <div class="row">
+        <a class="btn btn--primary btn--sm" href="#">Small</a>
+        <a class="btn btn--primary" href="#">Default</a>
+        <a class="btn btn--primary btn--lg" href="#">Large</a>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="block">
+      <span class="note">.al-badge</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Badges</h4>
+      <div class="row">
+        <span class="badge">Default</span>
+        <span class="badge badge--accent">Accent</span>
+        <span class="badge badge--solid">Beta</span>
+        <span class="badge badge--success">Live</span>
+        <span class="badge badge--warning">Warning</span>
+        <span class="badge badge--danger">Danger</span>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="block" style="padding:0; overflow:hidden;">
+      <div style="padding:24px 32px 0;"><span class="note" style="margin-bottom:0;">.al-nav</span></div>
+      <nav style="display:flex; align-items:center; justify-content:space-between; gap:24px; padding:16px 32px; border-top:1px solid var(--al-border); margin-top:16px;">
+        <span class="disp" style="font-size:1.125rem;">AI Lab <em style="font-style:normal; color:var(--al-accent);">Global</em></span>
+        <ul style="display:flex; align-items:center; gap:24px; list-style:none;">
+          <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-accent);">Colors</span></li>
+          <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);">Type</span></li>
+          <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);">Buttons</span></li>
+        </ul>
+        <a class="btn btn--primary btn--sm" href="#">Get Started</a>
+      </nav>
+    </div>
+
+    <!-- Cards -->
+    <div class="block">
+      <span class="note">.al-card</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Cards</h4>
+      <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px;">
+        <div class="card">
+          <div class="card__media"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6B7178" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="card__body">
+            <span class="card__meta">Product &middot; Live</span>
+            <h4 class="card__title">Track Analysis</h4>
+            <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Real-time telemetry parsed into actionable race intelligence.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__media"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6B7178" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="card__body">
+            <span class="card__meta">Product &middot; Beta</span>
+            <h4 class="card__title">Strategy Sim</h4>
+            <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Monte Carlo pit-stop modeling for race-day decisions.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__media"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6B7178" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="card__body">
+            <span class="card__meta">Product &middot; Dev</span>
+            <h4 class="card__title">Driver Vision</h4>
+            <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Computer-vision coaching from in-cockpit footage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="block">
+      <span class="note">.al-stat</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Stat blocks</h4>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:8px;">
+        <div class="stat"><span class="stat__value">2.4M</span><span class="stat__label">Laps Analyzed</span></div>
+        <div class="stat"><span class="stat__value">99.98%</span><span class="stat__label">Uptime</span></div>
+        <div class="stat"><span class="stat__value">180ms</span><span class="stat__label">Model Latency</span></div>
+        <div class="stat"><span class="stat__value">42</span><span class="stat__label">Teams Onboard</span></div>
+      </div>
+    </div>
+
+    <!-- Forms -->
+    <div class="block">
+      <span class="note">.al-field / .al-input</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Forms</h4>
+      <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px;">
+        <div class="field">
+          <label class="label">Email</label>
+          <input class="input" placeholder="you@team.com">
+        </div>
+        <div class="field field--error">
+          <label class="label">Team ID</label>
+          <input class="input" value="AL-002X">
+          <span class="field__hint">Team ID must be 6 characters</span>
+        </div>
+        <div class="field">
+          <label class="label">Notes</label>
+          <textarea class="input" rows="1" placeholder="Optional"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marquee -->
+    <div class="block" style="padding:0;">
+      <div style="padding:24px 32px 0;"><span class="note" style="margin-bottom:0;">.al-marquee</span></div>
+      <div style="overflow:hidden; border-top:1px solid var(--al-border); background:var(--al-carbon-900); padding-block:12px; margin-top:16px;">
+        <div style="display:flex; gap:32px; width:max-content; padding-inline:32px;">
+          <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint); white-space:nowrap;">Precision</span>
+          <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-accent); white-space:nowrap;">Velocity</span>
+          <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint); white-space:nowrap;">Intelligence</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="block" style="margin-bottom:0;">
+      <span class="note">.al-footer</span>
+      <footer style="display:flex; align-items:center; justify-content:space-between; gap:24px; padding-top:8px;">
+        <span style="font-size:0.875rem; color:var(--al-text-muted);">&copy; AI Lab Global</span>
+        <div class="row" style="gap:24px;">
+          <a href="#" style="font-size:0.875rem; color:var(--al-text-muted);">Privacy</a>
+          <a href="#" style="font-size:0.875rem; color:var(--al-text-muted);">Terms</a>
+          <a href="#" style="font-size:0.875rem; color:var(--al-text-muted);">Contact</a>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
