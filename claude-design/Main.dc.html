@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --al-lime-300:#DCFF57;--al-lime-500:#C6FF00;--al-lime-600:#A3D600;
+      --al-black:#0A0A0B;--al-carbon-900:#101113;--al-carbon-800:#16181B;--al-carbon-700:#1E2124;--al-carbon-600:#2A2E32;--al-carbon-500:#3C4147;
+      --al-gray-400:#6B7178;--al-gray-300:#9AA0A6;--al-offwhite:#F4F5F3;
+      --al-bg:var(--al-black);--al-border:var(--al-carbon-600);--al-border-strong:var(--al-carbon-500);
+      --al-text:var(--al-offwhite);--al-text-muted:var(--al-gray-300);--al-text-faint:var(--al-gray-400);
+      --al-accent:var(--al-lime-500);--al-accent-hover:var(--al-lime-300);--al-accent-contrast:var(--al-black);
+      --al-font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+      --al-font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+      --al-font-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+      --al-radius-sm:2px;--al-radius-pill:999px;
+      --al-glow-accent:0 0 0 1px rgba(198,255,0,.35),0 0 32px rgba(198,255,0,.18);
+      --al-ease-out:cubic-bezier(.16,1,.3,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--al-bg);color:var(--al-text);font-family:var(--al-font-body);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--al-accent)}
+    ::selection{background:var(--al-accent);color:var(--al-accent-contrast)}
+    .al-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0.875rem 2rem;border-radius:999px;font-family:var(--al-font-display);font-size:0.875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;line-height:1;white-space:nowrap;transition:background-color 150ms var(--al-ease-out),border-color 150ms var(--al-ease-out),color 150ms var(--al-ease-out),box-shadow 250ms var(--al-ease-out)}
+    .al-btn--primary{background:var(--al-accent);color:var(--al-accent-contrast)}
+    .al-btn--primary:hover{background:var(--al-accent-hover);box-shadow:var(--al-glow-accent)}
+    .al-btn--secondary{background:transparent;color:var(--al-text);border:1px solid var(--al-border-strong)}
+    .al-btn--secondary:hover{border-color:var(--al-accent);color:var(--al-accent)}
+  </style>
+</helmet>
+<div style="min-height:1900px; background:var(--al-bg);">
+
+  <!-- Nav -->
+  <nav style="display:flex; align-items:center; justify-content:space-between; gap:24px; padding:16px 40px; border-bottom:1px solid var(--al-border);">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <svg width="28" height="28" viewBox="296 295 432 432" role="img" aria-label="AI Lab Global mark">
+        <rect x="296" y="295" width="432" height="432" fill="#0B0B0D"/>
+        <g fill="none" stroke="#F2EFE9" stroke-width="13" stroke-linecap="butt" stroke-linejoin="miter">
+          <path d="M370 350 H336 V673 H370"/>
+          <path d="M654 350 H688 V673 H654"/>
+        </g>
+        <path fill="#F2EFE9" fill-rule="evenodd" d="M441 640 L499 380 L536 380 L594 640 L546 640 L531 566 L504 566 L489 640 Z M517 447 L537 546 L498 546 Z"/>
+        <circle cx="612" cy="619" r="21" fill="#FF4628"/>
+      </svg>
+      <span style="font-family:var(--al-font-display); font-weight:900; font-size:1.125rem; text-transform:uppercase; letter-spacing:-0.03em;">AI Lab <em style="font-style:normal; color:var(--al-accent);">Global</em></span>
+    </div>
+    <ul style="display:flex; align-items:center; gap:24px; list-style:none;">
+      <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-accent);">Colors</span></li>
+      <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);">Type</span></li>
+      <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);">Components</span></li>
+      <li><span style="font-family:var(--al-font-display); font-size:0.875rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-muted);">Foundations</span></li>
+    </ul>
+    <a class="al-btn al-btn--primary" href="#" style="padding:0.625rem 1.25rem; font-size:0.75rem;">Get Started</a>
+  </nav>
+
+  <!-- Hero -->
+  <header style="max-width:1280px; margin-inline:auto; padding:96px 40px 64px; display:flex; flex-direction:column; gap:24px; background:radial-gradient(ellipse 80% 60% at 70% 20%, rgba(198,255,0,0.08), transparent);">
+    <span style="display:inline-flex; align-items:center; gap:8px; font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">
+      <span style="width:24px; height:1px; background:currentColor; display:inline-block;"></span>
+      Design System · v1.0
+    </span>
+    <h1 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em; font-stretch:125%; font-size:clamp(3.5rem, 2rem + 8vw, 8rem);">Built for<br><span style="color:var(--al-accent);">Velocity</span></h1>
+    <p style="font-size:1.125rem; line-height:1.7; color:var(--al-text-muted); max-width:60ch;">A dark-first, high-contrast design system for AI Lab Global. Carbon neutrals, a single neon-lime signature accent, heavyweight uppercase display type, and restrained, precise motion &mdash; engineered for products that move fast.</p>
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:8px;">
+      <a class="al-btn al-btn--primary" href="#">Explore Tokens</a>
+      <a class="al-btn al-btn--secondary" href="#">tokens.json</a>
+    </div>
+  </header>
+
+  <!-- Marquee -->
+  <div style="overflow:hidden; border-block:1px solid var(--al-border); background:var(--al-carbon-900); padding-block:12px;">
+    <div style="display:flex; gap:32px; width:max-content;">
+      <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint); white-space:nowrap;">AI Lab Global</span>
+      <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-accent); white-space:nowrap;">Precision</span>
+      <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint); white-space:nowrap;">Velocity</span>
+      <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-accent); white-space:nowrap;">Intelligence</span>
+      <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint); white-space:nowrap;">AI Lab Global</span>
+      <span style="font-family:var(--al-font-display); font-size:1.125rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-accent); white-space:nowrap;">Precision</span>
+    </div>
+  </div>
+
+  <!-- Principles -->
+  <section style="max-width:1280px; margin-inline:auto; padding:96px 40px;">
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:48px;">
+      <span style="font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">00 &mdash; Principles</span>
+      <h2 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em; font-size:clamp(2rem, 1.5rem + 2.5vw, 3.5rem);">Five rules</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:24px;">
+      <div style="display:flex; flex-direction:column; gap:12px; padding:24px; border-left:2px solid var(--al-accent);">
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">01</span>
+        <h4 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; font-size:1.125rem;">Dark is default</h4>
+        <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Near-black backgrounds with carbon surfaces. Light theme is opt-in per subtree &mdash; the brand lives in the dark.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; padding:24px; border-left:2px solid var(--al-accent);">
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">02</span>
+        <h4 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; font-size:1.125rem;">One loud voice</h4>
+        <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Neon lime is the only saturated color in a view &mdash; one accent moment, never large fills of text.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; padding:24px; border-left:2px solid var(--al-accent);">
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">03</span>
+        <h4 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; font-size:1.125rem;">Type talks</h4>
+        <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Archivo 900, uppercase, tight tracking for display. Inter and JetBrains Mono stay quiet.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; padding:24px; border-left:2px solid var(--al-accent);">
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">04</span>
+        <h4 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; font-size:1.125rem;">Sharp + pill</h4>
+        <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Cards and media use 2px radii; buttons and badges are full pills.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; padding:24px; border-left:2px solid var(--al-accent);">
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">05</span>
+        <h4 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; font-size:1.125rem;">Motion decides</h4>
+        <p style="font-size:0.875rem; color:var(--al-text-muted); line-height:1.5;">Fast (150&ndash;450ms), one signature ease, everything respects reduced-motion.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr style="border:0; border-top:1px solid var(--al-border); max-width:1280px; margin-inline:auto;">
+
+  <!-- Token quick reference -->
+  <section style="max-width:1280px; margin-inline:auto; padding:96px 40px;">
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:32px;">
+      <span style="font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">Quick reference</span>
+      <h2 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em; font-size:clamp(2rem, 1.5rem + 2.5vw, 3rem);">Core tokens</h2>
+    </div>
+    <div style="border:1px solid var(--al-border); border-radius:2px; overflow:hidden;">
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); padding:16px 24px; background:var(--al-carbon-900); border-bottom:1px solid var(--al-border);">
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint);">Token</span>
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint);">Value</span>
+        <span style="font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint); grid-column:span 2;">Role</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:14px 24px; border-bottom:1px solid var(--al-border);">
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem;">--al-lime-500</span>
+        <span style="display:flex; align-items:center; gap:8px; font-family:var(--al-font-mono); font-size:0.875rem; color:var(--al-text-muted);"><span style="width:14px; height:14px; border-radius:3px; background:#C6FF00; display:inline-block;"></span>#C6FF00</span>
+        <span style="grid-column:span 2; font-size:0.875rem; color:var(--al-text-muted);">Brand accent / primary action</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:14px 24px; border-bottom:1px solid var(--al-border);">
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem;">--al-black</span>
+        <span style="display:flex; align-items:center; gap:8px; font-family:var(--al-font-mono); font-size:0.875rem; color:var(--al-text-muted);"><span style="width:14px; height:14px; border-radius:3px; background:#0A0A0B; border:1px solid var(--al-border-strong); display:inline-block;"></span>#0A0A0B</span>
+        <span style="grid-column:span 2; font-size:0.875rem; color:var(--al-text-muted);">Page background</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:14px 24px; border-bottom:1px solid var(--al-border);">
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem;">--al-carbon-800</span>
+        <span style="display:flex; align-items:center; gap:8px; font-family:var(--al-font-mono); font-size:0.875rem; color:var(--al-text-muted);"><span style="width:14px; height:14px; border-radius:3px; background:#16181B; border:1px solid var(--al-border-strong); display:inline-block;"></span>#16181B</span>
+        <span style="grid-column:span 2; font-size:0.875rem; color:var(--al-text-muted);">Raised surfaces</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:14px 24px; border-bottom:1px solid var(--al-border);">
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem;">--al-offwhite</span>
+        <span style="display:flex; align-items:center; gap:8px; font-family:var(--al-font-mono); font-size:0.875rem; color:var(--al-text-muted);"><span style="width:14px; height:14px; border-radius:3px; background:#F4F5F3; display:inline-block;"></span>#F4F5F3</span>
+        <span style="grid-column:span 2; font-size:0.875rem; color:var(--al-text-muted);">Primary text</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:14px 24px; border-bottom:1px solid var(--al-border);">
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem;">--al-font-display</span>
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem; color:var(--al-text-muted);">Archivo</span>
+        <span style="grid-column:span 2; font-size:0.875rem; color:var(--al-text-muted);">Headings, buttons, nav</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); align-items:center; padding:14px 24px;">
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem;">--al-radius-pill</span>
+        <span style="font-family:var(--al-font-mono); font-size:0.875rem; color:var(--al-text-muted);">999px</span>
+        <span style="grid-column:span 2; font-size:0.875rem; color:var(--al-text-muted);">Buttons, badges</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="max-width:1280px; margin-inline:auto; padding:64px 40px 96px; border-top:1px solid var(--al-border); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+    <span style="font-size:0.875rem; color:var(--al-text-muted);">AI Lab Global &mdash; Design System v1.0</span>
+    <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint); text-transform:uppercase; letter-spacing:0.08em;">Text on dark ~15.5:1 contrast &middot; focus rings on every control</span>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>

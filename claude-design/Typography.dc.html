@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --al-black:#0A0A0B;--al-carbon-900:#101113;
+      --al-bg:var(--al-black);--al-border:#2A2E32;--al-border-strong:#3C4147;
+      --al-text:#F4F5F3;--al-text-muted:#9AA0A6;--al-text-faint:#6B7178;
+      --al-accent:#C6FF00;
+      --al-font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+      --al-font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+      --al-font-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--al-bg);color:var(--al-text);font-family:var(--al-font-body);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--al-accent)}
+    .note{font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint); letter-spacing:0.08em; display:block; margin-bottom:8px;}
+    .specimen{border-bottom:1px solid var(--al-border); padding-bottom:24px; display:flex; flex-direction:column; gap:8px;}
+    .disp{font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em;}
+  </style>
+</helmet>
+<div style="min-height:2200px; background:var(--al-bg); padding:80px 40px 96px;">
+  <div style="max-width:1280px; margin-inline:auto; display:flex; flex-direction:column; gap:12px; margin-bottom:56px;">
+    <span style="font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">02 &mdash; Foundations</span>
+    <h1 class="disp" style="font-size:clamp(2.75rem, 1.8rem + 4.5vw, 4.5rem);">Typography</h1>
+    <p style="font-size:1.125rem; line-height:1.7; color:var(--al-text-muted); max-width:60ch;">Archivo (heavy, uppercase, tight) for display. Inter for body. JetBrains Mono for labels, data, and eyebrows.</p>
+  </div>
+
+  <!-- Families -->
+  <div style="max-width:1280px; margin-inline:auto; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px; margin-bottom:64px;">
+    <div style="border:1px solid var(--al-border); border-radius:2px; padding:32px; display:flex; flex-direction:column; gap:16px;">
+      <span class="note">--al-font-display</span>
+      <span class="disp" style="font-size:3rem;">Aa</span>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <strong style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; letter-spacing:0.02em;">Archivo</strong>
+        <span style="font-size:0.875rem; color:var(--al-text-muted);">Headings, buttons, nav, hero</span>
+      </div>
+    </div>
+    <div style="border:1px solid var(--al-border); border-radius:2px; padding:32px; display:flex; flex-direction:column; gap:16px;">
+      <span class="note">--al-font-body</span>
+      <span style="font-family:var(--al-font-body); font-size:3rem;">Aa</span>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <strong style="font-family:var(--al-font-body); font-weight:600;">Inter</strong>
+        <span style="font-size:0.875rem; color:var(--al-text-muted);">Body copy, lead paragraphs, forms</span>
+      </div>
+    </div>
+    <div style="border:1px solid var(--al-border); border-radius:2px; padding:32px; display:flex; flex-direction:column; gap:16px;">
+      <span class="note">--al-font-mono</span>
+      <span style="font-family:var(--al-font-mono); font-size:3rem;">Aa</span>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <strong style="font-family:var(--al-font-mono); font-weight:500;">JetBrains Mono</strong>
+        <span style="font-size:0.875rem; color:var(--al-text-muted);">Labels, eyebrows, data, tags</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scale -->
+  <div style="max-width:1280px; margin-inline:auto; display:flex; flex-direction:column; gap:24px; margin-bottom:64px;">
+    <div class="specimen">
+      <span class="note">.al-hero-title &middot; Archivo Black 125% width &middot; --al-text-hero</span>
+      <p class="disp" style="font-size:clamp(3.5rem, 2rem + 8vw, 6rem); font-stretch:125%;">Aa 001</p>
+    </div>
+    <div class="specimen">
+      <span class="note">h1 &middot; --al-text-4xl &middot; clamp(2.75rem, 1.8rem + 4.5vw, 5.5rem)</span>
+      <h1 class="disp" style="font-size:3.5rem;">Heading One</h1>
+    </div>
+    <div class="specimen">
+      <span class="note">h2 &middot; --al-text-3xl &middot; clamp(2rem, 1.5rem + 2.5vw, 3.5rem)</span>
+      <h2 class="disp" style="font-size:2.75rem;">Heading Two</h2>
+    </div>
+    <div class="specimen">
+      <span class="note">h3 &middot; --al-text-2xl &middot; clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem)</span>
+      <h3 class="disp" style="font-size:2rem;">Heading Three</h3>
+    </div>
+    <div class="specimen">
+      <span class="note">h4 &middot; --al-text-xl &middot; normal tracking</span>
+      <h4 class="disp" style="font-size:1.125rem; letter-spacing:0;">Heading Four</h4>
+    </div>
+    <div class="specimen">
+      <span class="note">.al-eyebrow &middot; JetBrains Mono &middot; tracking-wider</span>
+      <span style="display:inline-flex; align-items:center; gap:8px; font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);"><span style="width:24px; height:1px; background:currentColor; display:inline-block;"></span>Eyebrow Label</span>
+    </div>
+    <div class="specimen">
+      <span class="note">.al-lead &middot; Inter &middot; --al-text-lg &middot; leading-loose</span>
+      <p style="font-size:1.125rem; line-height:1.7; color:var(--al-text-muted); max-width:60ch;">Lead paragraph copy sits at 18px with loose 1.7 line-height and muted gray-300 color &mdash; built for a single confident sentence under a headline.</p>
+    </div>
+    <div class="specimen" style="border-bottom:none;">
+      <span class="note">Body &middot; Inter &middot; --al-text-md &middot; leading-normal</span>
+      <p style="font-size:1rem; line-height:1.5; color:var(--al-text); max-width:60ch;">Body copy runs at 16px with 1.5 line-height in off-white on the dark surface, holding roughly 15.5:1 contrast against the near-black background.</p>
+    </div>
+  </div>
+
+  <!-- Tracking & weight -->
+  <div style="max-width:1280px; margin-inline:auto; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+    <div style="border:1px solid var(--al-border); border-radius:2px; padding:24px;">
+      <span class="note">Letter-spacing</span>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">tight &middot; -0.03em</span><span class="disp" style="font-size:1.25rem;">VELOCITY</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">normal &middot; 0</span><span style="font-size:1.125rem; letter-spacing:0;">Velocity</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">wide &middot; 0.08em</span><span style="font-family:var(--al-font-display); font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.08em;">Velocity</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">wider &middot; 0.18em</span><span style="font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">Velocity</span></div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--al-border); border-radius:2px; padding:24px;">
+      <span class="note">Weight</span>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">regular &middot; 400</span><span style="font-family:var(--al-font-body); font-weight:400; font-size:1.125rem;">Aa Bb Cc</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">medium &middot; 500</span><span style="font-family:var(--al-font-body); font-weight:500; font-size:1.125rem;">Aa Bb Cc</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">semibold &middot; 600</span><span style="font-family:var(--al-font-body); font-weight:600; font-size:1.125rem;">Aa Bb Cc</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">bold &middot; 700</span><span style="font-family:var(--al-font-display); font-weight:700; font-size:1.125rem;">Aa Bb Cc</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint);">black &middot; 900</span><span style="font-family:var(--al-font-display); font-weight:900; font-size:1.125rem;">Aa Bb Cc</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

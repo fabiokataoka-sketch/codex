@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --al-black:#0A0A0B;--al-carbon-900:#101113;--al-carbon-800:#16181B;--al-carbon-700:#1E2124;
+      --al-bg:var(--al-black);--al-border:#2A2E32;--al-border-strong:#3C4147;
+      --al-text:#F4F5F3;--al-text-muted:#9AA0A6;--al-text-faint:#6B7178;
+      --al-accent:#C6FF00;
+      --al-font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+      --al-font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+      --al-font-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--al-bg);color:var(--al-text);font-family:var(--al-font-body);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--al-accent)}
+    .note{font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint); letter-spacing:0.08em; display:block; margin-bottom:16px;}
+    .disp{font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em;}
+    .block{border:1px solid var(--al-border); border-radius:2px; padding:32px; margin-bottom:32px;}
+  </style>
+</helmet>
+<div style="min-height:1750px; background:var(--al-bg); padding:80px 40px 96px;">
+  <div style="max-width:1280px; margin-inline:auto; display:flex; flex-direction:column; gap:12px; margin-bottom:56px;">
+    <span style="font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">04 &mdash; Foundations</span>
+    <h1 class="disp" style="font-size:clamp(2.75rem, 1.8rem + 4.5vw, 4.5rem);">Spacing, Radius &amp; Motion</h1>
+    <p style="font-size:1.125rem; line-height:1.7; color:var(--al-text-muted); max-width:60ch;">A 4px base scale, sharp surfaces with pill controls, and one signature ease used everywhere.</p>
+  </div>
+
+  <div style="max-width:1280px; margin-inline:auto;">
+
+    <!-- Spacing -->
+    <div class="block">
+      <span class="note">--al-space-*</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Spacing scale</h4>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-1 &middot; 4px</span><div style="width:4px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-2 &middot; 8px</span><div style="width:8px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-3 &middot; 12px</span><div style="width:12px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-4 &middot; 16px</span><div style="width:16px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-5 &middot; 24px</span><div style="width:24px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-6 &middot; 32px</span><div style="width:32px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-7 &middot; 48px</span><div style="width:48px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-8 &middot; 64px</span><div style="width:64px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-9 &middot; 96px</span><div style="width:96px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+        <div style="display:grid; grid-template-columns:140px 1fr; align-items:center; gap:16px;"><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">space-10 &middot; 128px</span><div style="width:128px; height:16px; background:var(--al-accent); border-radius:2px;"></div></div>
+      </div>
+    </div>
+
+    <!-- Radius + Elevation -->
+    <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:32px; margin-bottom:32px;">
+      <div class="block" style="margin-bottom:0;">
+        <span class="note">--al-radius-*</span>
+        <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Radius</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:24px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:88px; height:88px; background:var(--al-carbon-800); border:1px solid var(--al-accent); border-radius:0;"></div>
+            <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">none</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:88px; height:88px; background:var(--al-carbon-800); border:1px solid var(--al-accent); border-radius:2px;"></div>
+            <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">sm &middot; 2px</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:88px; height:88px; background:var(--al-carbon-800); border:1px solid var(--al-accent); border-radius:6px;"></div>
+            <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">md &middot; 6px</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:88px; height:88px; background:var(--al-carbon-800); border:1px solid var(--al-accent); border-radius:12px;"></div>
+            <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">lg &middot; 12px</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:88px; height:88px; background:var(--al-carbon-800); border:1px solid var(--al-accent); border-radius:999px;"></div>
+            <span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">pill &middot; 999px</span>
+          </div>
+        </div>
+      </div>
+      <div class="block" style="margin-bottom:0;">
+        <span class="note">--al-shadow-* / --al-glow-accent</span>
+        <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Elevation</h4>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="display:flex; align-items:center; gap:16px;"><div style="width:56px; height:56px; background:var(--al-carbon-800); border-radius:2px; box-shadow:0 1px 2px rgba(0,0,0,.4);"></div><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">shadow-sm</span></div>
+          <div style="display:flex; align-items:center; gap:16px;"><div style="width:56px; height:56px; background:var(--al-carbon-800); border-radius:2px; box-shadow:0 8px 24px rgba(0,0,0,.45);"></div><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">shadow-md</span></div>
+          <div style="display:flex; align-items:center; gap:16px;"><div style="width:56px; height:56px; background:var(--al-carbon-800); border-radius:2px; box-shadow:0 24px 64px rgba(0,0,0,.55);"></div><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">shadow-lg</span></div>
+          <div style="display:flex; align-items:center; gap:16px;"><div style="width:56px; height:56px; background:var(--al-carbon-800); border-radius:2px; box-shadow:0 0 0 1px rgba(198,255,0,.35), 0 0 32px rgba(198,255,0,.18);"></div><span style="font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-muted);">glow-accent</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motion -->
+    <div class="block" style="margin-bottom:0;">
+      <span class="note">--al-duration-* / --al-ease-*</span>
+      <h4 class="disp" style="font-size:1.125rem; margin-bottom:20px;">Motion</h4>
+      <div style="border:1px solid var(--al-border); border-radius:2px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:14px 24px; background:var(--al-carbon-900); border-bottom:1px solid var(--al-border); font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint);">
+          <span>Token</span><span>Value</span><span>Used for</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+          <span style="font-family:var(--al-font-mono);">duration-fast</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">150ms</span><span style="color:var(--al-text-muted);">Hover, active state changes</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+          <span style="font-family:var(--al-font-mono);">duration-base</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">250ms</span><span style="color:var(--al-text-muted);">Cards, shadows, transforms</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+          <span style="font-family:var(--al-font-mono);">duration-slow</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">450ms</span><span style="color:var(--al-text-muted);">Media zoom, large reveals</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+          <span style="font-family:var(--al-font-mono);">ease-out</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted); font-size:0.75rem;">cubic-bezier(.16,1,.3,1)</span><span style="color:var(--al-text-muted);">Signature ease &mdash; default everywhere</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; font-size:0.875rem; align-items:center;">
+          <span style="font-family:var(--al-font-mono);">ease-in-out</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted); font-size:0.75rem;">cubic-bezier(.65,0,.35,1)</span><span style="color:var(--al-text-muted);">Symmetric transitions</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

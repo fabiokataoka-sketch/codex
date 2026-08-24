@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --al-black:#0A0A0B;--al-carbon-900:#101113;
+      --al-bg:var(--al-black);--al-border:#2A2E32;--al-border-strong:#3C4147;
+      --al-text:#F4F5F3;--al-text-muted:#9AA0A6;--al-text-faint:#6B7178;
+      --al-accent:#C6FF00;
+      --al-font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+      --al-font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+      --al-font-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--al-bg);color:var(--al-text);font-family:var(--al-font-body);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--al-accent)}
+    .swatch{border:1px solid var(--al-border); border-radius:2px; overflow:hidden; display:flex; flex-direction:column;}
+    .swatch__color{height:88px;}
+    .swatch__info{padding:12px; font-family:var(--al-font-mono); font-size:0.75rem; display:flex; flex-direction:column; gap:2px;}
+    .note{font-family:var(--al-font-mono); font-size:0.75rem; color:var(--al-text-faint); letter-spacing:0.08em; display:block; margin-bottom:8px;}
+    .head{font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; letter-spacing:-0.03em; font-size:1.125rem;}
+  </style>
+</helmet>
+<div style="min-height:2000px; background:var(--al-bg); padding:80px 40px 96px;">
+  <div style="max-width:1280px; margin-inline:auto; display:flex; flex-direction:column; gap:12px; margin-bottom:56px;">
+    <span style="font-family:var(--al-font-mono); font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; color:var(--al-accent);">01 &mdash; Foundations</span>
+    <h1 style="font-family:var(--al-font-display); font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.03em; font-size:clamp(2.75rem, 1.8rem + 4.5vw, 4.5rem);">Color</h1>
+    <p style="font-size:1.125rem; line-height:1.7; color:var(--al-text-muted); max-width:60ch;">Carbon neutrals carry the interface; lime is the single loud voice. Use the accent sparingly &mdash; one decisive moment per view.</p>
+  </div>
+
+  <div style="max-width:1280px; margin-inline:auto;">
+    <span class="note">--al-lime-*</span>
+    <h4 class="head" style="margin-bottom:24px;">Accent &mdash; Neon Lime</h4>
+    <div style="display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:16px; margin-bottom:56px;">
+      <div class="swatch"><div class="swatch__color" style="background:#F2FFC2;"></div><div class="swatch__info"><strong>lime-100</strong><span style="color:var(--al-text-faint);">#F2FFC2</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#E5FF85;"></div><div class="swatch__info"><strong>lime-200</strong><span style="color:var(--al-text-faint);">#E5FF85</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#DCFF57;"></div><div class="swatch__info"><strong>lime-300</strong><span style="color:var(--al-text-faint);">#DCFF57</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#D2FF2E;"></div><div class="swatch__info"><strong>lime-400</strong><span style="color:var(--al-text-faint);">#D2FF2E</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#C6FF00;"></div><div class="swatch__info"><strong>lime-500 &middot; primary</strong><span style="color:var(--al-text-faint);">#C6FF00</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#A3D600;"></div><div class="swatch__info"><strong>lime-600</strong><span style="color:var(--al-text-faint);">#A3D600</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#7FA800;"></div><div class="swatch__info"><strong>lime-700</strong><span style="color:var(--al-text-faint);">#7FA800</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#5C7A00;"></div><div class="swatch__info"><strong>lime-800</strong><span style="color:var(--al-text-faint);">#5C7A00</span></div></div>
+    </div>
+
+    <span class="note">--al-carbon-* / --al-gray-*</span>
+    <h4 class="head" style="margin-bottom:24px;">Neutrals &mdash; Carbon Scale</h4>
+    <div style="display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:16px; margin-bottom:56px;">
+      <div class="swatch"><div class="swatch__color" style="background:#0A0A0B;"></div><div class="swatch__info"><strong>black &middot; bg</strong><span style="color:var(--al-text-faint);">#0A0A0B</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#101113;"></div><div class="swatch__info"><strong>carbon-900</strong><span style="color:var(--al-text-faint);">#101113</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#16181B;"></div><div class="swatch__info"><strong>carbon-800 &middot; surface</strong><span style="color:var(--al-text-faint);">#16181B</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#1E2124;"></div><div class="swatch__info"><strong>carbon-700</strong><span style="color:var(--al-text-faint);">#1E2124</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#2A2E32;"></div><div class="swatch__info"><strong>carbon-600 &middot; border</strong><span style="color:var(--al-text-faint);">#2A2E32</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#3C4147;"></div><div class="swatch__info"><strong>carbon-500</strong><span style="color:var(--al-text-faint);">#3C4147</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#6B7178;"></div><div class="swatch__info"><strong>gray-400 &middot; faint</strong><span style="color:var(--al-text-faint);">#6B7178</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#9AA0A6;"></div><div class="swatch__info"><strong>gray-300 &middot; muted</strong><span style="color:var(--al-text-faint);">#9AA0A6</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#C7CBD0;"></div><div class="swatch__info"><strong>gray-200</strong><span style="color:var(--al-text-faint);">#C7CBD0</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#E8EAEC;"></div><div class="swatch__info"><strong>gray-100</strong><span style="color:var(--al-text-faint);">#E8EAEC</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#F4F5F3;"></div><div class="swatch__info"><strong>offwhite &middot; text</strong><span style="color:var(--al-text-faint);">#F4F5F3</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#FFFFFF; border-bottom:1px solid var(--al-border-strong);"></div><div class="swatch__info"><strong>white</strong><span style="color:var(--al-text-faint);">#FFFFFF</span></div></div>
+    </div>
+
+    <span class="note">--al-success / warning / danger / info &middot; --al-gold</span>
+    <h4 class="head" style="margin-bottom:24px;">Status &amp; Special</h4>
+    <div style="display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:16px; margin-bottom:56px;">
+      <div class="swatch"><div class="swatch__color" style="background:#3DDC84;"></div><div class="swatch__info"><strong>success</strong><span style="color:var(--al-text-faint);">#3DDC84</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#FFC53D;"></div><div class="swatch__info"><strong>warning</strong><span style="color:var(--al-text-faint);">#FFC53D</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#FF4D4F;"></div><div class="swatch__info"><strong>danger</strong><span style="color:var(--al-text-faint);">#FF4D4F</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#4DA6FF;"></div><div class="swatch__info"><strong>info</strong><span style="color:var(--al-text-faint);">#4DA6FF</span></div></div>
+      <div class="swatch"><div class="swatch__color" style="background:#D8B24A;"></div><div class="swatch__info"><strong>gold &middot; milestones</strong><span style="color:var(--al-text-faint);">#D8B24A</span></div></div>
+    </div>
+
+    <span class="note">Dark-first semantic aliases</span>
+    <h4 class="head" style="margin-bottom:24px;">Usage Mapping</h4>
+    <div style="border:1px solid var(--al-border); border-radius:2px; overflow:hidden;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:14px 24px; background:var(--al-carbon-900); border-bottom:1px solid var(--al-border); font-family:var(--al-font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--al-text-faint);">
+        <span>Alias</span><span>Maps to</span><span>Used for</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+        <span style="font-family:var(--al-font-mono);">--al-bg</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">--al-black</span><span style="color:var(--al-text-muted);">Page background</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+        <span style="font-family:var(--al-font-mono);">--al-surface-raised</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">--al-carbon-800</span><span style="color:var(--al-text-muted);">Cards, panels</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+        <span style="font-family:var(--al-font-mono);">--al-border</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">--al-carbon-600</span><span style="color:var(--al-text-muted);">Dividers, hairlines</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; border-bottom:1px solid var(--al-border); font-size:0.875rem; align-items:center;">
+        <span style="font-family:var(--al-font-mono);">--al-accent-contrast</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">--al-black</span><span style="color:var(--al-text-muted);">Text placed on accent &mdash; never white</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 2fr; padding:12px 24px; font-size:0.875rem; align-items:center;">
+        <span style="font-family:var(--al-font-mono);">--al-focus-ring</span><span style="font-family:var(--al-font-mono); color:var(--al-text-muted);">--al-lime-400</span><span style="color:var(--al-text-muted);">:focus-visible outline</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
