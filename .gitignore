@@ -1,0 +1,3 @@
+# Seeded Claude Design canvas output (regenerate with seed-canvas.mjs from the .dc.html sources)
+claude-design/*.html
+!claude-design/*.dc.html
