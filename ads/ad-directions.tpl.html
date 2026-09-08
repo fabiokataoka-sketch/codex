@@ -1,0 +1,613 @@
+<title>Home Station Pro em Cinco Capas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ink:#0A0A0B; --ink2:#101114; --surface:#16181B; --raise:#1D2024;
+    --line:#2A2D33; --line-soft:#1F2227;
+    --paper:#F4F5F3; --muted:#9AA0A6; --muted2:#6E747B;
+    --red:#E8362B; --red-hi:#FF4A3D;
+    --navy:#0E1B33; --gold:#C8A24A; --green:#2FA36B;
+    --display:'Archivo','Archivo Black',system-ui,sans-serif;
+    --body:'Inter',system-ui,-apple-system,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace;
+    --s:0.36;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 120px}
+  a{color:var(--red-hi)}
+  ::selection{background:var(--red);color:#fff}
+
+  /* ---------- shared bits ---------- */
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2)}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);vertical-align:middle;margin:0 .5em 2px}
+  h1,h2,h3{font-family:var(--display);text-transform:uppercase;text-wrap:balance;margin:0}
+  h1{font-weight:900;font-size:clamp(40px,7vw,76px);line-height:.94;letter-spacing:-.03em}
+  h2{font-weight:900;font-size:clamp(24px,3vw,32px);line-height:1;letter-spacing:-.02em}
+  h3{font-weight:800;font-size:15px;letter-spacing:.02em}
+  p{margin:0 0 14px}
+  .lede{font-size:19px;line-height:1.55;color:#D6D9D6;max-width:62ch}
+  .muted{color:var(--muted)}
+
+  /* ---------- header ---------- */
+  header{padding:72px 0 44px;border-bottom:1px solid var(--line-soft)}
+  .kicker{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-bottom:28px}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+         background:var(--line-soft);border:1px solid var(--line-soft);margin-top:36px}
+  .fact{background:var(--ink2);padding:18px 20px}
+  .fact .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted2);text-transform:uppercase}
+  .fact .v{font-family:var(--display);font-weight:800;font-size:17px;margin-top:7px;letter-spacing:-.01em}
+  .fact .n{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
+  .fact.open{background:#1a0f0e}
+  .fact.open .v{color:var(--red-hi)}
+
+  /* ---------- asset strip ---------- */
+  .section{padding:64px 0 0}
+  .section-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  .assets{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-top:26px}
+  .asset{background:var(--ink2);border:1px solid var(--line-soft);padding:14px}
+  .asset img{width:100%;display:block;border:1px solid var(--line);background:var(--navy)}
+  .asset .cap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+  /* ---------- boards ---------- */
+  .board{padding:64px 0;border-top:1px solid var(--line-soft);display:grid;
+         grid-template-columns:calc(1080px * var(--s)) 1fr;gap:44px;align-items:start}
+  .board-num{font-family:var(--mono);font-size:12px;color:var(--red-hi);letter-spacing:.2em;margin-bottom:14px}
+  .spec h2{margin-bottom:6px}
+  .spec .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
+  .angle{font-size:17px;color:#D6D9D6;margin:16px 0 26px;max-width:56ch}
+
+  .funnel{display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin:0 0 26px}
+  .step{background:var(--ink2);padding:12px 16px;display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:baseline}
+  .step .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--muted2);text-transform:uppercase}
+  .step .txt{font-size:14.5px;line-height:1.5}
+  .step:last-child{background:#17110f}
+  .step:last-child .lbl{color:var(--red-hi)}
+
+  .caption{background:var(--ink2);border:1px solid var(--line-soft);border-left:2px solid var(--red);
+           padding:18px 20px;font-size:14.5px;line-height:1.62;white-space:pre-line;color:#D9DCD9}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:22px}
+  .meta div{font-size:13.5px;line-height:1.55;color:var(--muted)}
+  .meta strong{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+               text-transform:uppercase;color:var(--muted2);margin-bottom:5px;font-weight:500}
+  .meta em{font-style:normal;color:#D9DCD9}
+
+  /* ---------- cover frame ---------- */
+  .cover-btn{all:unset;display:block;cursor:zoom-in;position:sticky;top:24px}
+  .cover-btn:focus-visible{outline:2px solid var(--red-hi);outline-offset:6px}
+  .frame{width:calc(1080px * var(--s));height:calc(1350px * var(--s));overflow:hidden;
+         border:1px solid var(--line);background:#000}
+  .frame .cv{transform:scale(var(--s));transform-origin:0 0}
+  .cover-btn[aria-pressed="true"]{position:static;cursor:zoom-out}
+  .cover-btn[aria-pressed="true"] .frame{--s:0.68;width:calc(1080px * 0.68);height:calc(1350px * 0.68);max-width:100%}
+  .cover-btn[aria-pressed="true"] .frame .cv{transform:scale(0.68)}
+  .zoomhint{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted2);
+            text-transform:uppercase;margin-top:10px}
+
+  /* ---------- the covers (1080 x 1350 coordinate space) ---------- */
+  .cv{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--ink);
+      color:var(--paper);font-family:var(--display);flex:none}
+  .cv .brand{position:absolute;left:72px;top:64px;font-family:var(--mono);font-size:21px;
+             letter-spacing:.22em;color:#8B9096;text-transform:uppercase}
+  .cv .brand b{color:var(--paper);font-weight:500}
+  .cv .foot{position:absolute;left:72px;bottom:64px;right:72px;display:flex;
+            justify-content:space-between;align-items:center;gap:24px}
+  .cv .cta{display:inline-flex;align-items:center;gap:14px;background:var(--red);color:#fff;
+           font-family:var(--display);font-weight:900;font-size:30px;letter-spacing:-.01em;
+           text-transform:uppercase;padding:20px 34px;border-radius:999px;white-space:nowrap}
+  .cv .site{font-family:var(--mono);font-size:20px;color:#8B9096;letter-spacing:.06em}
+  .cv .hl{font-weight:900;letter-spacing:-.035em;line-height:.92;text-transform:uppercase}
+  .cv .sub{font-family:var(--body);font-weight:400;text-transform:none;letter-spacing:0;
+           color:#B9BEC2;line-height:1.4}
+
+  .phone{border:9px solid #2A2D33;border-radius:46px;overflow:hidden;background:var(--navy);
+         box-shadow:0 60px 120px rgba(0,0,0,.65)}
+  .phone img{display:block;width:100%}
+
+  /* 01 — produto */
+  .cv1 .hl{position:absolute;left:72px;top:168px;width:560px;font-size:80px}
+  .cv1 .sub{position:absolute;left:72px;top:672px;width:460px;font-size:27px}
+  .cv1 .rule{position:absolute;left:72px;top:614px;width:110px;height:3px;background:var(--red)}
+  .cv1 .phone{position:absolute;right:-70px;top:250px;width:470px;height:880px;transform:rotate(-4deg)}
+  .cv1 .pill{position:absolute;right:60px;top:170px;font-family:var(--mono);font-size:18px;
+             letter-spacing:.14em;color:#8B9096;text-transform:uppercase;text-align:right}
+
+  /* 02 — o número */
+  .cv2{background:radial-gradient(120% 80% at 20% 12%,#16181B 0%,#0A0A0B 62%)}
+  .cv2 .lab{position:absolute;left:72px;top:210px;font-family:var(--mono);font-size:19px;
+            letter-spacing:.2em;color:#8B9096;text-transform:uppercase;line-height:1.7}
+  .cv2 .num{position:absolute;left:66px;top:280px;font-size:232px;font-weight:900;
+            letter-spacing:-.055em;line-height:1}
+  .cv2 .num i{font-style:normal;color:var(--red-hi)}
+  .cv2 .sub{position:absolute;left:72px;top:560px;width:640px;font-size:31px;color:#D6D9D6}
+  .cv2 .proof{position:absolute;left:72px;right:72px;top:720px;height:440px;overflow:hidden;
+              border:1px solid var(--line);background:var(--navy)}
+  .cv2 .proof img{width:100%;display:block;margin-top:-718px}
+  .cv2 .ptag{position:absolute;right:80px;top:688px;font-family:var(--mono);font-size:16px;
+             letter-spacing:.14em;color:#8B9096;text-transform:uppercase}
+
+  /* 03 — antes / depois */
+  .cv3 .col{position:absolute;top:0;bottom:0;width:50%;padding:150px 56px 300px}
+  .cv3 .left{left:0;background:#0E0F11}
+  .cv3 .right{right:0;background:#131417}
+  .cv3 .divider{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--red);opacity:.9}
+  .cv3 .ctitle{font-family:var(--mono);font-size:19px;letter-spacing:.24em;text-transform:uppercase;
+               color:#7C8187;margin-bottom:30px}
+  .cv3 .right .ctitle{color:var(--red-hi)}
+  .cv3 .bub{background:#1B1D21;color:#9AA0A6;font-family:var(--body);font-size:25px;line-height:1.35;
+            padding:20px 24px;border-radius:20px 20px 20px 4px;margin-bottom:16px;max-width:400px}
+  .cv3 .dots{font-family:var(--body);font-size:22px;color:#5C6167;margin-top:26px;line-height:1.5}
+  .cv3 .card{background:#0E1B33;border:1px solid #24354F;padding:26px 28px;font-family:var(--body)}
+  .cv3 .card .ct{font-family:var(--mono);font-size:15px;letter-spacing:.16em;color:var(--gold);
+                 text-transform:uppercase;margin-bottom:18px}
+  .cv3 .row{display:flex;justify-content:space-between;gap:18px;font-size:23px;color:#C9CEd4;
+            padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .cv3 .row b{color:#fff;font-weight:600}
+  .cv3 .row:last-child{border-bottom:0}
+  .cv3 .big{font-family:var(--display);font-weight:900;font-size:44px;white-space:nowrap;color:var(--gold);
+            letter-spacing:-.03em;margin-top:20px}
+  .cv3 .hl{position:absolute;left:56px;right:56px;bottom:170px;font-size:58px;text-align:center}
+  .cv3 .foot{justify-content:center}
+
+  /* 04 — mecanismo */
+  .cv4 .hl{position:absolute;left:72px;top:160px;width:760px;font-size:64px}
+  .cv4 .steps{position:absolute;left:72px;top:420px;right:72px}
+  .cv4 .st{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:26px 0;
+           border-top:1px solid #26282D}
+  .cv4 .st .n{font-family:var(--mono);font-size:26px;color:#6E747B;letter-spacing:.08em}
+  .cv4 .st .t{display:block;font-size:41px;font-weight:900;letter-spacing:-.025em;text-transform:uppercase;line-height:1}
+  .cv4 .st .d{display:block;font-family:var(--body);font-weight:400;text-transform:none;letter-spacing:0;
+              font-size:24px;color:#9AA0A6;margin-top:10px;line-height:1.4}
+  .cv4 .st.hot{border-top-color:var(--red)}
+  .cv4 .st.hot .n{color:var(--red-hi)}
+  .cv4 .st.hot .t{color:var(--red-hi)}
+  .cv4 .thumb{position:absolute;right:60px;top:150px;width:148px;border:1px solid var(--line);
+              overflow:hidden;background:var(--navy);opacity:.85}
+  .cv4 .thumb img{width:100%;display:block}
+
+  /* 05 — velocidade */
+  .cv5 .hl{position:absolute;left:72px;top:150px;width:640px;font-size:70px}
+  .cv5 .log{position:absolute;left:72px;top:940px;width:470px}
+  .cv5 .lg{display:grid;grid-template-columns:118px 1fr;gap:18px;padding:15px 0;
+           border-bottom:1px solid #24262B;align-items:baseline}
+  .cv5 .lg .h{font-family:var(--mono);font-size:22px;color:#7C8187;letter-spacing:.04em}
+  .cv5 .lg .e{font-family:var(--body);font-size:24px;color:#D6D9D6}
+  .cv5 .lg.on .h{color:var(--red-hi)}
+  .cv5 .lg.on .e{color:#fff;font-weight:600}
+  .cv5 .badge{position:absolute;left:72px;top:856px;font-family:var(--mono);font-size:18px;
+              letter-spacing:.2em;text-transform:uppercase;color:#fff;background:var(--red);
+              padding:10px 20px;border-radius:999px}
+  .cv5 .browser{position:absolute;right:-170px;top:470px;width:700px;border:1px solid #2A2D33;
+                border-radius:12px;overflow:hidden;background:#101114;
+                box-shadow:0 60px 120px rgba(0,0,0,.7)}
+  .cv5 .bar{height:38px;background:#17191D;display:flex;align-items:center;gap:9px;padding:0 16px;
+            border-bottom:1px solid #24262B}
+  .cv5 .bar i{width:11px;height:11px;border-radius:50%;background:#33363C;display:block}
+  .cv5 .bar span{font-family:var(--mono);font-size:14px;color:#6E747B;margin-left:14px}
+  .cv5 .browser img{width:100%;display:block}
+
+  /* ---------- calendar ---------- */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line-soft);margin-top:26px}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+  th,td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+     color:var(--muted2);font-weight:500;background:var(--ink2)}
+  td.day{font-family:var(--mono);color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  .fmt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+       color:var(--muted2);display:block;margin-top:3px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:26px}
+  .card{background:var(--ink2);border:1px solid var(--line-soft);padding:20px}
+  .card h3{margin-bottom:9px;color:var(--red-hi)}
+  .card p{font-size:14.5px;color:var(--muted);margin:0}
+  footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--line-soft);
+         font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted2);
+         display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;text-transform:uppercase}
+
+  @media (max-width:1080px){
+    .board{grid-template-columns:1fr;gap:32px}
+    .cover-btn{position:static}
+  }
+  @media (max-width:520px){
+    :root{--s:0.30}
+    .wrap{padding:0 18px 80px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">
+    <span class="eyebrow">AI Lab<span class="dot"></span>Direção criativa</span>
+    <span class="eyebrow">08.09.2026</span>
+    <span class="eyebrow">Campanha: sites que qualificam</span>
+  </div>
+  <h1>Cinco maneiras<br>de anunciar<br>o mesmo site</h1>
+  <p class="lede" style="margin-top:28px">Hoje o lab entregou o <strong>Home Station Pro</strong> — a página da consultora
+  imobiliária Eloisa Matsuuchi, com simulador de financiamento e pré-qualificação em seis perguntas.
+  Ela é o argumento de venda mais forte que o lab tem no momento: um site que faz a primeira triagem sozinho.
+  Abaixo, cinco direções para transformar esse mockup em anúncio. Escolha uma — o resto da produção e o
+  agendamento saem em cima dela.</p>
+
+  <div class="facts">
+    <div class="fact"><div class="k">CTA</div><div class="v">Direct do Instagram</div>
+      <div class="n">Palavra-chave <em>SITE</em> na DM. O link de WhatsApp entra no lugar em uma linha, se você me passar o número.</div></div>
+    <div class="fact"><div class="k">Formato</div><div class="v">Carrossel 4:5 + Reel 9:16</div>
+      <div class="n">Meio-dia carrossel, noite vídeo. Cobre IG, Facebook e TikTok — que já recebe post de foto no seu fluxo atual.</div></div>
+    <div class="fact"><div class="k">Oferta</div><div class="v">Sem preço na peça</div>
+      <div class="n">Nenhuma âncora de valor. A conversa de orçamento acontece na DM.</div></div>
+    <div class="fact"><div class="k">Contas</div><div class="v">As duas, copy adaptado</div>
+      <div class="n">Ai Lab Global fala com corretor. Mestre do Mercari fala com quem vende e atende no Japão.</div></div>
+    <div class="fact open"><div class="k">Falta decidir</div><div class="v">A direção</div>
+      <div class="n">Uma das cinco vira peça-mãe das duas semanas. As outras podem virar variação dentro do mesmo ciclo.</div></div>
+    <div class="fact open"><div class="k">Falta confirmar</div><div class="v">Aval da Eloisa</div>
+      <div class="n">O site aparece com o nome dela nas capas. Vale um "posso usar como caso?" antes do primeiro post.</div></div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="section-head"><h2>O material é real</h2><span class="eyebrow">Capturas do site publicado, 08.09.2026</span></div>
+  <p class="lede">Nenhuma tela abaixo é ilustração. São capturas do casa-jp-f.lovable.app rodando em celular —
+  é isso que dá peso à peça, e é o que nenhum concorrente consegue copiar sem ter feito o trabalho.</p>
+  <div class="assets">
+    <div class="asset"><img src="{{HERO}}" alt="Topo do site em celular: nome da consultora, headline e dois botões de ação.">
+      <div class="cap">01 · Abertura — nome, promessa e dois caminhos</div></div>
+    <div class="asset"><img src="{{RES}}" alt="Resultado do simulador: parcela mensal estimada de 83.152 ienes, total pago e comparação com aluguel.">
+      <div class="cap">02 · Simulador — a parcela aparece na hora</div></div>
+    <div class="asset"><img src="{{PREQUAL}}" alt="Formulário de pré-qualificação em seis perguntas, mostrando a etapa 1 de 6.">
+      <div class="cap">03 · Pré-qualificação — 6 perguntas, 1 de cada vez</div></div>
+    <div class="asset"><img src="{{DHERO}}" alt="O mesmo site aberto em tela de computador, com a foto vertical à direita." style="aspect-ratio:16/10;object-fit:cover;object-position:top">
+      <div class="cap">04 · Desktop — mesma página, outra leitura</div></div>
+  </div>
+</section>
+
+<!-- ============ 01 ============ -->
+<div class="board">
+  <button class="cover-btn" aria-pressed="false" aria-label="Ampliar capa 01">
+    <div class="frame"><div class="cv cv1">
+      <div class="brand"><b>AI LAB</b>®</div>
+      <div class="pill">Estudo de caso<br>08 . 09 . 2026</div>
+      <div class="hl">O site que<br>atende<br>enquanto<br>você dorme</div>
+      <div class="rule"></div>
+      <div class="sub">Entreguei uma página para uma consultora imobiliária. O que ela recebeu foi um funcionário.</div>
+      <div class="phone"><img src="{{HERO}}" alt=""></div>
+      <div class="foot"><span class="cta">Manda “site” no direct</span><span class="site">ailabglobal.com</span></div>
+    </div></div>
+    <div class="zoomhint">Clique para ampliar · 1080 × 1350</div>
+  </button>
+
+  <div class="spec">
+    <div class="board-num">Direção 01</div>
+    <h2>O produto em primeiro plano</h2>
+    <div class="tag">Domina a peça: o mockup · Risco: baixo · Produção: 2 h</div>
+    <p class="angle">A capa mais direta: o celular grande, sangrando na borda, e uma promessa curta.
+    Funciona porque quase ninguém no seu feed já viu um site brasileiro no Japão com essa cara —
+    a imagem sozinha já é a diferenciação. É a direção que eu escolheria para abrir a campanha.</p>
+
+    <div class="funnel">
+      <div class="step"><span class="lbl">Parada</span><span class="txt">A tela do site num feed de fotos de celular mal iluminadas.</span></div>
+      <div class="step"><span class="lbl">Prova</span><span class="txt">Slides 2 e 3: o simulador calculando e as seis perguntas rodando.</span></div>
+      <div class="step"><span class="lbl">Desejo</span><span class="txt">Slide 4: a mensagem que chega pronta na DM da corretora, com visto, renda e parcela.</span></div>
+      <div class="step"><span class="lbl">Ação</span><span class="txt">Slide 5: “manda SITE no direct” — uma palavra, sem link, sem formulário.</span></div>
+    </div>
+
+    <div class="caption">Uma consultora imobiliária me pediu um site. O que ela recebeu foi um funcionário.
+
+O cliente dela abre a página às onze da noite, arrasta o valor do imóvel e vê a parcela na hora. Responde seis perguntas sobre visto, tempo de Japão e renda. Só então cai na conversa — com tudo escrito.
+
+O QUE MUDA. Ela para de gastar a primeira conversa perguntando o básico. Começa do ponto em que dá para ajudar.
+
+O QUE ISSO NÃO É. Não é promessa de aprovação e não é robô fingindo ser gente. É uma página que faz as perguntas certas, na ordem certa, quando você está dormindo.
+
+Se você atende brasileiro aqui — imóvel, seguro, oficina, contabilidade — o mecanismo é o mesmo.
+
+Manda SITE no direct que eu te mostro por dentro.
+
+#AILabGlobal #SitesQueVendem #BrasileiroNoJapão</div>
+
+    <div class="meta">
+      <div><strong>Reel 9:16</strong><em>Gravação de tela real:</em> dedo arrastando o slider, número mudando, 12 s, sem locução — só o som do teclado e um corte seco no fim.</div>
+      <div><strong>Mestre do Mercari</strong><em>Mesma capa,</em> outra frase: “se você vende no Mercari e atende no direct, o site é quem responde quando você está no trabalho”.</div>
+      <div><strong>Cuidado</strong>O nome da Eloisa aparece legível na capa. Ou pedimos o aval dela, ou desfoco o nome e mantenho só a interface.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 02 ============ -->
+<div class="board">
+  <button class="cover-btn" aria-pressed="false" aria-label="Ampliar capa 02">
+    <div class="frame"><div class="cv cv2">
+      <div class="brand"><b>AI LAB</b>®</div>
+      <div class="lab">Parcela mensal estimada<br>¥30.000.000 · 40 anos · 1,5% a.a.</div>
+      <div class="num"><i>¥</i>83.152</div>
+      <div class="sub">Ele descobriu isso sozinho. Às 23h. Sem te mandar uma única pergunta.</div>
+      <div class="ptag">captura real</div>
+      <div class="proof"><img src="{{RES}}" alt=""></div>
+      <div class="foot"><span class="cta">Manda “site” no direct</span><span class="site">ailabglobal.com</span></div>
+    </div></div>
+    <div class="zoomhint">Clique para ampliar · 1080 × 1350</div>
+  </button>
+
+  <div class="spec">
+    <div class="board-num">Direção 02</div>
+    <h2>O número que para o polegar</h2>
+    <div class="tag">Domina a peça: o dado · Risco: médio · Produção: 1 h</div>
+    <p class="angle">Um número grande e específico é a coisa mais parada que existe num feed —
+    e ¥83.152 é específico o bastante para a pessoa querer saber de onde saiu. O risco é o público
+    ler como anúncio de financiamento e não de site; o segundo slide tem que corrigir isso em três segundos.</p>
+
+    <div class="funnel">
+      <div class="step"><span class="lbl">Parada</span><span class="txt">O número sozinho, sem contexto, em corpo gigante.</span></div>
+      <div class="step"><span class="lbl">Prova</span><span class="txt">Slide 2: de onde ele veio — o simulador com os quatro campos.</span></div>
+      <div class="step"><span class="lbl">Desejo</span><span class="txt">Slide 3: “toda vez que alguém mexe nesse número, você ganha um lead qualificado”.</span></div>
+      <div class="step"><span class="lbl">Ação</span><span class="txt">Slide 4: qual é o número que o seu negócio poderia calcular sozinho? Direct.</span></div>
+    </div>
+
+    <div class="caption">¥83.152 por mês. Ninguém precisou me perguntar nada para chegar nesse número.
+
+Esse é o coração do site que entreguei hoje para uma consultora imobiliária: o cliente arrasta o valor do imóvel, a entrada, o prazo e a taxa, e a parcela aparece na hora. Do lado, ele digita quanto paga de aluguel hoje e vê a diferença.
+
+POR QUE ISSO IMPORTA MAIS QUE O DESIGN. Quem está pensando em comprar casa no Japão tem uma pergunta só na cabeça, e é essa. Enquanto ela não é respondida, nada mais é lido.
+
+E TEM UM SEGUNDO EFEITO. Quem mexe no simulador está a um passo de falar com você. Quem só olha bonito, não.
+
+Todo negócio tem um número assim. Frete, prazo, parcela, orçamento. Qual é o seu?
+
+Manda SITE no direct e a gente descobre.
+
+#AILabGlobal #SitesQueVendem #BrasileiroNoJapão</div>
+
+    <div class="meta">
+      <div><strong>Reel 9:16</strong>Tela cheia com o número contando de ¥0 até ¥83.152 enquanto o slider anda. Corte para a frase. 9 s.</div>
+      <div><strong>Mestre do Mercari</strong>Troca o número pela margem de uma venda: “¥4.280 de lucro. A calculadora estava na página, não na sua cabeça.”</div>
+      <div><strong>Cuidado</strong>O aviso de que é estimativa, e não proposta de crédito, tem que aparecer no slide 2 e na legenda. Não é opcional.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 03 ============ -->
+<div class="board">
+  <button class="cover-btn" aria-pressed="false" aria-label="Ampliar capa 03">
+    <div class="frame"><div class="cv cv3">
+      <div class="col left">
+        <div class="ctitle">Antes</div>
+        <div class="bub">oi, tenho interesse</div>
+        <div class="bub">vc atende em Gifu?</div>
+        <div class="bub">quanto fica mais ou menos?</div>
+        <div class="dots">…e mais seis mensagens até<br>descobrir que falta tempo<br>de empresa.</div>
+      </div>
+      <div class="col right">
+        <div class="ctitle">Depois</div>
+        <div class="card">
+          <div class="ct">Chega assim, pronto</div>
+          <div class="row"><span>Visto</span><b>Permanente</b></div>
+          <div class="row"><span>Japão</span><b>+5 anos</b></div>
+          <div class="row"><span>Empresa atual</span><b>+3 anos</b></div>
+          <div class="row"><span>Renda anual</span><b>¥5–7M</b></div>
+          <div class="row"><span>Entrada</span><b>¥2.000.000</b></div>
+          <div class="big">Parcela: ¥83.152</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="brand"><b>AI LAB</b>®</div>
+      <div class="hl">A mesma pessoa.<br>Dois jeitos de<br>chegar até você.</div>
+      <div class="foot"><span class="cta">Manda “site” no direct</span></div>
+    </div></div>
+    <div class="zoomhint">Clique para ampliar · 1080 × 1350</div>
+  </button>
+
+  <div class="spec">
+    <div class="board-num">Direção 03</div>
+    <h2>Antes e depois da conversa</h2>
+    <div class="tag">Domina a peça: o contraste · Risco: baixo · Produção: 1,5 h</div>
+    <p class="angle">Esta é a direção que mais fala com quem vive a dor: o corretor que perde a tarde
+    trocando mensagem para descobrir que a pessoa não tem tempo de empresa. Não mostra o site na capa —
+    mostra o resultado dele. É a mais vendedora das cinco, e a que menos parece anúncio de tecnologia.</p>
+
+    <div class="funnel">
+      <div class="step"><span class="lbl">Parada</span><span class="txt">A bolha “oi, tenho interesse”. Todo mundo que atende no direct reconhece.</span></div>
+      <div class="step"><span class="lbl">Prova</span><span class="txt">Slides 2 e 3: as seis perguntas que produzem a ficha da direita.</span></div>
+      <div class="step"><span class="lbl">Desejo</span><span class="txt">Slide 4: a conta do tempo — quantas horas por semana você gasta na triagem manual.</span></div>
+      <div class="step"><span class="lbl">Ação</span><span class="txt">Slide 5: “quer receber assim?” Direct com a palavra SITE.</span></div>
+    </div>
+
+    <div class="caption">“Oi, tenho interesse.” É com essa frase que começa quase todo atendimento — e é ela que come a sua semana.
+
+Depois dela vêm seis, oito mensagens até você descobrir o que precisava saber na primeira: o visto, o tempo de empresa, a renda, se tem entrada guardada. Metade das conversas morre antes disso. A outra metade chega em você já cansada.
+
+O QUE EU FIZ HOJE PARA UMA CONSULTORA IMOBILIÁRIA. A página faz as seis perguntas antes, uma por vez, em menos de um minuto. E entrega a ficha pronta.
+
+O CUIDADO QUE ISSO EXIGE. Nada de dizer “aprovado”. A página classifica o perfil, explica o próximo passo e devolve a conversa para a pessoa — que é quem decide.
+
+Se o seu atendimento também começa com “tenho interesse”, dá para mudar o começo.
+
+Manda SITE no direct.
+
+#AILabGlobal #SitesQueVendem #BrasileiroNoJapão</div>
+
+    <div class="meta">
+      <div><strong>Reel 9:16</strong>Split na vertical: em cima as bolhas subindo, embaixo a ficha se preenchendo campo a campo. 11 s.</div>
+      <div><strong>Mestre do Mercari</strong>Direta: “‘ainda tem?’ é a mensagem que você mais responde. Ela devia ser respondida sem você.”</div>
+      <div><strong>Cuidado</strong>As bolhas são ilustrativas — escritas por mim, não capturadas de cliente nenhum. Mantém assim.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 04 ============ -->
+<div class="board">
+  <button class="cover-btn" aria-pressed="false" aria-label="Ampliar capa 04">
+    <div class="frame"><div class="cv cv4">
+      <div class="brand"><b>AI LAB</b>®</div>
+      <div class="thumb"><img src="{{PREQUAL}}" alt=""></div>
+      <div class="hl">Entre o anúncio<br>e a conversa,<br>quatro passos<br>que rodam sem você</div>
+      <div class="steps">
+        <div class="st"><span class="n">01</span><span><span class="t">Ele chega pelo celular</span>
+          <span class="d">Do Facebook, às onze da noite, no intervalo do turno.</span></span></div>
+        <div class="st"><span class="n">02</span><span><span class="t">Descobre a parcela</span>
+          <span class="d">Mexe nos valores até achar o cenário que cabe no bolso dele.</span></span></div>
+        <div class="st"><span class="n">03</span><span><span class="t">Responde seis perguntas</span>
+          <span class="d">Visto, tempo de Japão, renda, tempo de empresa, entrada.</span></span></div>
+        <div class="st hot"><span class="n">04</span><span><span class="t">Cai na sua conversa pronto</span>
+          <span class="d">Com tudo escrito. Você abre e já sabe se dá para ajudar.</span></span></div>
+      </div>
+      <div class="foot"><span class="cta">Manda “site” no direct</span><span class="site">ailabglobal.com</span></div>
+    </div></div>
+    <div class="zoomhint">Clique para ampliar · 1080 × 1350</div>
+  </button>
+
+  <div class="spec">
+    <div class="board-num">Direção 04</div>
+    <h2>O mecanismo desenhado</h2>
+    <div class="tag">Domina a peça: o diagrama · Risco: baixo · Produção: 1 h</div>
+    <p class="angle">A capa mais didática e a que menos depende de imagem bonita — é texto e estrutura,
+    exatamente o tom dos seus posts que já performam. Vende o método, não o visual, e por isso
+    envelhece melhor: serve de peça de fundo de funil pelas duas semanas inteiras.</p>
+
+    <div class="funnel">
+      <div class="step"><span class="lbl">Parada</span><span class="txt">A promessa “rodam sem você” — o feed do corretor é feito de trabalho manual.</span></div>
+      <div class="step"><span class="lbl">Prova</span><span class="txt">Slides 2 a 4: um passo por slide, com a captura correspondente do site.</span></div>
+      <div class="step"><span class="lbl">Desejo</span><span class="txt">Slide 5: o mesmo diagrama aplicado a outro negócio — oficina, despachante, seguro.</span></div>
+      <div class="step"><span class="lbl">Ação</span><span class="txt">Slide 6: “te desenho o seu em uma conversa”. Direct.</span></div>
+    </div>
+
+    <div class="caption">Um site que só é bonito custa caro e não devolve nada. O que devolve é a ordem em que ele pergunta as coisas.
+
+O que entreguei hoje tem quatro passos, e nenhum deles precisa de mim depois de publicado:
+
+1. A PESSOA CHEGA PELO CELULAR, quase sempre de noite, quase sempre pelo Facebook.
+2. DESCOBRE A PARCELA sozinha, mexendo nos valores até achar o que cabe.
+3. RESPONDE SEIS PERGUNTAS — visto, tempo de Japão, renda, tempo de empresa, entrada.
+4. CAI NA CONVERSA PRONTA, com tudo escrito.
+
+O passo 3 é o que quase nenhum site tem. É ele que separa curioso de cliente — e é ele que devolve a sua tarde.
+
+Isso não é exclusividade de imobiliária. Oficina, despachante, seguro, contabilidade: muda a pergunta, o mecanismo é o mesmo.
+
+Manda SITE no direct que eu desenho o seu.
+
+#AILabGlobal #SitesQueVendem #BrasileiroNoJapão</div>
+
+    <div class="meta">
+      <div><strong>Reel 9:16</strong>Os quatro passos entrando um a um sobre a gravação de tela, texto grande, 14 s. É o mais fácil de produzir em série.</div>
+      <div><strong>Mestre do Mercari</strong>Mesma estrutura com os passos do vendedor: anúncio, dúvida, resposta automática, venda.</div>
+      <div><strong>Cuidado</strong>Diagrama de quatro passos é fácil virar genérico. Cada passo precisa da captura real ao lado no carrossel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 05 ============ -->
+<div class="board">
+  <button class="cover-btn" aria-pressed="false" aria-label="Ampliar capa 05">
+    <div class="frame"><div class="cv cv5">
+      <div class="brand"><b>AI LAB</b>®</div>
+      <div class="hl">Uma hora<br>e um minuto<br>entre o briefing<br>e o site no ar</div>
+      <div class="log">
+        <div class="lg"><span class="h">13:47</span><span class="e">Briefing recebido</span></div>
+        <div class="lg on"><span class="h">14:48</span><span class="e">Publicado — no ar</span></div>
+      </div>
+      <div class="badge">No ar · 08.09.2026</div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>casa-jp-f.lovable.app</span></div>
+        <img src="{{DHERO}}" alt="">
+      </div>
+      <div class="foot"><span class="cta">Manda “site” no direct</span><span class="site">ailabglobal.com</span></div>
+    </div></div>
+    <div class="zoomhint">Clique para ampliar · 1080 × 1350</div>
+  </button>
+
+  <div class="spec">
+    <div class="board-num">Direção 05</div>
+    <h2>O ship log</h2>
+    <div class="tag">Domina a peça: o tempo · Risco: médio · Produção: 1 h</div>
+    <p class="angle">Esta é a única das cinco que vende <em>você</em>, não o site: um lab de uma pessoa
+    que entrega no mesmo dia. Combina com o ship log que já existe no ailabglobal.com e com a linha
+    de bastidor que o seu feed já usa. O risco é o preço: velocidade barateia percepção se vier
+    sem a prova de qualidade ao lado — por isso o navegador aberto na capa é obrigatório.</p>
+
+    <div class="funnel">
+      <div class="step"><span class="lbl">Parada</span><span class="txt">Os horários. Ninguém no nicho publica registro de entrega com hora.</span></div>
+      <div class="step"><span class="lbl">Prova</span><span class="txt">Slides 2 e 3: o que existia às 4h47 e o que existia às 5h48.</span></div>
+      <div class="step"><span class="lbl">Desejo</span><span class="txt">Slide 4: o que dá para ter em um dia — e o que honestamente não dá.</span></div>
+      <div class="step"><span class="lbl">Ação</span><span class="txt">Slide 5: o que eu preciso saber para dizer se o seu caso cabe em um dia. Direct.</span></div>
+    </div>
+
+    <div class="caption">Briefing às 13h47. No ar às 14h48. Uma hora e um minuto entre a conversa e a página publicada.
+
+Não é mágica e não é atalho: é ter decidido antes o que entra e o que não entra. O site que subiu hoje tem simulador de financiamento, pré-qualificação em seis perguntas e handoff direto para a conversa. Não tem login, não tem banco de dados, não tem página de blog que ninguém leria.
+
+O QUE CABE EM UM DIA. Uma página que faz uma coisa muito bem: transformar visita em conversa qualificada.
+
+O QUE NÃO CABE, E EU DIGO NA HORA. Loja com estoque, área de cliente, integração com sistema antigo. Isso é projeto de semanas, e prometer um dia seria mentira.
+
+Velocidade não é o produto. É o efeito de ter recusado tudo que não fazia falta.
+
+Manda SITE no direct e eu te digo, em duas perguntas, se o seu caso cabe em um dia.
+
+#AILabGlobal #BastidoresDoEstúdio #BrasileiroNoJapão</div>
+
+    <div class="meta">
+      <div><strong>Reel 9:16</strong>Timelapse dos horários subindo em mono sobre o fundo preto, terminando na tela do site. 10 s.</div>
+      <div><strong>Mestre do Mercari</strong>Funciona igual: o ship log é sobre o lab, não sobre imobiliária. É a peça mais fácil de reaproveitar entre as contas.</div>
+      <div><strong>Cuidado</strong>Os horários da capa são os reais do projeto de hoje. Se algum estiver errado, me corrija antes — número inventado aqui destrói justamente o que a peça vende.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ agenda ============ -->
+<section class="section" style="border-top:1px solid var(--line-soft);margin-top:64px;padding-top:56px">
+  <div class="section-head"><h2>Duas semanas, dois horários por dia</h2><span class="eyebrow">09/09 → 22/09 · Asia/Tokyo</span></div>
+  <p class="lede">Seu feed do Ai Lab Global já publica às 10h e às 18h todos os dias, e essa fila está cheia até 13/09.
+  Como você disse que não importa concorrer, proponho <strong>12h e 20h</strong>: não colide no mesmo minuto,
+  pega o intervalo do almoço e o fim de turno, e mantém as duas séries rodando em paralelo.
+  São 28 posts por conta — 56 no total, todos com a direção escolhida como peça-mãe.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Dia</th><th>12:00 · carrossel 4:5</th><th>20:00 · reel 9:16</th></tr></thead>
+      <tbody>
+        <tr><td class="day">qua 09/09</td><td>Peça-mãe: a direção escolhida<span class="fmt">5 slides</span></td><td>Gravação de tela do simulador<span class="fmt">12 s</span></td></tr>
+        <tr><td class="day">qui 10/09</td><td>As seis perguntas, uma por slide<span class="fmt">7 slides</span></td><td>“Oi, tenho interesse” → ficha pronta<span class="fmt">11 s</span></td></tr>
+        <tr><td class="day">sex 11/09</td><td>¥83.152: de onde sai o número<span class="fmt">4 slides</span></td><td>Ship log: 4h47 → 5h48<span class="fmt">10 s</span></td></tr>
+        <tr><td class="day">sáb 12/09</td><td>Objeção: “já tenho Instagram”<span class="fmt">5 slides</span></td><td>O passo 3 que quase nenhum site tem<span class="fmt">14 s</span></td></tr>
+        <tr><td class="day">dom 13/09</td><td>O mesmo mecanismo em outro negócio<span class="fmt">6 slides</span></td><td>Scroll completo da página<span class="fmt">15 s</span></td></tr>
+        <tr><td class="day">seg 14/09</td><td>O que cabe em um dia — e o que não cabe<span class="fmt">5 slides</span></td><td>Recorte do simulador em close<span class="fmt">9 s</span></td></tr>
+        <tr><td class="day">ter 15/09</td><td>Oferta: uma semana livre no mês<span class="fmt">3 slides</span></td><td>Peça-mãe em vídeo<span class="fmt">12 s</span></td></tr>
+        <tr><td class="day">qua 16/09</td><td>Peça-mãe, segunda leitura<span class="fmt">5 slides</span></td><td>As seis perguntas em vídeo<span class="fmt">13 s</span></td></tr>
+        <tr><td class="day">qui 17/09</td><td>Antes e depois da triagem<span class="fmt">5 slides</span></td><td>¥83.152 contando na tela<span class="fmt">9 s</span></td></tr>
+        <tr><td class="day">sex 18/09</td><td>Bastidor: por que não usei foto de banco<span class="fmt">4 slides</span></td><td>Objeção “já tenho Instagram”<span class="fmt">11 s</span></td></tr>
+        <tr><td class="day">sáb 19/09</td><td>Erro comum: site bonito que não pergunta nada<span class="fmt">5 slides</span></td><td>Ship log, versão longa<span class="fmt">14 s</span></td></tr>
+        <tr><td class="day">dom 20/09</td><td>Checklist: seu site faz essas 4 coisas?<span class="fmt">6 slides</span></td><td>Mecanismo em 4 passos<span class="fmt">14 s</span></td></tr>
+        <tr><td class="day">seg 21/09</td><td>O que o lead descobre sem te perguntar<span class="fmt">5 slides</span></td><td>Handoff para a conversa<span class="fmt">10 s</span></td></tr>
+        <tr><td class="day">ter 22/09</td><td>Fechamento: como começar<span class="fmt">4 slides</span></td><td>Peça-mãe, corte final<span class="fmt">12 s</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h3>Redes por post</h3><p>Instagram (post e reel), Facebook e TikTok — a mesma tríade que o seu fluxo atual já usa, inclusive TikTok com foto.</p></div>
+    <div class="card"><h3>Padrão que eu mantenho</h3><p>Texto em português com bloco em inglês, alt text em toda mídia, declaração de conteúdo gerado por IA marcada — igual aos posts já agendados.</p></div>
+    <div class="card"><h3>O que muda entre as contas</h3><p>Mesma peça, primeira frase diferente. No Mestre do Mercari o assunto é quem vende e atende sozinho; a imobiliária vira exemplo, não tema.</p></div>
+    <div class="card"><h3>Antes de eu agendar</h3><p>Escolha a direção, confirme os horários e me diga se o número de WhatsApp entra no lugar do direct. Com isso eu produzo as peças e subo as 56 publicações.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>AI Lab® · Gunma, Japão</span>
+  <span>Mockup: casa-jp-f.lovable.app · capturado 08.09.2026</span>
+  <span>Decisão pendente: 1 de 5</span>
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.cover-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var on = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    });
+  });
+</script>
