@@ -106,10 +106,22 @@ a versão com trilha.
 
 ## O que falta — só o Fabio pode fazer
 
-Ligar os canais no painel do Epidemic Sound (@ailab_global, @ailabglobal, @fabiokataoka,
-@mestredomercari e as duas páginas do Facebook) **antes de 09/09 20:00 JST**, quando o
-primeiro reel publica. Sem isso o Content ID do Meta pode mutar o Reel mesmo com licença
-válida. É uma ação no dashboard do Epidemic, fora do alcance do conector.
+Ligar os canais no painel do Epidemic Sound **antes de 09/09 20:00 JST**, quando o
+primeiro reel publica:
+
+| Canal | Rede | Conta |
+|---|---|---|
+| @ailab_global | Instagram | Ai Lab Global |
+| @ailabglobal | TikTok | Ai Lab Global |
+| @fabiokataoka | Instagram | Mestre do Mercari |
+| @mestredomercari | TikTok | Mestre do Mercari |
+| página `1098605763346780` | Facebook | Ai Lab Global |
+| página `1023856787468699` | Facebook | Mestre do Mercari |
+
+Os reels publicam só no Instagram e no TikTok; as duas páginas do Facebook entram na
+lista porque é o Content ID da Meta que varre os dois, e o carrossel da mesma campanha
+publica lá. Sem isso o Content ID pode mutar o Reel mesmo com licença válida. É uma ação
+no dashboard do Epidemic, fora do alcance do conector.
 
 ## Cuidados
 
