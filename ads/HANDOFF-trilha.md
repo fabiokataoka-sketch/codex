@@ -18,17 +18,20 @@ Aprovadas pelo Fabio em 08/09/2026, ouvidas sobre o reel A1:
 | Arquivo | Faixa | ID | Perfil |
 |---|---|---|---|
 | `trilhas/t1.mp3` | Luxx — Out To The World | `0005db4e-ce08-463f-b43c-b32539837dc5` | minimal tensa, 96 bpm |
-| `trilhas/t2.mp3` | **a definir** | — | pad ambiente, sem percussão, sem vocal |
+| `trilhas/t2.mp3` | Neutral State — Blue Saga | `f5962eae-e078-4356-9b86-ec1a336cac34` | pad ambiente, 80 bpm |
 | `trilhas/t3.mp3` | Jupiter Aurora — David Celeste | `3aaf6486-4f8e-35cc-b853-f77dd52dffa6` | pulso marcado, 81 bpm |
 
-A t2 precisa ser escolhida com o Fabio: a faixa usada no sample 2 não pôde ser
-identificada no catálogo, então não entra sem confirmação.
+A t2 foi escolhida com o Fabio em 08/09/2026 entre três candidatas sem vocal e
+sem stem de bateria (Neutral State, Vildmark, Zae). A faixa do sample 2 original
+continua não identificada no catálogo e não foi usada.
 
 `DownloadRecording` com `{ fileType: "MP3", stemType: "FULL" }`, salvar em `trilhas/`.
+`trilhas/` está no `.gitignore`: o repositório é público e a licença cobre o uso
+na peça, não a redistribuição da faixa solta.
 
 ## Passo 2 — montar
 
-    cd ads && node mix_reels.js      # escreve video_music/reel_*.mp4
+    cd ads && npm install && node mix_reels.js   # escreve video_music/reel_*.mp4
 
 Mapeamento: t1 → A1 A2 C1 C2 D1 D2 · t2 → B1 B2 G1 G2 · t3 → E1 E2 F1 F2.
 Corte na duração exata do reel, -16 LUFS, fade de 0,5 s na entrada e 1,1 s na saída.

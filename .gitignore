@@ -1,0 +1,9 @@
+node_modules/
+
+# Trilhas licenciadas do Epidemic Sound e as saídas intermediárias do mix.
+# O áudio entra no repositório só dentro dos MP4 de ads/media/, nunca solto:
+# o repositório é público (o jsDelivr serve dele) e a licença cobre o uso na
+# peça, não a redistribuição da faixa.
+ads/trilhas/
+ads/video/
+ads/video_music/

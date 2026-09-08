@@ -23,7 +23,7 @@ for (const [track, { offset, reels }] of Object.entries(MAP)) {
   const mp3 = `trilhas/${track}.mp3`;
   if (!fs.existsSync(mp3)) throw new Error('faltando ' + mp3);
   for (const r of reels) {
-    const src = `video/reel_${r}.mp4`, out = `video_music/reel_${r}.mp4`;
+    const src = `media/reel_${r}.mp4`, out = `video_music/reel_${r}.mp4`;
     const d = dur(src);
     if (!d) throw new Error('sem duração: ' + src);
     const fadeStart = (d - 1.1).toFixed(2);
@@ -33,6 +33,8 @@ for (const [track, { offset, reels }] of Object.entries(MAP)) {
         + `afade=t=in:st=0:d=0.5,afade=t=out:st=${fadeStart}:d=1.1,`
         + `loudnorm=I=-16:TP=-1.5:LRA=11,aresample=44100[a]`,
       '-map','0:v','-map','[a]','-c:v','copy','-c:a','aac','-b:a','128k',
+      // as trilhas trazem capítulos ID3 que o muxer mp4 escreveria como faixa de texto
+      '-dn','-map_chapters','-1',
       '-shortest','-movflags','+faststart', out]);
     const od = dur(out);
     if (!od || Math.abs(od - d) > 0.3) throw new Error('duração divergente em ' + out);
