@@ -1,0 +1,283 @@
+<meta charset="utf-8">
+<title>AI Lab — deck builder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ink:#0A0A0B; --ink2:#101114; --line:#2A2D33; --line2:#1E2126;
+    --paper:#F4F5F3; --muted:#9AA0A6; --muted2:#767C83;
+    --red:#E8362B; --red-hi:#FF4A3D; --navy:#0E1B33; --gold:#C8A24A;
+    --display:'Archivo',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#3a3a3a;font-family:var(--body)}
+  #stage{display:flex;flex-wrap:wrap;gap:24px;padding:24px}
+
+  .slide{width:1080px;position:relative;overflow:hidden;background:var(--ink);color:var(--paper);
+         font-family:var(--display);display:flex;flex-direction:column;flex:none}
+  .r45{height:1350px;padding:72px}
+  .r916{height:1920px;padding:72px 72px 96px}
+  .r916 .top{padding-top:190px}
+  .r916 .bottom{padding-bottom:300px}
+
+  .top{flex:none;display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+  .body{flex:1;display:flex;min-height:0;padding:44px 0}
+  .bottom{flex:none;display:flex;justify-content:space-between;align-items:center;gap:24px}
+
+  .brand{font-family:var(--mono);font-size:21px;letter-spacing:.22em;color:#8B9096;text-transform:uppercase}
+  .brand b{color:var(--paper);font-weight:500}
+  .eyebrow{font-family:var(--mono);font-size:18px;letter-spacing:.16em;color:#8B9096;text-transform:uppercase;
+           text-align:right;line-height:1.5;max-width:420px}
+  .site{font-family:var(--mono);font-size:20px;color:#8B9096;letter-spacing:.06em}
+  .cta-pill{display:inline-flex;align-items:center;background:var(--red);color:#fff;font-weight:900;
+            font-size:30px;letter-spacing:-.01em;text-transform:uppercase;padding:20px 34px;border-radius:999px;white-space:nowrap}
+  .swipe{font-family:var(--mono);font-size:20px;color:var(--red-hi);letter-spacing:.14em;text-transform:uppercase}
+
+  .hl{font-weight:900;letter-spacing:-.035em;line-height:.92;text-transform:uppercase}
+  .sub{font-family:var(--body);font-weight:400;text-transform:none;letter-spacing:0;color:#B9BEC2;line-height:1.42}
+  .rule{width:110px;height:3px;background:var(--red);margin:34px 0}
+
+  .phone{border:9px solid #2A2D33;border-radius:44px;overflow:hidden;background:var(--navy);
+         box-shadow:0 50px 110px rgba(0,0,0,.65);flex:none}
+  .phone img{display:block;width:100%}
+
+  /* --- layout: cover_shot / shot --- */
+  .l-shot .body{align-items:center;gap:40px}
+  .l-shot .txt{flex:1;min-width:0}
+  .l-shot .hl{font-size:78px}
+  .l-shot .sub{font-size:27px;margin-top:0}
+  .l-shot .phone{width:430px;margin-right:-100px}
+  .r916.l-shot .body{flex-direction:column;align-items:flex-start;gap:0}
+  .r916.l-shot .hl{font-size:88px}
+  .r916.l-shot .txt{flex:none}
+  .r916.l-shot .phone{width:520px;margin:52px 0 0 auto;margin-right:-120px}
+
+  /* --- layout: cover_number --- */
+  .l-number .body{flex-direction:column;justify-content:center;gap:0}
+  .l-number .lab{font-family:var(--mono);font-size:19px;letter-spacing:.2em;color:#8B9096;
+                 text-transform:uppercase;line-height:1.7;max-width:920px}
+  .l-number .num{font-size:230px;font-weight:900;letter-spacing:-.055em;line-height:1;margin:18px 0 26px}
+  .l-number .num i{font-style:normal;color:var(--red-hi)}
+  .l-number .sub{font-size:31px;max-width:700px}
+  .l-number .proof{margin-top:44px;height:360px;overflow:hidden;border:1px solid var(--line);background:var(--navy)}
+  .l-number .proof img{width:100%;display:block;margin-top:-935px}
+  .r916 .l-number-tall .proof{height:520px}
+
+  /* --- layout: cover_split --- */
+  .l-split{padding:0}
+  .l-split .cols{position:absolute;inset:0;display:flex}
+  .l-split .col{flex:1;padding:150px 52px 0}
+  .l-split .col.left{background:#0E0F11}
+  .l-split .col.right{background:#131417;border-left:2px solid var(--red)}
+  .l-split .ctitle{font-family:var(--mono);font-size:19px;letter-spacing:.24em;text-transform:uppercase;color:#7C8187;margin-bottom:28px}
+  .l-split .col.right .ctitle{color:var(--red-hi)}
+  .l-split .bub{background:#1B1D21;color:#9AA0A6;font-family:var(--body);font-size:25px;line-height:1.35;
+                padding:19px 23px;border-radius:20px 20px 20px 4px;margin-bottom:15px}
+  .l-split .dots{font-family:var(--body);font-size:22px;color:#5C6167;margin-top:24px;line-height:1.5}
+  .l-split .card{background:#0E1B33;border:1px solid #24354F;padding:24px 26px;font-family:var(--body)}
+  .l-split .card .ct{font-family:var(--mono);font-size:15px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+  .l-split .row{display:flex;justify-content:space-between;gap:16px;font-size:22px;color:#C9CED4;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .l-split .row b{color:#fff;font-weight:600}
+  .l-split .row:last-of-type{border-bottom:0}
+  .l-split .big{font-family:var(--display);font-weight:900;font-size:42px;color:var(--gold);letter-spacing:-.03em;margin-top:18px;white-space:nowrap}
+  .l-split .over{position:absolute;left:0;right:0;bottom:0;padding:0 56px 64px;display:flex;flex-direction:column;align-items:center;gap:34px}
+  .l-split .over .hl{font-size:56px;text-align:center;text-shadow:0 8px 40px rgba(0,0,0,.9)}
+  .l-split .brand{position:absolute;left:72px;top:64px}
+
+  /* --- layout: cover_steps + list --- */
+  .l-steps .body{flex-direction:column;justify-content:flex-start}
+  .l-steps .hl{font-size:62px;max-width:820px}
+  .l-steps .st{display:grid;grid-template-columns:92px 1fr;gap:20px;padding:24px 0;border-top:1px solid #26282D}
+  .l-steps .st .n{font-family:var(--mono);font-size:26px;color:#6E747B;letter-spacing:.08em}
+  .l-steps .st .t{display:block;font-size:39px;font-weight:900;letter-spacing:-.025em;text-transform:uppercase;line-height:1}
+  .l-steps .st .d{display:block;font-family:var(--body);font-weight:400;text-transform:none;letter-spacing:0;
+                  font-size:23px;color:#9AA0A6;margin-top:9px;line-height:1.4}
+  .l-steps .st.hot{border-top-color:var(--red)}
+  .l-steps .st.hot .n,.l-steps .st.hot .t{color:var(--red-hi)}
+  .l-steps .steps{margin-top:40px}
+
+  .l-list .body{flex-direction:column;justify-content:center}
+  .l-list .hl{font-size:66px;margin-bottom:40px}
+  .l-list .rows{border-top:1px solid var(--line2)}
+  .l-list .r{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 4px;
+             border-bottom:1px solid var(--line2);font-family:var(--body)}
+  .l-list .r .k{font-size:27px;color:#9AA0A6}
+  .l-list .r .v{font-family:var(--display);font-weight:800;font-size:30px;color:var(--paper);letter-spacing:-.01em;text-align:right}
+  .l-list .r:nth-child(odd) .v{color:var(--paper)}
+
+  /* --- layout: quote --- */
+  .l-quote .body{flex-direction:column;justify-content:center}
+  .l-quote .hl{font-size:92px}
+  .l-quote .sub{font-size:29px;max-width:760px;margin-top:38px}
+
+  /* --- layout: cta --- */
+  .l-cta .body{flex-direction:column;justify-content:center;align-items:flex-start}
+  .l-cta .hl{font-size:96px}
+  .l-cta .sub{font-size:29px;max-width:720px;margin-top:30px}
+  .l-cta .big-cta{margin-top:56px;display:inline-flex;align-items:center;background:var(--red);color:#fff;
+                  font-weight:900;font-size:44px;text-transform:uppercase;letter-spacing:-.01em;
+                  padding:28px 46px;border-radius:999px}
+  .l-cta .hand{font-family:var(--mono);font-size:22px;color:#8B9096;letter-spacing:.1em;margin-top:26px;text-transform:uppercase}
+
+  /* --- layout: log --- */
+  .l-log .body{flex-direction:column;justify-content:flex-start}
+  .l-log .hl{font-size:74px;max-width:700px}
+  .l-log .rows{margin-top:52px;max-width:500px}
+  .l-log .lg{display:grid;grid-template-columns:118px 1fr;gap:18px;padding:15px 0;border-bottom:1px solid #24262B;align-items:baseline}
+  .l-log .lg .h{font-family:var(--mono);font-size:23px;color:#7C8187}
+  .l-log .lg .e{font-family:var(--body);font-size:24px;color:#D6D9D6}
+  .l-log .lg.on .h{color:var(--red-hi)}
+  .l-log .lg.on .e{color:#fff;font-weight:600}
+  .l-log .badge{display:inline-block;margin-top:34px;font-family:var(--mono);font-size:18px;letter-spacing:.2em;
+                text-transform:uppercase;color:#fff;background:var(--red);padding:10px 20px;border-radius:999px}
+  .browser{position:absolute;right:-150px;width:680px;border:1px solid #2A2D33;border-radius:12px;overflow:hidden;
+           background:#101114;box-shadow:0 50px 110px rgba(0,0,0,.7)}
+  .r45 .browser{top:600px;width:560px;right:-90px} .r916 .browser{top:1015px;width:620px;right:-110px}
+  .browser .bar{height:38px;background:#17191D;display:flex;align-items:center;gap:9px;padding:0 16px;border-bottom:1px solid #24262B}
+  .browser .bar i{width:11px;height:11px;border-radius:50%;background:#33363C;display:block}
+  .browser .bar span{font-family:var(--mono);font-size:14px;color:#6E747B;margin-left:14px}
+  .browser img{width:100%;display:block}
+
+  /* --- layout: type --- */
+  .l-type .body{flex-direction:column;justify-content:center}
+  .l-type .hl{font-size:96px}
+  .l-type .sub{font-size:29px;max-width:740px;margin-top:36px}
+</style>
+<div id="stage"></div>
+<script src="assets2.js"></script>
+<script src="angles.js"></script>
+<script>
+const A = ANGLES, IMG = ASSETS;
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+const lines = a => (a || []).join('<br>');
+
+function shell(id, fmt, layoutClass, opts){
+  const s = el('div', 'slide ' + (fmt === '45' ? 'r45 ' : 'r916 ') + layoutClass);
+  s.dataset.id = id;
+  const top = el('div','top');
+  top.append(el('div','brand','<b>AI LAB</b>®'), el('div','eyebrow', opts.eyebrow || ''));
+  const body = el('div','body');
+  const bottom = el('div','bottom');
+  if (opts.bottom === 'cta') bottom.append(el('span','cta-pill','Manda “site” no direct'), el('span','site','ailabglobal.com'));
+  else if (opts.bottom === 'swipe') bottom.append(el('span','swipe','arrasta →'), el('span','site','ailabglobal.com'));
+  else bottom.append(el('span','site','ailabglobal.com'), el('span','swipe', opts.bottomRight || ''));
+  s.append(top, body, bottom);
+  return { s, body };
+}
+const phone = k => { const p = el('div','phone'); const i = el('img'); i.src = IMG[k]; p.append(i); return p; };
+
+function build(id, fmt, spec){
+  const L = spec.layout;
+  if (L === 'cover_shot' || L === 'shot'){
+    const { s, body } = shell(id, fmt, 'l-shot', { eyebrow: spec.eyebrow, bottom: spec.bottom });
+    const txt = el('div','txt');
+    txt.append(el('div','hl', lines(spec.headline)));
+    if (spec.sub){ txt.append(el('div','rule')); txt.append(el('div','sub', spec.sub)); }
+    body.append(txt, phone(spec.img));
+    return s;
+  }
+  if (L === 'cover_number'){
+    const { s, body } = shell(id, fmt, 'l-number', { eyebrow: '', bottom: spec.bottom });
+    body.append(el('div','lab', spec.eyebrow));
+    body.append(el('div','num', spec.number.replace('¥','<i>¥</i>')));
+    body.append(el('div','sub', spec.sub));
+    const proof = el('div','proof'); const im = el('img'); im.src = IMG.res; proof.append(im);
+    body.append(proof);
+    return s;
+  }
+  if (L === 'cover_split'){
+    const s = el('div','slide ' + (fmt === '45' ? 'r45 ' : 'r916 ') + 'l-split'); s.dataset.id = id;
+    const cols = el('div','cols');
+    const left = el('div','col left');
+    left.append(el('div','ctitle','Antes'));
+    ['oi, tenho interesse','vc atende em Gifu?','quanto fica mais ou menos?'].forEach(t => left.append(el('div','bub', t)));
+    left.append(el('div','dots','…e mais seis mensagens até<br>descobrir que falta tempo<br>de empresa.'));
+    const right = el('div','col right');
+    right.append(el('div','ctitle','Depois'));
+    const card = el('div','card');
+    card.append(el('div','ct','Chega assim, pronto'));
+    [['Visto','Permanente'],['Tempo de Japão','+5 anos'],['Empresa atual','+3 anos'],['Renda anual','¥5–7M'],['Entrada','¥2.000.000']]
+      .forEach(([k,v]) => card.append(el('div','row','<span>'+k+'</span><b>'+v+'</b>')));
+    card.append(el('div','big','Parcela: ¥83.152'));
+    right.append(card);
+    cols.append(left, right);
+    const over = el('div','over');
+    over.append(el('div','hl', lines(spec.headline)), el('span','cta-pill','Manda “site” no direct'));
+    s.append(cols, el('div','brand','<b>AI LAB</b>®'), over);
+    return s;
+  }
+  if (L === 'cover_steps'){
+    const { s, body } = shell(id, fmt, 'l-steps', { eyebrow: spec.eyebrow, bottom: spec.bottom });
+    body.append(el('div','hl', lines(spec.headline)));
+    const st = el('div','steps');
+    spec.steps.forEach(([n,t,d],i) => {
+      const r = el('div','st' + (i === spec.steps.length - 1 ? ' hot' : ''));
+      r.append(el('span','n', n), el('span','', '<span class="t">'+t+'</span><span class="d">'+d+'</span>'));
+      st.append(r);
+    });
+    body.append(st);
+    return s;
+  }
+  if (L === 'cover_log'){
+    const { s, body } = shell(id, fmt, 'l-log', { eyebrow: spec.eyebrow, bottom: spec.bottom });
+    body.append(el('div','hl', lines(spec.headline)));
+    const rows = el('div','rows');
+    spec.log.forEach(([h,e2],i) => {
+      const r = el('div','lg' + (i === spec.log.length - 1 ? ' on' : ''));
+      r.append(el('span','h', h), el('span','e', e2));
+      rows.append(r);
+    });
+    body.append(rows, el('span','badge','No ar · 08.09.2026'));
+    const br = el('div','browser');
+    br.append(el('div','bar','<i></i><i></i><i></i><span>casa-jp-f.lovable.app</span>'));
+    const bi = el('img'); bi.src = IMG.dhero; br.append(bi);
+    s.append(br);
+    return s;
+  }
+  if (L === 'cover_type' || L === 'quote'){
+    const { s, body } = shell(id, fmt, L === 'quote' ? 'l-quote' : 'l-type', { eyebrow: spec.eyebrow, bottom: spec.bottom });
+    body.append(el('div','hl', lines(spec.headline)));
+    if (spec.sub) body.append(el('div','sub', spec.sub));
+    return s;
+  }
+  if (L === 'list'){
+    const { s, body } = shell(id, fmt, 'l-list', { eyebrow: spec.eyebrow, bottom: spec.bottom });
+    body.append(el('div','hl', lines(spec.headline)));
+    const rows = el('div','rows');
+    spec.items.forEach(([k,v]) => rows.append(el('div','r','<span class="k">'+k+'</span><span class="v">'+v+'</span>')));
+    body.append(rows);
+    return s;
+  }
+  if (L === 'cta'){
+    const { s, body } = shell(id, fmt, 'l-cta', { eyebrow: spec.eyebrow, bottom: 'plain', bottomRight: 'ai lab® · gunma' });
+    body.append(el('div','hl', lines(spec.headline)));
+    if (spec.sub) body.append(el('div','sub', spec.sub));
+    body.append(el('div','big-cta','Manda “site” no direct'));
+    body.append(el('div','hand','instagram · @ailab_global'));
+    return s;
+  }
+  throw new Error('layout desconhecido: ' + L);
+}
+
+const stage = document.getElementById('stage');
+const ids = [];
+Object.entries(A.angles).forEach(([key, ang]) => {
+  ['45','916'].forEach(fmt => {
+    [1,2].forEach(v => {
+      const c = Object.assign({}, ang.cover, {
+        headline: ang.cover['headline_v'+v],
+        sub: ang.cover['sub_v'+v],
+        bottom: ang.cover.layout === 'cover_split' ? 'plain' : 'swipe'
+      });
+      const id = key + '-cover' + v + '-' + fmt;
+      stage.append(build(id, fmt, c)); ids.push(id);
+    });
+    ang.slides.forEach((sl, i) => {
+      const id = key + '-s' + (i+1) + '-' + fmt;
+      const spec = Object.assign({}, sl, { bottom: sl.layout === 'cta' ? 'plain' : 'swipe' });
+      stage.append(build(id, fmt, spec)); ids.push(id);
+    });
+  });
+});
+window.SLIDE_IDS = ids;
+document.title = 'deck ' + ids.length;
+</script>

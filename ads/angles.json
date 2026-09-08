@@ -1,0 +1,167 @@
+{
+  "brand_tag": "AI LAB®",
+  "site_label": "casa-jp-f.lovable.app",
+  "cta": "MANDA “SITE” NO DIRECT",
+  "angles": {
+    "A": {
+      "name": "Produto — o site que atende sozinho",
+      "cover": {
+        "layout": "cover_shot",
+        "eyebrow": "ESTUDO DE CASO · 08.09.2026",
+        "headline_v1": ["O site", "que atende", "enquanto", "você dorme"],
+        "headline_v2": ["Ela dormiu.", "A página", "atendeu", "por ela."],
+        "sub_v1": "Entreguei uma página para uma consultora imobiliária. O que ela recebeu foi um funcionário.",
+        "sub_v2": "Três da manhã, o cliente arrasta o slider. Ninguém do outro lado. E mesmo assim ele é atendido.",
+        "img": "hero"
+      },
+      "slides": [
+        {"layout":"shot","eyebrow":"23H47 · SEGUNDA","headline":["O cliente","abre o link","no intervalo","do turno"],"sub":"Ninguém liga para uma imobiliária às onze da noite. Mas todo mundo pesquisa.","img":"hero"},
+        {"layout":"shot","eyebrow":"PASSO 1 · SIMULADOR","headline":["Descobre a","parcela","sozinho"],"sub":"Arrasta valor, entrada, prazo e taxa. A parcela aparece na hora, sem pedir nada em troca.","img":"res"},
+        {"layout":"shot","eyebrow":"PASSO 2 · PRÉ-QUALIFICAÇÃO","headline":["Responde","seis","perguntas"],"sub":"Visto, tempo de Japão, tempo de empresa, renda, entrada. Uma pergunta por tela, menos de um minuto.","img":"prequal"},
+        {"layout":"list","eyebrow":"PASSO 3 · O QUE CHEGA ATÉ VOCÊ","headline":["A conversa","já começa","adiantada"],"items":[["Visto","Permanente"],["Tempo de Japão","+5 anos"],["Empresa atual","+3 anos"],["Renda anual","¥5–7M"],["Entrada","¥2.000.000"],["Parcela simulada","¥83.152"]]},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Quer o seu","assim?"],"sub":"Imóvel, seguro, oficina, contabilidade — muda a pergunta, o mecanismo é o mesmo."}
+      ]
+    },
+
+    "B": {
+      "name": "O número — ¥83.152",
+      "cover": {
+        "layout": "cover_number",
+        "eyebrow": "PARCELA MENSAL ESTIMADA · ¥30.000.000 · 40 ANOS · 1,5% A.A.",
+        "number": "¥83.152",
+        "headline_v1": [],
+        "headline_v2": [],
+        "sub_v1": "Ele descobriu isso sozinho. Às 23h. Sem te mandar uma única pergunta.",
+        "sub_v2": "É a primeira pergunta que passa na cabeça do seu cliente. E a última que o seu site responde.",
+        "img": "res"
+      },
+      "slides": [
+        {"layout":"shot","eyebrow":"DE ONDE SAI O NÚMERO","headline":["Quatro","campos.","Nenhum","formulário."],"sub":"Valor do imóvel, entrada, prazo e taxa. Ninguém precisa deixar telefone para ver o resultado.","img":"sim"},
+        {"layout":"shot","eyebrow":"O QUE ELE FAZ COM ISSO","headline":["Mexe até","caber no","bolso"],"sub":"E o site ainda compara com o aluguel que ele paga hoje. A conta que ele faria no papel, feita na tela.","img":"res"},
+        {"layout":"quote","eyebrow":"O QUE ISSO TE ENTREGA","headline":["Quem mexe","no simulador","está a um","passo de","falar com você"],"sub":"Quem só achou bonito, não. O número separa os dois sem você precisar perguntar nada."},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Qual é o","número do","seu negócio?"],"sub":"Frete, prazo, parcela, orçamento. Todo negócio tem um — e quase nenhum site calcula."}
+      ]
+    },
+
+    "C": {
+      "name": "Antes e depois da conversa",
+      "cover": {
+        "layout": "cover_split",
+        "eyebrow": "A MESMA PESSOA, DOIS CAMINHOS",
+        "headline_v1": ["A mesma pessoa.","Dois jeitos de","chegar até você."],
+        "headline_v2": ["“Oi, tenho","interesse” é o que","come a sua semana."],
+        "sub_v1": "",
+        "sub_v2": "",
+        "img": "prequal"
+      },
+      "slides": [
+        {"layout":"quote","eyebrow":"O QUE VOCÊ RECEBE HOJE","headline":["“Oi, tenho","interesse.”"],"sub":"E depois seis, oito mensagens até descobrir o que você precisava saber na primeira."},
+        {"layout":"shot","eyebrow":"O QUE A PÁGINA PERGUNTA ANTES","headline":["Seis","perguntas,","uma por tela"],"sub":"Sem parecer interrogatório: cada resposta abre a próxima, e a barra mostra quanto falta.","img":"prequal"},
+        {"layout":"list","eyebrow":"O QUE CHEGA DEPOIS","headline":["A ficha,","pronta"],"items":[["Visto","Permanente"],["Tempo de Japão","+5 anos"],["Empresa atual","+3 anos"],["Renda anual","¥5–7M"],["Entrada","¥2.000.000"],["Parcela simulada","¥83.152"]]},
+        {"layout":"quote","eyebrow":"O CUIDADO QUE ISSO EXIGE","headline":["A página não","diz “aprovado”"],"sub":"Ela classifica o perfil, explica o próximo passo e devolve a decisão para a pessoa. Prometer aprovação é o erro que custa cliente."},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Muda o","começo da","conversa"],"sub":"Se o seu atendimento também começa com “tenho interesse”, dá para mudar isso esta semana."}
+      ]
+    },
+
+    "D": {
+      "name": "O mecanismo em quatro passos",
+      "cover": {
+        "layout": "cover_steps",
+        "eyebrow": "COMO FUNCIONA",
+        "headline_v1": ["Entre o anúncio","e a conversa,","quatro passos","que rodam sem você"],
+        "headline_v2": ["Quatro passos.","Nenhum deles","precisa de você","depois de publicado."],
+        "sub_v1": "",
+        "sub_v2": "",
+        "img": "prequal",
+        "steps": [
+          ["01","Ele chega pelo celular","Do Facebook, às onze da noite, no intervalo do turno."],
+          ["02","Descobre a parcela","Mexe nos valores até achar o cenário que cabe no bolso dele."],
+          ["03","Responde seis perguntas","Visto, tempo de Japão, renda, tempo de empresa, entrada."],
+          ["04","Cai na sua conversa pronto","Com tudo escrito. Você abre e já sabe se dá para ajudar."]
+        ]
+      },
+      "slides": [
+        {"layout":"shot","eyebrow":"PASSO 1 · CHEGADA","headline":["O celular","é o balcão"],"sub":"Nove em cada dez visitas vêm de telefone. Se a primeira tela pede zoom, acabou.","img":"hero"},
+        {"layout":"shot","eyebrow":"PASSO 2 · SIMULADOR","headline":["Responde a","pergunta que","trava tudo"],"sub":"Enquanto “quanto vai ficar por mês?” não é respondido, nada mais é lido.","img":"res"},
+        {"layout":"shot","eyebrow":"PASSO 3 · TRIAGEM","headline":["A pergunta","que quase","nenhum site","faz"],"sub":"É o passo 3 que separa curioso de cliente. É ele que devolve a sua tarde.","img":"prequal"},
+        {"layout":"quote","eyebrow":"PASSO 4 · HANDOFF","headline":["Você abre e","já sabe se","dá para","ajudar"],"sub":"Nome, situação e números escritos. Sem interrogatório, sem repetir pergunta."},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Te desenho","o seu em","uma conversa"],"sub":"Oficina, despachante, seguro, contabilidade: muda a pergunta, o mecanismo é o mesmo."}
+      ]
+    },
+
+    "E": {
+      "name": "Ship log — 1h01",
+      "cover": {
+        "layout": "cover_log",
+        "eyebrow": "SHIP LOG · 08.09.2026 · HORÁRIO DO JAPÃO",
+        "headline_v1": ["Uma hora","e um minuto","entre o briefing","e o site no ar"],
+        "headline_v2": ["Briefing às 13h47.","No ar às 14h48.","No mesmo dia."],
+        "sub_v1": "",
+        "sub_v2": "",
+        "img": "dhero",
+        "log": [["13:47","Briefing recebido"],["14:48","Publicado — no ar"]]
+      },
+      "slides": [
+        {"layout":"quote","eyebrow":"POR QUE DÁ PARA SER RÁPIDO","headline":["Não é atalho.","É ter decidido","antes o que","não entra."],"sub":"Sem login, sem banco de dados, sem blog que ninguém leria. Uma página que faz uma coisa bem."},
+        {"layout":"shot","eyebrow":"O QUE ENTROU","headline":["Simulador,","triagem e","handoff"],"sub":"As três peças que transformam visita em conversa qualificada. O resto é enfeite.","img":"res"},
+        {"layout":"list","eyebrow":"O QUE NÃO CABE EM UM DIA","headline":["E eu digo","na hora"],"items":[["Loja com estoque","projeto de semanas"],["Área de cliente","projeto de semanas"],["Integração com sistema antigo","depende do sistema"],["Conteúdo em 3 idiomas","+2 dias"]]},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Cabe em","um dia?"],"sub":"Me conta o que você vende e em duas perguntas eu te digo se cabe — ou o que faria caber."}
+      ]
+    },
+
+    "F": {
+      "name": "Objeção — já tenho Instagram",
+      "cover": {
+        "layout": "cover_type",
+        "eyebrow": "OBJEÇÃO Nº 1",
+        "headline_v1": ["“Eu já tenho","Instagram.”","O seu perfil","não pergunta nada."],
+        "headline_v2": ["Instagram é","vitrine.","A página é","o balcão."],
+        "sub_v1": "Perfil mostra. Página pergunta, calcula e entrega a resposta pronta.",
+        "sub_v2": "Uma serve para ser vista. A outra, para atender quem já decidiu olhar.",
+        "img": null
+      },
+      "slides": [
+        {"layout":"list","eyebrow":"O QUE O PERFIL NÃO FAZ","headline":["Três coisas","que o feed","não resolve"],"items":[["Calcular","o número que o cliente quer saber"],["Perguntar","o que decide se dá para atender"],["Guardar","a resposta para você ler depois"]]},
+        {"layout":"shot","eyebrow":"O QUE A PÁGINA FAZ","headline":["Pergunta","antes de","você acordar"],"sub":"E entrega a ficha escrita. O perfil continua sendo a vitrine — a página é quem atende.","img":"prequal"},
+        {"layout":"quote","eyebrow":"O TESTE DE 10 SEGUNDOS","headline":["Abra o seu","link na bio","e conte:"],"sub":"Quantas perguntas ele te faz? Se a resposta for zero, ele é um cartão de visita, não um atendente."},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Vitrine","e balcão"],"sub":"Não precisa escolher. Precisa ter os dois — e hoje você provavelmente só tem um."}
+      ]
+    },
+
+    "G": {
+      "name": "Checklist — o que o seu site precisa perguntar",
+      "cover": {
+        "layout": "cover_type",
+        "eyebrow": "CHECKLIST",
+        "headline_v1": ["O seu site","pergunta","estas quatro","coisas?"],
+        "headline_v2": ["Se o seu site","não pergunta,","ele só decora."],
+        "sub_v1": "Quatro perguntas separam um site que enfeita de um site que trabalha.",
+        "sub_v2": "Bonito é o mínimo. O que paga a conta é a ordem em que ele pergunta.",
+        "img": null
+      },
+      "slides": [
+        {"layout":"list","eyebrow":"AS QUATRO PERGUNTAS","headline":["Marque as","que o seu","site faz"],"items":[["1","Quanto fica por mês, no caso dele"],["2","Se ele tem a condição mínima para você atender"],["3","Onde ele está e desde quando"],["4","Como e quando ele quer ser respondido"]]},
+        {"layout":"shot","eyebrow":"PERGUNTA 1","headline":["O número,","na hora"],"sub":"Sem “fale conosco para orçamento”. Quem não vê o número, fecha a aba.","img":"res"},
+        {"layout":"shot","eyebrow":"PERGUNTAS 2 A 4","headline":["A triagem,","antes da","conversa"],"sub":"Seis perguntas curtas resolvem. O que sobra é conversa que vale a sua hora.","img":"prequal"},
+        {"layout":"cta","eyebrow":"AI LAB® · GUNMA, JAPÃO","headline":["Zero de","quatro?"],"sub":"É o caso mais comum — e o mais rápido de resolver. Me manda o link que eu te digo o que falta."}
+      ]
+    }
+  },
+
+  "grid": [
+    {"date":"2026-09-09","dow":"qua","noon":{"angle":"A","v":1},"night":{"angle":"E","v":1}},
+    {"date":"2026-09-10","dow":"qui","noon":{"angle":"C","v":1},"night":{"angle":"B","v":1}},
+    {"date":"2026-09-11","dow":"sex","noon":{"angle":"B","v":1},"night":{"angle":"D","v":1}},
+    {"date":"2026-09-12","dow":"sáb","noon":{"angle":"F","v":1},"night":{"angle":"A","v":1}},
+    {"date":"2026-09-13","dow":"dom","noon":{"angle":"D","v":1},"night":{"angle":"G","v":1}},
+    {"date":"2026-09-14","dow":"seg","noon":{"angle":"G","v":1},"night":{"angle":"C","v":1}},
+    {"date":"2026-09-15","dow":"ter","noon":{"angle":"E","v":1},"night":{"angle":"F","v":1}},
+    {"date":"2026-09-16","dow":"qua","noon":{"angle":"A","v":2},"night":{"angle":"E","v":2}},
+    {"date":"2026-09-17","dow":"qui","noon":{"angle":"C","v":2},"night":{"angle":"B","v":2}},
+    {"date":"2026-09-18","dow":"sex","noon":{"angle":"B","v":2},"night":{"angle":"D","v":2}},
+    {"date":"2026-09-19","dow":"sáb","noon":{"angle":"F","v":2},"night":{"angle":"A","v":2}},
+    {"date":"2026-09-20","dow":"dom","noon":{"angle":"D","v":2},"night":{"angle":"G","v":2}},
+    {"date":"2026-09-21","dow":"seg","noon":{"angle":"G","v":2},"night":{"angle":"C","v":2}},
+    {"date":"2026-09-22","dow":"ter","noon":{"angle":"E","v":2},"night":{"angle":"F","v":2}}
+  ]
+}
