@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Metricool__createScheduledPost",
+      "mcp__Metricool__getScheduledPosts",
+      "mcp__Metricool__getBrandSettings"
+    ]
+  }
+}
