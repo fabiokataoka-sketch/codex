@@ -33,7 +33,7 @@ for (const [track, { offset, reels }] of Object.entries(MAP)) {
         + `afade=t=in:st=0:d=0.5,afade=t=out:st=${fadeStart}:d=1.1,`
         + `loudnorm=I=-16:TP=-1.5:LRA=11,aresample=44100[a]`,
       '-map','0:v','-map','[a]','-c:v','copy','-c:a','aac','-b:a','128k',
-      '-shortest','-movflags','+faststart', out]);
+      '-shortest','-dn','-map_metadata','-1','-movflags','+faststart', out]);
     const od = dur(out);
     if (!od || Math.abs(od - d) > 0.3) throw new Error('duração divergente em ' + out);
     console.log(`${out}  ${track}  ${od.toFixed(2)}s  ${(fs.statSync(out).size/1e6).toFixed(2)}MB`);
