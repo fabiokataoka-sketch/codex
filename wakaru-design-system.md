@@ -138,3 +138,29 @@ destructive red-d · border line · input rule-strong · ring gold
 
 Simples, calma, prática. Frase normal em vez de rótulo técnico: nada de maiúsculas
 monoespaçadas para dizer quanta cota sobrou. Venda só aparece quando a cota acaba.
+
+## 9. Armadilhas no porte para outro projeto
+
+**Piso de 17px não se faz com regra global.** A tentação é escrever algo como
+
+```css
+.public-page :where(*) { font-size: max(17px, 1em); }
+```
+
+fora de qualquer `@layer`, para que nenhuma utilidade legada derrube o texto. Não funciona:
+declaração sem camada tem precedência sobre `@layer` no cascade, e as utilidades do
+Tailwind v4 moram em `@layer utilities`. A regra não estabelece piso — ela **substitui** o
+`font-size` de todo descendente, inclusive os que declaram um tamanho. Um `h1` com
+`text-[52px]` passa a renderizar no tamanho do pai, e a página inteira vira um bloco de
+texto de tamanho único. Em CSS puro não há como distinguir "elemento sem tamanho
+declarado" de "elemento com tamanho declarado", então o piso se obtém corrigindo as
+classes pequenas elemento a elemento.
+
+Uma auditoria que só reporta o menor tamanho de fonte não pega esse defeito: um documento
+sem hierarquia nenhuma satisfaz qualquer piso. Meça também o maior tamanho por rota.
+
+**Texto secundário não atravessa para superfície escura ou saturada.** `ink-2` (`#5a4137`)
+foi calibrado contra papel, onde dá 7,9:1. Sobre o rodapé (`#2a1109`) dá ~1,9:1, e sobre o
+vermelho de marca não fica muito melhor. Um `style` inline com esse token vence a regra de
+cor da própria faixa. Sobre preenchimento colorido não existe nível de texto secundário —
+a hierarquia vem de peso, tamanho e espaço.
