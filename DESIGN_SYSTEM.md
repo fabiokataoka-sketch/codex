@@ -5,6 +5,8 @@ Exportado de `fabiokataoka-sketch/japan-guide-bot@main`, o app em produção em
 memória: os tokens vêm de `src/styles.css`, os componentes de `src/components/`
 e `src/routes/`, e os contrastes foram calculados, não estimados.
 
+**Conferido contra produção** em 30/09/2026, sobre os bytes que wakaruapp.app serve (`styles-BXWxbudC.css`, `button-DGhNMvlc.js`): cores, fontes, foco, sombras, chips, `--app-nav-h` e as variantes de botão batem. As três divergências encontradas estão corrigidas abaixo e anotadas na §10.
+
 > **Aviso de divergência.** Existe um segundo design system chamado "Wakaru", em
 > `wakaru/css/` neste mesmo repo (PR #2, nunca mergeado), e ele **não** é uma
 > variação deste — é outro sistema:
@@ -154,7 +156,7 @@ escala precisa ser previsível.
 | `h1`, `h2` | 700 |
 | `h3`, `h4`, `.font-display` | 800 |
 | Botão | 600 (`font-semibold`) |
-| Ação primária (`wk-primary-action`) | 800 |
+| Ação primária (68px) | 800 (`font-extrabold`) |
 | Corpo | 400 |
 | Ênfase no corpo | 500 |
 | `mono-label` | 500 |
@@ -224,9 +226,14 @@ assistente e o balão dela. Números mágicos repetidos aqui já causaram bug.
 | `--radius-xl` | 16px | Cartão de passo, bloco interno |
 | `--radius-2xl`, `--radius-3xl` | 16px | Iguais ao `xl` de propósito: o sistema não passa de 16px em cartão |
 | `rounded-[18px]`, `rounded-[24px]` | 18/24px | Superfícies grandes (folha modal, cartão herói) |
-| `rounded-full` | 9999px | **85 usos** — botões, chips, avatar, campo de texto |
+| `rounded-full` | `2147483647px` (o navegador reduz para ~33.554.432px) | **85 usos** — botões, chips, avatar, campo de texto |
 
-A regra prática: **controle é pílula, superfície é 16px**.
+Os tokens `--radius-*` vivem num bloco `@theme inline`: o Tailwind **embute** os
+valores nos utilitários e não emite as custom properties. `var(--radius-xl)` em
+tempo de execução não resolve para nada — use a classe.
+
+A regra prática: **controle é pílula, superfície é 16px** — com uma exceção, a
+ação primária da landing (`src/routes/index.tsx`), que usa `rounded-xl`.
 
 ---
 
@@ -284,7 +291,7 @@ Base: `rounded-full font-display text-[17px] font-semibold`, ícone 20px.
 | `default` | `min-h-11` (44px) | `px-5 py-2` |
 | `lg` | `min-h-14` (56px) | `px-8` |
 | `icon` | `h-11 w-11` | — |
-| `.wk-primary-action` | **68px**, largura total | `px-6`, 20px/800 |
+| Ação primária (utilitários inline) | **68px**, largura total | `px-6`, 20px/800 Archivo |
 
 Estado ativo: `scale(0.98)` em todos.
 
@@ -440,4 +447,5 @@ a distinção é a cópia, não o matiz, para não depender de discriminação f
 | Anel de foco dourado | 3.04:1 sobre papel — passa por 0.04. Pouca folga. |
 | `--font-mono` | Herdado do tema padrão do Tailwind, não escolhido. Rótulos mono usam a pilha do sistema. |
 | Dois "design systems" | O de `wakaru/css/` (PR #2) é outro sistema, não uma variação: acento laranja, neutros cinzas, urgência com amarelo. Nunca mergeado. |
-| `--radius-2xl` e `--radius-3xl` | Iguais a `--radius-xl` (16px). Intencional, mas os três nomes sugerem uma escala que não existe. |
+| `--radius-2xl` e `--radius-3xl` | Iguais a `--radius-xl` (16px). Intencional, mas os três nomes sugerem uma escala que não existe — e `rounded-3xl` nunca chega ao CSS, porque nada o usa. |
+| `@utility wk-primary-action` | **Código morto.** Definido em `styles.css`, usado em lugar nenhum, e por isso ausente do CSS de produção. A ação primária de 68px é montada com utilitários inline. Remover ou adotar. |
