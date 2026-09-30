@@ -1,96 +1,100 @@
 # Wakaru — Design System
 
-A dark-first, retrofuture design system for [wakaruapp.app](https://wakaruapp.app) — the app
-that lets English speakers in Japan photograph any Japanese document and understand what to do.
-Visual direction modeled on [rabbit r1](https://www.rabbit.tech/rabbit-r1) (Teenage Engineering
-retrofuture): near-black ink, a single luminous-orange accent, lowercase grotesque display type,
-monospace data labels, and rounded-square "device" surfaces.
+O sistema visual do [wakaruapp.app](https://wakaruapp.app) — o app que deixa quem mora no
+Japão fotografar um documento em japonês e entender o que fazer.
 
-**Live style guide:** open `index.html` in a browser.
+**Consolidado com o produto em produção.** Os valores deste pacote são os mesmos que o app
+serve; ele existe para usar o sistema fora do Tailwind: protótipo, e-mail, peça impressa,
+Figma. Se um valor aqui divergir do app, o app é que está certo — abra uma correção aqui.
 
-## Structure
+**Style guide:** abra `index.html` no navegador.
+**Referência completa:** [`../DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md).
+
+## Estrutura
 
 ```
 css/
-  tokens.css       Design tokens as CSS custom properties (colors, type, spacing, radii, motion)
-  base.css         Reset, typography defaults, layout primitives, a11y helpers
-  components.css   Buttons, badges, nav, cards, scan frame, steps, bilingual pairs, chat, forms
-  wakaru.css       Single entry point (@imports the three layers above)
+  tokens.css       Tokens como custom properties (cor, tipo, espaço, raio, sombra, movimento)
+  base.css         Reset, tipografia, primitivas de layout, utilitários de acessibilidade
+  components.css   Botões, chips, nav, cartões, moldura de câmera, passos, pares JP/PT, chat
+  wakaru.css       Entrada única (@import das três camadas)
 tokens/
-  tokens.json      Machine-readable token source (for Figma sync, Style Dictionary, etc.)
-index.html         Living style guide / component showcase
+  tokens.json      Fonte legível por máquina (Figma, Style Dictionary)
+index.html         Style guide vivo
+preview-wakaruapp.html   Landing page montada sobre o sistema
 ```
 
-## Usage
+## Uso
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Zen+Old+Mincho:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/wakaru.css">
 ```
 
-All classes are prefixed `wk-`; all custom properties are prefixed `--wk-`.
+Toda classe usa o prefixo `wk-`; toda custom property, `--wk-`.
 
 ```html
-<button class="wk-btn wk-btn--primary">scan a document <span class="wk-btn__arrow">→</span></button>
-<span class="wk-badge wk-badge--urgent">urgent · due mar 15</span>
+<button class="wk-btn wk-btn--primary">Fotografar a carta</button>
+<span class="wk-badge wk-badge--urgent">Requer ação</span>
 ```
 
-Paper theme (for analysis results / long-form reading — documents are paper) is opt-in per subtree:
+## Princípios
 
-```html
-<html data-theme="paper">
-```
+1. **Papel, não tela.** O fundo é creme quente (`#F6F2EA`), nunca branco. O produto lida com
+   papelada oficial japonesa; a interface imita o documento.
+2. **Um vermelho só.** `#B22C1B` é a única cor saturada de uma tela — ação primária, urgência
+   e marca falam com a mesma voz.
+3. **Dourado nunca é semântico.** `#B08432` é ornamento de marca. Prazo e urgência jamais
+   usam dourado.
+4. **Sem tema escuro.** O produto declara `color-scheme: light` e não oferece inversão: uma
+   troca automática do sistema operacional destruiria a leitura de papel.
+5. **Sem transformação de caixa.** `text-transform: none` e `letter-spacing: 0` em todo
+   título. Caixa baixa forçada e versalete atrapalham o japonês, que convive com o texto
+   latino em quase toda tela. A exceção é o rótulo mono de 11px.
+6. **Alvo grande, texto grande.** Corpo a 17–18px, alvo de toque nunca abaixo de 44px.
+7. **Movimento é opcional.** Tudo desliga em `prefers-reduced-motion`.
 
-## Design principles
+## Referência rápida
 
-1. **Dark is the default.** Warm near-black ink (`#111110`) — never blue-gray. The paper theme
-   (`#FAF8F2`) exists for reading analysis results.
-2. **One loud voice.** Luminous orange `#FF4D00` is the only saturated color in a view. It marks
-   the primary action and *urgency* — the product's core signal — never decoration.
-3. **Lowercase display.** Headings, buttons, and links use Space Grotesk in lowercase (enforced
-   in CSS). Body copy (Inter) stays sentence-cased; Japanese text (`.wk-jp`, Noto Sans JP) is exempt.
-4. **Mono is the machine's voice.** Space Mono for eyebrows (`[ 01 — scan ]`), metadata,
-   timestamps, and counters — small, wide-tracked, lowercase.
-5. **Device surfaces, pill controls.** Cards and media use the signature 24px rounded-square
-   radius (like handheld hardware); buttons and badges are full pills. Arrows (`→`) point at
-   every forward action.
-6. **Motion is calm and mechanical.** 150–500ms, one signature ease
-   (`cubic-bezier(0.22, 1, 0.36, 1)`), scan-sweep animation reserved for the scanner, and
-   everything respects `prefers-reduced-motion`.
-
-## Product-specific components
-
-| Component | Purpose |
-| --- | --- |
-| `.wk-scan` | Viewfinder frame with orange corners + sweep line; drop-zone variant for uploads |
-| `.wk-badge--urgent/soon/ok/info` | Urgency level — exactly one per document card |
-| `.wk-doc` | Scanned-document card: badge, date, Japanese title, translation, summary |
-| `.wk-steps` | "What to do next" numbered list with mono counters (`01`, `02`, …) |
-| `.wk-pair` | Bilingual pair — Japanese source above, English translation below |
-| `.wk-chat` | Follow-up Q&A bubbles (user = orange, app = surface) |
-
-## Token quick reference
-
-| Token | Value | Role |
+| Token | Valor | Papel |
 | --- | --- | --- |
-| `--wk-orange-500` | `#FF4D00` | Brand accent / primary action / urgent |
-| `--wk-ink` | `#111110` | Page background |
-| `--wk-ink-800` | `#1D1D1B` | Raised surfaces |
-| `--wk-paper` | `#FAF8F2` | Primary text (dark) / paper-theme background |
-| `--wk-font-display` | Space Grotesk | Headings, buttons, nav (lowercase) |
-| `--wk-font-body` | Inter | Body copy |
-| `--wk-font-mono` | Space Mono | Labels, eyebrows, data |
-| `--wk-font-jp` | Noto Sans JP | Japanese source text |
-| `--wk-radius-device` | `24px` | Cards, panels, media |
-| `--wk-radius-pill` | `999px` | Buttons, badges |
-| `--wk-ease-out` | `cubic-bezier(0.22,1,0.36,1)` | Signature easing |
+| `--wk-red-500` | `#B22C1B` | Marca, ação primária |
+| `--wk-red-700` | `#8E2214` | Urgência, destrutivo, estado ativo |
+| `--wk-paper` | `#F6F2EA` | Fundo da página |
+| `--wk-card` | `#FFFDF8` | Cartão |
+| `--wk-ink` | `#241610` | Texto principal |
+| `--wk-ink-600` | `#5A4137` | Texto secundário |
+| `--wk-line` | `#E3D9C9` | Bordas |
+| `--wk-ok` | `#2F6B52` | "Tudo certo" |
+| `--wk-gold` | `#B08432` | Ornamento, anel de foco |
+| `--wk-font-display` | Archivo | Títulos, botões, números |
+| `--wk-font-body` | Zen Kaku Gothic New | Corpo |
+| `--wk-font-friendly` | Zen Maru Gothic | Telas internas do app |
+| `--wk-font-jp-old` | Zen Old Mincho | Documento japonês original |
+| `--wk-radius-surface` | `16px` | Cartões e painéis |
+| `--wk-radius-pill` | `999px` | Botões, chips, campos |
+| `--wk-ease-out` | `cubic-bezier(0.22,1,0.36,1)` | Curva assinatura |
+| `--wk-tap-min` | `44px` | Alvo de toque mínimo |
 
-## Accessibility
+## Urgência
 
-- Text on ink uses warm paper white (≈16:1 contrast); muted text stays above 4.5:1.
-- Orange `#FF4D00` on ink is ≈5.7:1 — fine for large display text, buttons, and icons; small
-  orange text uses `--wk-orange-300` on dark, `--wk-orange-600` on paper.
-- Orange is paired only with near-black text (`--wk-accent-contrast`) in the dark theme.
-- Visible `:focus-visible` rings on every interactive element.
-- Urgency badges pair color with a text label — never color alone.
-- `prefers-reduced-motion` disables the scan sweep and transitions globally.
+Dois degraus, não três. `urgent` e `soon` dividem o mesmo vermelho de propósito — a
+distinção está na cópia, não no matiz, para não depender de discriminação fina de cor. Não
+existe amarelo.
+
+| Classe | Texto | Fundo |
+| --- | --- | --- |
+| `.wk-badge--urgent` | `#8E2214` | `#F7E2DC` |
+| `.wk-badge--soon` | `#8E2214` | `#F7E2DC` |
+| `.wk-badge--ok` | `#2F6B52` | `#E0EFE7` |
+
+## Acessibilidade
+
+- Texto sobre papel: 15.7:1. Texto secundário: 8.4:1. Creme sobre o vermelho primário: 6.0:1.
+- Chips: 7.1:1 (urgente) e 5.3:1 (calmo).
+- **O dourado a 11px dá 3.04:1 e reprova AA para texto normal.** Use só em rótulo decorativo
+  que repita informação disponível em outro lugar. O anel de foco é a mesma cor e passa o
+  mínimo de 3:1 por 0.04 — se o fundo mudar, escureça esta cor antes de qualquer outra.
+- Urgência sempre traz rótulo textual junto da cor.
+- `:focus-visible` com contorno de 3px e offset de 3px, nunca removido.
+- `prefers-reduced-motion` desliga animação e transição.

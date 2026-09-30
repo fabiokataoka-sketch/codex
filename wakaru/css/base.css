@@ -20,7 +20,7 @@ body {
   background: var(--wk-bg);
   color: var(--wk-text);
   font-family: var(--wk-font-body);
-  font-size: var(--wk-text-md);
+  font-size: var(--wk-text-lg);
   line-height: var(--wk-leading-normal);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -53,8 +53,8 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--wk-focus-ring);
-  outline-offset: 2px;
+  outline: 3px solid var(--wk-focus-ring);
+  outline-offset: 3px;
 }
 
 ::selection {
@@ -64,21 +64,24 @@ button {
 
 /* --------------------------------------------------------------------------
    Typography
-   Brand rule: display type is lowercase. Headings pass through lowercase so
-   copy can be authored naturally ("Understand any document" renders as
-   "understand any document"). Japanese text is exempt by nature.
+   Sem regra de caixa e sem tracking: `text-transform: none` e
+   `letter-spacing: 0` em todo título. Caixa baixa forçada e versalete
+   atrapalham o japonês, que convive com o texto latino em quase toda tela.
    -------------------------------------------------------------------------- */
 
 h1, h2, h3, h4,
 .wk-display {
   font-family: var(--wk-font-display);
-  font-weight: var(--wk-weight-medium);
-  text-transform: lowercase;
-  line-height: var(--wk-leading-snug);
-  letter-spacing: var(--wk-tracking-tight);
+  font-weight: var(--wk-weight-extrabold);
+  text-transform: none;
+  line-height: var(--wk-leading-tight);
+  letter-spacing: var(--wk-tracking-normal);
 }
 
-h1 { font-size: var(--wk-text-4xl); line-height: var(--wk-leading-tight); }
+/* h1 e h2 são um grau mais leves que o display */
+h1, h2 { font-weight: var(--wk-weight-bold); }
+
+h1 { font-size: var(--wk-text-4xl); line-height: var(--wk-leading-none); }
 h2 { font-size: var(--wk-text-3xl); }
 h3 { font-size: var(--wk-text-2xl); }
 h4 { font-size: var(--wk-text-xl); }
@@ -98,33 +101,53 @@ p { max-width: 65ch; }
 .wk-muted { color: var(--wk-text-muted); }
 .wk-faint { color: var(--wk-text-faint); }
 
-/* Mono label — the system's technical voice. Used for eyebrows, metadata,
-   timestamps, counters. Always small, wide-tracked, lowercase. */
+/* Rótulo mono — a voz técnica do sistema: eyebrow, metadado, contador.
+   Sempre 11px, versalete, entrelinha 1.4. A pilha mono vem do sistema
+   operacional; o projeto não escolhe uma fonte monoespaçada. */
 .wk-mono {
   font-family: var(--wk-font-mono);
-  font-size: var(--wk-text-xs);
-  letter-spacing: var(--wk-tracking-wide);
-  text-transform: lowercase;
+  font-size: var(--wk-text-label);
+  font-weight: var(--wk-weight-medium);
+  line-height: 1.4;
+  letter-spacing: var(--wk-tracking-label);
+  text-transform: uppercase;
+  color: var(--wk-text-muted);
 }
 
-/* Eyebrow — mono label in brackets above a heading: [ 01 — scan ] */
+/* Eyebrow — rótulo mono entre colchetes acima de um título.
+   O dourado a 11px dá 3.04:1 sobre papel: reprova AA para texto normal. Use
+   só em rótulo decorativo que repita informação disponível em outro lugar. */
 .wk-eyebrow {
   font-family: var(--wk-font-mono);
-  font-size: var(--wk-text-xs);
-  letter-spacing: var(--wk-tracking-wider);
-  text-transform: lowercase;
-  color: var(--wk-accent);
+  font-size: var(--wk-text-label);
+  font-weight: var(--wk-weight-medium);
+  line-height: 1.4;
+  letter-spacing: var(--wk-tracking-label);
+  text-transform: uppercase;
+  color: var(--wk-gold);
 }
 
 .wk-eyebrow::before { content: "[ "; color: var(--wk-text-faint); }
 .wk-eyebrow::after  { content: " ]"; color: var(--wk-text-faint); }
 
-/* Japanese text — correct font stack and no lowercase transform */
+/* Japonês — pilha correta e entrelinha maior */
 .wk-jp {
   font-family: var(--wk-font-jp);
   text-transform: none;
-  line-height: var(--wk-leading-normal);
+  letter-spacing: 0;
+  line-height: var(--wk-leading-jp);
 }
+
+/* Documento japonês original: mincho, como o papel que chegou pelo correio */
+.wk-jp-old {
+  font-family: var(--wk-font-jp-old);
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: var(--wk-leading-jp);
+}
+
+/* Telas internas do app usam o gótico arredondado, menos oficial */
+.wk-app { font-family: var(--wk-font-friendly); }
 
 /* --------------------------------------------------------------------------
    Layout primitives
@@ -136,6 +159,13 @@ p { max-width: 65ch; }
   margin-inline: auto;
   padding-inline: var(--wk-container-pad);
 }
+
+@media (min-width: 40rem) {
+  .wk-container { padding-inline: 1.25rem; }
+}
+
+/* Coluna de leitura de documento — a medida principal do produto */
+.wk-container--read { max-width: var(--wk-container-read); }
 
 .wk-section { padding-block: var(--wk-space-9); }
 .wk-section--tight { padding-block: var(--wk-space-7); }

@@ -6,13 +6,13 @@
   <title>wakaru — design system</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Zen+Old+Mincho:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/wakaru.css">
   <style>
     /* Style-guide-only chrome */
     .sg-section { padding-block: var(--wk-space-8); border-bottom: 1px solid var(--wk-border); }
     .sg-title { margin-bottom: var(--wk-space-6); }
-    .sg-swatch { border-radius: var(--wk-radius-device); border: 1px solid var(--wk-border); overflow: hidden; }
+    .sg-swatch { border-radius: var(--wk-radius-surface); border: 1px solid var(--wk-border); overflow: hidden; }
     .sg-swatch__chip { height: 5rem; }
     .sg-swatch__meta { padding: var(--wk-space-3) var(--wk-space-4); display: flex; justify-content: space-between; gap: var(--wk-space-2); }
     .sg-row { display: flex; flex-wrap: wrap; gap: var(--wk-space-4); align-items: center; }
@@ -28,11 +28,11 @@
       <a class="wk-nav__brand" href="#">
         <svg width="22" height="22" viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges">
           <!-- pixel document mark, folded corner -->
-          <rect x="1" y="0" width="5" height="8" fill="#FF4D00"/>
-          <rect x="6" y="2" width="1" height="6" fill="#FF4D00"/>
-          <rect x="6" y="0" width="1" height="1" fill="#FF4D00" opacity="0.45"/>
-          <rect x="2" y="2" width="3" height="1" fill="#111110"/>
-          <rect x="2" y="4" width="4" height="1" fill="#111110"/>
+          <rect x="1" y="0" width="5" height="8" fill="#B22C1B"/>
+          <rect x="6" y="2" width="1" height="6" fill="#B22C1B"/>
+          <rect x="6" y="0" width="1" height="1" fill="#B22C1B" opacity="0.45"/>
+          <rect x="2" y="2" width="3" height="1" fill="#F6F2EA"/>
+          <rect x="2" y="4" width="4" height="1" fill="#F6F2EA"/>
         </svg>
         wakaru
       </a>
@@ -51,9 +51,9 @@
     <!-- Hero -->
     <header class="wk-section">
       <div class="wk-container wk-stack--lg wk-stack">
-        <p class="wk-eyebrow">wakaru — design system v1.0</p>
-        <h1 class="wk-hero-title">understand<br>any document.</h1>
-        <p class="wk-lead">Photograph any Japanese document and understand what to do. A retrofuture design language: near-black ink, one luminous-orange accent, lowercase display type, monospace data labels, rounded-square device surfaces.</p>
+        <p class="wk-eyebrow">wakaru — design system v2.0</p>
+        <h1 class="wk-hero-title">Entender<br>qualquer documento.</h1>
+        <p class="wk-lead">Fotografe um documento em japonês e saiba o que fazer. A linguagem visual do produto: fundo de papel creme, um único vermelho carimbo, display Archivo sem transformação de caixa, gótico arredondado no corpo, e superfícies de 16px. Consolidado com o app em produção.</p>
         <div class="sg-row">
           <a class="wk-btn wk-btn--primary wk-btn--lg" href="#">try it free <span class="wk-btn__arrow">→</span></a>
           <a class="wk-btn wk-btn--secondary wk-btn--lg" href="#">how it works</a>
@@ -69,39 +69,39 @@
         <h2 class="sg-title">one loud voice</h2>
         <div class="wk-grid wk-grid--4">
           <div class="sg-swatch">
-            <div class="sg-swatch__chip" style="background: var(--wk-orange-500)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>orange-500</span><span class="wk-faint">#FF4D00</span></div>
+            <div class="sg-swatch__chip" style="background: var(--wk-red-500)"></div>
+            <div class="sg-swatch__meta wk-mono"><span>red-500</span><span class="wk-faint">#B22C1B</span></div>
           </div>
           <div class="sg-swatch">
             <div class="sg-swatch__chip" style="background: var(--wk-ink)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>ink</span><span class="wk-faint">#111110</span></div>
+            <div class="sg-swatch__meta wk-mono"><span>ink</span><span class="wk-faint">#241610</span></div>
           </div>
           <div class="sg-swatch">
-            <div class="sg-swatch__chip" style="background: var(--wk-ink-800)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>ink-800</span><span class="wk-faint">#1D1D1B</span></div>
+            <div class="sg-swatch__chip" style="background: var(--wk-cream)"></div>
+            <div class="sg-swatch__meta wk-mono"><span>cream</span><span class="wk-faint">#FFF6EC</span></div>
           </div>
           <div class="sg-swatch">
             <div class="sg-swatch__chip" style="background: var(--wk-paper)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>paper</span><span class="wk-faint">#FAF8F2</span></div>
+            <div class="sg-swatch__meta wk-mono"><span>paper</span><span class="wk-faint">#F6F2EA</span></div>
           </div>
           <div class="sg-swatch">
             <div class="sg-swatch__chip" style="background: var(--wk-soon)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>soon</span><span class="wk-faint">#FFB020</span></div>
+            <div class="sg-swatch__meta wk-mono"><span>soon</span><span class="wk-faint">#8E2214</span></div>
           </div>
           <div class="sg-swatch">
             <div class="sg-swatch__chip" style="background: var(--wk-ok)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>ok</span><span class="wk-faint">#3DC97B</span></div>
+            <div class="sg-swatch__meta wk-mono"><span>ok</span><span class="wk-faint">#2F6B52</span></div>
           </div>
           <div class="sg-swatch">
-            <div class="sg-swatch__chip" style="background: var(--wk-gray-300)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>gray-300</span><span class="wk-faint">#A3A39C</span></div>
+            <div class="sg-swatch__chip" style="background: var(--wk-text-muted)"></div>
+            <div class="sg-swatch__meta wk-mono"><span>ink-600</span><span class="wk-faint">#5A4137</span></div>
           </div>
           <div class="sg-swatch">
             <div class="sg-swatch__chip" style="background: var(--wk-danger)"></div>
-            <div class="sg-swatch__meta wk-mono"><span>danger</span><span class="wk-faint">#FF3B30</span></div>
+            <div class="sg-swatch__meta wk-mono"><span>danger</span><span class="wk-faint">#8E2214</span></div>
           </div>
         </div>
-        <p class="sg-note">rule: orange is the only saturated color in a view. it marks the primary action and urgency — never decoration.</p>
+        <p class="sg-note">Regra: o vermelho é a única cor saturada de uma tela. Ele marca a ação primária e a urgência — nunca ornamento. O dourado é ornamento de marca e nunca carrega significado.</p>
       </div>
     </section>
 
@@ -114,11 +114,11 @@
         </div>
         <div class="wk-stack">
           <h1>space grotesk / display</h1>
-          <p class="wk-lead">Inter carries body copy. It stays sentence-cased and readable — the lowercase rule applies only to display type.</p>
+          <p class="wk-lead">Zen Kaku Gothic New carrega o corpo; Zen Maru Gothic, mais arredondada, carrega as telas internas do app. Nenhuma das duas transforma caixa.</p>
           <p class="wk-mono">space mono — labels, metadata, timestamps, counters</p>
           <p class="wk-jp" style="font-size: var(--wk-text-xl)">市民税・県民税納税通知書 — Noto Sans JP carries Japanese source text.</p>
         </div>
-        <p class="sg-note">brand rule: headings render lowercase via css — author copy naturally. japanese is exempt (.wk-jp).</p>
+        <p class="sg-note">Regra: nenhum título transforma caixa nem aplica tracking — <code>text-transform: none</code> e <code>letter-spacing: 0</code>. Caixa baixa forçada e versalete atrapalham o japonês, que divide a tela com o texto latino. A única exceção é o rótulo mono de 11px, em versalete.</p>
       </div>
     </section>
 

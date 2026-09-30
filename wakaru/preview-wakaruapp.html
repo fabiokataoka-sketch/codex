@@ -7,7 +7,7 @@
   <meta name="description" content="Photograph Japanese letters, bills, and notices. Wakaru tells you what it is, the deadline, the next steps, and the full translation — in under 30 seconds.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Zen+Old+Mincho:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/wakaru.css">
   <style>
     /* ------------------------------------------------------------------
@@ -58,7 +58,7 @@
 
     .pv-doc-mock__line {
       height: 6px;
-      background: var(--wk-gray-200);
+      background: var(--wk-line);
       border-radius: 3px;
       margin-block: 10px;
     }
@@ -93,7 +93,7 @@
     .pv-analysis {
       background: var(--wk-bg);
       color: var(--wk-text);
-      border-radius: var(--wk-radius-device);
+      border-radius: var(--wk-radius-surface);
       padding: var(--wk-space-6);
       box-shadow: var(--wk-shadow-lg);
     }
@@ -110,7 +110,7 @@
       .pv-demo { grid-template-columns: 1fr; }
     }
 
-    /* Big lowercase section statements, rabbit-style */
+    /* Afirmações grandes de seção */
     .pv-statement {
       font-size: var(--wk-text-3xl);
       max-width: 22ch;
@@ -139,11 +139,11 @@
     <div class="wk-container wk-nav__inner">
       <a class="wk-nav__brand" href="#">
         <svg width="22" height="22" viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges">
-          <rect x="1" y="0" width="5" height="8" fill="#FF4D00"/>
-          <rect x="6" y="2" width="1" height="6" fill="#FF4D00"/>
-          <rect x="6" y="0" width="1" height="1" fill="#FF4D00" opacity="0.45"/>
-          <rect x="2" y="2" width="3" height="1" fill="#111110"/>
-          <rect x="2" y="4" width="4" height="1" fill="#111110"/>
+          <rect x="1" y="0" width="5" height="8" fill="#B22C1B"/>
+          <rect x="6" y="2" width="1" height="6" fill="#B22C1B"/>
+          <rect x="6" y="0" width="1" height="1" fill="#B22C1B" opacity="0.45"/>
+          <rect x="2" y="2" width="3" height="1" fill="#F6F2EA"/>
+          <rect x="2" y="4" width="4" height="1" fill="#F6F2EA"/>
         </svg>
         wakaru
       </a>
@@ -305,7 +305,7 @@
         <div class="wk-stack">
           <p class="wk-eyebrow">03 — urgency</p>
           <h2 class="pv-statement">one glance tells you if it can wait.</h2>
-          <p class="wk-lead">Every document gets exactly one urgency level. Orange means act now — and orange is never used for anything else.</p>
+          <p class="wk-lead">Cada documento recebe exatamente um nível de urgência. O vermelho quer dizer aja agora — e o vermelho não é usado para mais nada.</p>
         </div>
         <div class="wk-grid wk-grid--2">
           <a class="wk-card wk-doc wk-card--accent wk-card--interactive" href="#">

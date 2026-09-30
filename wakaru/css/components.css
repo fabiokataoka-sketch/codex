@@ -4,30 +4,33 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Buttons — pill controls, lowercase display type, arrow affordance
+   Botões — pílula, display Archivo, seta como afordância de avanço.
+   Altura mínima de 44px: alvo de toque, não decoração.
    -------------------------------------------------------------------------- */
 
 .wk-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--wk-space-2);
-  padding: 0.75rem 1.5rem;
+  min-height: var(--wk-tap-min);
+  padding: 0.5rem 1.25rem;
   font-family: var(--wk-font-display);
   font-size: var(--wk-text-md);
-  font-weight: var(--wk-weight-medium);
-  text-transform: lowercase;
+  font-weight: var(--wk-weight-semibold);
+  text-transform: none;
   letter-spacing: var(--wk-tracking-normal);
   border-radius: var(--wk-radius-pill);
   border: 1px solid transparent;
-  transition: background var(--wk-duration-fast) var(--wk-ease-out),
+  transition: background var(--wk-duration-base) var(--wk-ease-out),
               border-color var(--wk-duration-fast) var(--wk-ease-out),
               color var(--wk-duration-fast) var(--wk-ease-out),
               transform var(--wk-duration-fast) var(--wk-ease-out);
 }
 
-.wk-btn:active { transform: scale(0.97); }
+.wk-btn:active { transform: scale(0.98); }
 
-/* Arrow — append to the primary action of a view: "scan a document →" */
+/* Seta — anexe à ação primária de uma tela */
 .wk-btn__arrow {
   transition: transform var(--wk-duration-base) var(--wk-ease-out);
 }
@@ -61,13 +64,25 @@
   background: var(--wk-surface-hover);
 }
 
-.wk-btn--lg { padding: 1rem 2rem; font-size: var(--wk-text-lg); }
-.wk-btn--sm { padding: 0.5rem 1rem; font-size: var(--wk-text-sm); }
+.wk-btn--sm { min-height: var(--wk-tap-min); padding-inline: 1rem; }
+.wk-btn--lg { min-height: var(--wk-tap-lg); padding-inline: 2rem; }
+
+/* Ação primária de tela: 68px, largura total, 20px extrabold. É o botão que
+   abre a câmera — o único movimento que a maioria das pessoas vai fazer. */
+.wk-btn--action {
+  width: 100%;
+  min-height: var(--wk-tap-action);
+  padding-inline: var(--wk-space-6);
+  font-size: var(--wk-text-xl);
+  font-weight: var(--wk-weight-extrabold);
+  box-shadow: var(--wk-shadow-action);
+}
 
 .wk-btn[disabled],
 .wk-btn--disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   pointer-events: none;
+  cursor: not-allowed;
 }
 
 /* Text link with arrow: "learn more →" */
@@ -76,8 +91,9 @@
   align-items: center;
   gap: var(--wk-space-1);
   font-family: var(--wk-font-display);
-  text-transform: lowercase;
-  color: var(--wk-text);
+  font-weight: var(--wk-weight-semibold);
+  text-transform: none;
+  color: var(--wk-accent);
 }
 
 .wk-link::after {
@@ -89,19 +105,27 @@
 .wk-link:hover::after { transform: translateX(4px); }
 
 /* --------------------------------------------------------------------------
-   Urgency badges — the product's core signal. One per document card.
-   Mono, lowercase, pill. Colors come from status tokens.
+   Chips de urgência — o sinal central do produto. Um por documento.
+
+   São dois degraus, não três: "urgente" e "em breve" dividem o mesmo vermelho
+   de propósito, e a distinção fica na cópia. A cor nunca é o único canal — o
+   rótulo textual sempre acompanha.
+
+   O fundo vem junto com a borda porque navegador descarta cor de fundo ao
+   imprimir, e a borda sobrevive ao papel.
    -------------------------------------------------------------------------- */
 
 .wk-badge {
   display: inline-flex;
   align-items: center;
   gap: var(--wk-space-2);
-  padding: 0.25rem 0.75rem;
-  font-family: var(--wk-font-mono);
-  font-size: var(--wk-text-xs);
-  letter-spacing: var(--wk-tracking-wide);
-  text-transform: lowercase;
+  min-height: var(--wk-tap-min);
+  padding: 0.5rem 1rem;
+  font-family: var(--wk-font-body);
+  font-size: var(--wk-text-md);
+  font-weight: var(--wk-weight-bold);
+  letter-spacing: var(--wk-tracking-normal);
+  text-transform: none;
   border-radius: var(--wk-radius-pill);
   border: 1px solid var(--wk-border);
   color: var(--wk-text-muted);
@@ -117,18 +141,20 @@
 
 .wk-badge--urgent {
   color: var(--wk-urgent);
-  border-color: color-mix(in srgb, var(--wk-urgent) 45%, transparent);
-  background: var(--wk-accent-soft);
+  background: var(--wk-urgent-bg);
+  border-color: color-mix(in oklab, var(--wk-red-500) 38%, var(--wk-line));
 }
 
 .wk-badge--soon {
   color: var(--wk-soon);
-  border-color: color-mix(in srgb, var(--wk-soon) 45%, transparent);
+  background: var(--wk-soon-bg);
+  border-color: color-mix(in oklab, var(--wk-red-500) 38%, var(--wk-line));
 }
 
 .wk-badge--ok {
   color: var(--wk-ok);
-  border-color: color-mix(in srgb, var(--wk-ok) 45%, transparent);
+  background: var(--wk-ok-bg);
+  border-color: color-mix(in oklab, var(--wk-ok) 35%, var(--wk-line));
 }
 
 .wk-badge--info { color: var(--wk-info); }
@@ -161,7 +187,7 @@
   font-family: var(--wk-font-display);
   font-weight: var(--wk-weight-semibold);
   font-size: var(--wk-text-lg);
-  text-transform: lowercase;
+  text-transform: none;
 }
 
 .wk-nav__brand:hover { color: var(--wk-text); }
@@ -176,7 +202,7 @@
 .wk-nav__link {
   font-family: var(--wk-font-mono);
   font-size: var(--wk-text-sm);
-  text-transform: lowercase;
+  text-transform: uppercase;
   color: var(--wk-text-muted);
 }
 
@@ -194,7 +220,7 @@
 .wk-card {
   background: var(--wk-surface-raised);
   border: 1px solid var(--wk-border);
-  border-radius: var(--wk-radius-device);
+  border-radius: var(--wk-radius-surface);
   padding: var(--wk-space-6);
   transition: border-color var(--wk-duration-base) var(--wk-ease-out),
               transform var(--wk-duration-base) var(--wk-ease-out);
@@ -248,13 +274,17 @@ a.wk-card:hover,
 }
 
 /* --------------------------------------------------------------------------
-   Scan frame — viewfinder corners + sweep line. The signature moment.
-   Wrap any media or drop zone.
+   Moldura de câmera — cantos de visor e linha de varredura. O momento
+   assinatura. Envolve qualquer mídia ou área de soltar arquivo.
+
+   Os cantos e a varredura são DOURADOS, não vermelhos: são ornamento de
+   marca, e o vermelho está reservado para ação e urgência. É o que o app faz
+   (`.wk-bracket` / `.wk-sweep`).
    -------------------------------------------------------------------------- */
 
 .wk-scan {
   position: relative;
-  border-radius: var(--wk-radius-device);
+  border-radius: var(--wk-radius-sheet);
   overflow: hidden;
   background: var(--wk-surface);
 }
@@ -263,16 +293,16 @@ a.wk-card:hover,
   position: absolute;
   width: 28px;
   height: 28px;
-  border: 2px solid var(--wk-accent);
+  border: 2px solid var(--wk-gold);
   z-index: 2;
 }
 
-.wk-scan__corner--tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-top-left-radius: 12px; }
-.wk-scan__corner--tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; border-top-right-radius: 12px; }
-.wk-scan__corner--bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; border-bottom-left-radius: 12px; }
-.wk-scan__corner--br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; border-bottom-right-radius: 12px; }
+.wk-scan__corner--tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; border-top-left-radius: 10px; }
+.wk-scan__corner--tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; border-top-right-radius: 10px; }
+.wk-scan__corner--bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; border-bottom-left-radius: 10px; }
+.wk-scan__corner--br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; border-bottom-right-radius: 10px; }
 
-.wk-scan--active { box-shadow: var(--wk-glow-accent); }
+.wk-scan--active { box-shadow: var(--wk-glow-scan); }
 
 .wk-scan--active::after {
   content: "";
@@ -280,8 +310,8 @@ a.wk-card:hover,
   inset-inline: 0;
   top: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--wk-accent), transparent);
-  animation: wk-sweep 2.4s var(--wk-ease-in-out) infinite;
+  background: linear-gradient(90deg, transparent, var(--wk-gold), transparent);
+  animation: wk-sweep 2.4s linear infinite;
   z-index: 1;
 }
 
@@ -341,7 +371,7 @@ a.wk-card:hover,
 .wk-steps__title {
   font-family: var(--wk-font-display);
   font-weight: var(--wk-weight-medium);
-  text-transform: lowercase;
+  text-transform: none;
   margin-bottom: var(--wk-space-1);
 }
 
@@ -387,7 +417,7 @@ a.wk-card:hover,
 .wk-chat__msg {
   max-width: 44ch;
   padding: var(--wk-space-3) var(--wk-space-4);
-  border-radius: var(--wk-radius-device);
+  border-radius: var(--wk-radius-sheet);
   font-size: var(--wk-text-sm);
   line-height: var(--wk-leading-normal);
 }
@@ -415,8 +445,8 @@ a.wk-card:hover,
 .wk-label {
   font-family: var(--wk-font-mono);
   font-size: var(--wk-text-xs);
-  letter-spacing: var(--wk-tracking-wide);
-  text-transform: lowercase;
+  letter-spacing: var(--wk-tracking-label);
+  text-transform: uppercase;
   color: var(--wk-text-muted);
 }
 
@@ -444,7 +474,7 @@ a.wk-card:hover,
 .wk-textarea { min-height: 6rem; resize: vertical; }
 
 /* --------------------------------------------------------------------------
-   Stat — mono number + lowercase caption ("under 30 seconds")
+   Stat — número em display + legenda curta ("em menos de 30 segundos")
    -------------------------------------------------------------------------- */
 
 .wk-stat { display: flex; flex-direction: column; gap: var(--wk-space-1); }
@@ -458,7 +488,7 @@ a.wk-card:hover,
 
 .wk-stat__label {
   font-family: var(--wk-font-display);
-  text-transform: lowercase;
+  text-transform: none;
   color: var(--wk-text-muted);
   font-size: var(--wk-text-sm);
 }

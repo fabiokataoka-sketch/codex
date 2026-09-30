@@ -7,22 +7,17 @@ e `src/routes/`, e os contrastes foram calculados, não estimados.
 
 **Conferido contra produção** em 30/09/2026, sobre os bytes que wakaruapp.app serve (`styles-BXWxbudC.css`, `button-DGhNMvlc.js`): cores, fontes, foco, sombras, chips, `--app-nav-h` e as variantes de botão batem. As três divergências encontradas estão corrigidas abaixo e anotadas na §10.
 
-> **Aviso de divergência.** Existe um segundo design system chamado "Wakaru", em
-> `wakaru/css/` neste mesmo repo (PR #2, nunca mergeado), e ele **não** é uma
-> variação deste — é outro sistema:
+> **Os dois sistemas foram consolidados.** `wakaru/css/` deixou de ser um
+> sistema paralelo: seus tokens, tipografia, raios, sombras e componentes agora
+> carregam os valores deste documento, isto é, os do app em produção. O pacote
+> continua existindo para usar o sistema fora do Tailwind — protótipo, e-mail,
+> peça impressa, Figma — e não para propor outra direção.
 >
-> | | Em produção (este doc) | `wakaru/css/` (PR #2) |
-> | --- | --- | --- |
-> | Acento | vermelho `#B22C1B` | laranja `#FF4D00` |
-> | Tinta | `#241610` (marrom quente) | `#111110` (quase preto) |
-> | Fundo | `#F6F2EA` | `#FAF8F2` |
-> | Neutros | derivados do marrom | escala cinza de 8 tons |
-> | Urgência | dois estados, sem amarelo | três, com amarelo `#FFB020` |
-> | Prefixo | `--red`, `--ink`, via Tailwind | `--wk-*`, CSS puro |
->
-> Aquele foi um exercício de landing page inspirado no rabbit r1. Este documento
-> descreve o que o produto realmente usa. Unificar os dois é uma decisão de
-> marca a tomar, não um detalhe a resolver por conta.
+> O que foi abandonado na consolidação, e vale registrar para não voltar por
+> engano: acento laranja `#FF4D00`, base dark-first com tema papel opcional,
+> display em caixa baixa forçada, Space Grotesk / Inter / Space Mono, raio de
+> 24px como padrão de superfície, e a urgência em três degraus com amarelo
+> `#FFB020`.
 
 ---
 
@@ -446,6 +441,5 @@ a distinção é a cópia, não o matiz, para não depender de discriminação f
 | Dourado a 11px | Reprova AA para texto (3.04:1). Decorativo hoje; escurecer se virar conteúdo. |
 | Anel de foco dourado | 3.04:1 sobre papel — passa por 0.04. Pouca folga. |
 | `--font-mono` | Herdado do tema padrão do Tailwind, não escolhido. Rótulos mono usam a pilha do sistema. |
-| Dois "design systems" | O de `wakaru/css/` (PR #2) é outro sistema, não uma variação: acento laranja, neutros cinzas, urgência com amarelo. Nunca mergeado. |
 | `--radius-2xl` e `--radius-3xl` | Iguais a `--radius-xl` (16px). Intencional, mas os três nomes sugerem uma escala que não existe — e `rounded-3xl` nunca chega ao CSS, porque nada o usa. |
 | `@utility wk-primary-action` | **Código morto.** Definido em `styles.css`, usado em lugar nenhum, e por isso ausente do CSS de produção. A ação primária de 68px é montada com utilitários inline. Remover ou adotar. |
