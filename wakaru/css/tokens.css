@@ -1,0 +1,199 @@
+/* ==========================================================================
+   Wakaru — Design Tokens
+
+   Consolidado com o produto em produção (wakaruapp.app). Os valores aqui são
+   os mesmos que `src/styles.css` serve no app; este arquivo existe para usar o
+   sistema fora do Tailwind (protótipo, e-mail, peça impressa, Figma).
+
+   Direção: papel japonês, não painel de hardware. Fundo creme quente, um único
+   vermelho carimbo, tipo display Archivo, gótico arredondado no corpo.
+
+   A versão anterior era dark-first com acento laranja (#FF4D00) e display em
+   caixa baixa. O produto foi por outro caminho; quem mandou foi o produto.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     Paleta primitiva
+     ------------------------------------------------------------------ */
+
+  /* Acento — vermelho carimbo (a única cor saturada de uma tela) */
+  --wk-red-100: #F7E2DC;   /* fundo de realce / chip */
+  --wk-red-300: #D9705F;
+  --wk-red-500: #B22C1B;   /* primária da marca */
+  --wk-red-600: #9C2414;   /* vermelho de texto corrido */
+  --wk-red-700: #8E2214;   /* estado ativo, destrutivo, urgência */
+  --wk-red-900: #2A1109;   /* rodapé e superfície de câmera */
+
+  /* Neutros — escala de tinta quente (marrom, nunca cinza azulado) */
+  --wk-ink:       #241610;   /* texto principal */
+  --wk-ink-600:   #5A4137;   /* texto secundário */
+  --wk-line:      #E3D9C9;   /* bordas e réguas */
+  --wk-card:      #FFFDF8;   /* cartão elevado */
+  --wk-cream:     #FFF6EC;   /* superfície secundária */
+  --wk-paper:     #F6F2EA;   /* fundo da página */
+
+  /* Ornamento — dourado. Nunca semântico. */
+  --wk-gold:      #B08432;
+
+  /* Estado — a linguagem de urgência do produto.
+     Dois degraus, não três: "urgente" e "em breve" dividem o vermelho de
+     propósito, e a distinção fica na cópia. Não existe amarelo. */
+  --wk-urgent:      #8E2214;
+  --wk-urgent-bg:   #F7E2DC;
+  --wk-soon:        #8E2214;
+  --wk-soon-bg:     #F7E2DC;
+  --wk-ok:          #2F6B52;
+  --wk-ok-bg:       #E0EFE7;
+  --wk-info:        #5A4137;
+  /* Erro de sistema (não de documento) — o mesmo vermelho escuro do destrutivo */
+  --wk-danger:      #8E2214;
+
+  /* ------------------------------------------------------------------
+     Aliases semânticos — papel primeiro, e só papel
+     ------------------------------------------------------------------ */
+  --wk-bg:             var(--wk-paper);
+  --wk-surface:        var(--wk-card);
+  --wk-surface-raised: var(--wk-card);
+  --wk-surface-hover:  var(--wk-cream);
+  --wk-border:         var(--wk-line);
+  --wk-border-strong:  color-mix(in oklab, var(--wk-line) 72%, var(--wk-ink));
+
+  --wk-text:           var(--wk-ink);
+  --wk-text-muted:     var(--wk-ink-600);
+  --wk-text-faint:     var(--wk-ink-600);
+
+  --wk-accent:          var(--wk-red-500);
+  --wk-accent-hover:    var(--wk-red-700);
+  --wk-accent-soft:     var(--wk-red-100);
+  --wk-accent-contrast: var(--wk-cream);   /* texto sobre o acento */
+
+  /* Anel de foco. Dourado sobre papel dá 3.04:1 — passa o mínimo de 3:1 por
+     0.04. Se o fundo mudar, escureça esta cor antes de qualquer outra coisa. */
+  --wk-focus-ring: var(--wk-gold);
+
+  /* A câmera fica quase preta em qualquer contexto: é funcional, não decorativa */
+  --wk-camera-bg:  var(--wk-red-900);
+  --wk-camera-ink: var(--wk-cream);
+
+  /* ------------------------------------------------------------------
+     Tipografia
+     Sem regra de caixa: `text-transform: none` em todo título, porque
+     versalete e caixa baixa forçada atrapalham o japonês.
+     ------------------------------------------------------------------ */
+  --wk-font-display:  "Archivo", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --wk-font-body:     "Zen Kaku Gothic New", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --wk-font-friendly: "Zen Maru Gothic", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --wk-font-jp:       "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --wk-font-jp-old:   "Zen Old Mincho", "Noto Sans JP", serif;
+  --wk-font-mono:     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                      "Liberation Mono", "Courier New", monospace;
+
+  /* Escala em px absolutos, por escolha: o público ajusta o zoom do sistema e
+     a escala precisa ser previsível. 17px é o tamanho do sistema. */
+  --wk-text-label:  11px;   /* rótulo mono, versalete */
+  --wk-text-xs:     13px;
+  --wk-text-sm:     14px;   /* metadados */
+  --wk-text-md:     17px;   /* corpo, botões, rótulos — o padrão */
+  --wk-text-lg:     18px;   /* corpo de página e de passo */
+  --wk-text-xl:     20px;   /* resposta principal */
+  --wk-text-2xl:    24px;   /* título de seção */
+  --wk-text-3xl:    28px;   /* dias restantes */
+  --wk-text-4xl:    40px;   /* valor a pagar */
+  --wk-text-hero:   clamp(2.5rem, 1.6rem + 4.5vw, 4rem);
+
+  --wk-leading-none:   1;      /* números grandes */
+  --wk-leading-tight:  1.25;   /* títulos */
+  --wk-leading-snug:   1.5;
+  --wk-leading-normal: 1.65;   /* corpo — leading-7 sobre 17px */
+  --wk-leading-jp:     1.7;    /* japonês respira mais */
+  --wk-leading-loose:  2;      /* tradução longa */
+
+  --wk-tracking-normal: 0;      /* títulos: zero, sempre */
+  --wk-tracking-label:  0.12em; /* rótulo mono em versalete */
+
+  --wk-weight-regular:   400;
+  --wk-weight-medium:    500;
+  --wk-weight-semibold:  600;   /* botão */
+  --wk-weight-bold:      700;   /* h1, h2 */
+  --wk-weight-extrabold: 800;   /* h3, h4, display, ação primária */
+
+  /* ------------------------------------------------------------------
+     Espaçamento — base de 4px
+     ------------------------------------------------------------------ */
+  --wk-space-1:  0.25rem;   /*  4 */
+  --wk-space-2:  0.5rem;    /*  8 */
+  --wk-space-3:  0.75rem;   /* 12 */
+  --wk-space-4:  1rem;      /* 16 */
+  --wk-space-5:  1.25rem;   /* 20 */
+  --wk-space-6:  1.5rem;    /* 24 */
+  --wk-space-7:  2rem;      /* 32 */
+  --wk-space-8:  3rem;      /* 48 */
+  --wk-space-9:  4rem;      /* 64 */
+  --wk-space-10: 5rem;      /* 80 */
+
+  /* 660px é a coluna de leitura de documento — a medida principal do app */
+  --wk-container-read: 660px;
+  --wk-container-max:  72rem;
+  --wk-container-pad:  1rem;   /* 1.25rem a partir de 640px */
+
+  /* ------------------------------------------------------------------
+     Raios — controle é pílula, superfície é 16px
+     ------------------------------------------------------------------ */
+  --wk-radius-sm:      8px;     /* elementos miúdos */
+  --wk-radius-md:      10px;    /* campos, controles */
+  --wk-radius-lg:      12px;    /* cartão pequeno */
+  --wk-radius-surface: 16px;    /* cartão, painel, bloco interno — o raio padrão */
+  --wk-radius-sheet:   24px;    /* folha modal, cartão herói */
+  --wk-radius-pill:    999px;   /* botões, chips, avatar, campo de texto */
+
+  /* ------------------------------------------------------------------
+     Elevação — sombras quentes, nunca cinza neutro
+     ------------------------------------------------------------------ */
+  --wk-shadow-sm: 0 1px 2px color-mix(in oklab, var(--wk-ink) 10%, transparent);
+  --wk-shadow-md: 0 8px 24px color-mix(in oklab, var(--wk-ink) 12%, transparent);
+  --wk-shadow-lg: 0 20px 50px color-mix(in oklab, var(--wk-ink) 18%, transparent);
+  --wk-shadow-hero:   0 30px 60px -26px rgba(60, 8, 0, 0.65);
+  --wk-shadow-action: 0 14px 30px -16px rgba(120, 20, 0, 0.65);
+  /* Sobre o campo fixo: sombra para cima, separando do conteúdo */
+  --wk-shadow-up: 0 -8px 24px color-mix(in oklab, var(--wk-ink) 10%, transparent);
+  /* Moldura de câmera ativa. Dourado, não vermelho: é ornamento, não estado. */
+  --wk-glow-scan: 0 0 0 1px color-mix(in oklab, var(--wk-gold) 45%, transparent),
+                  0 0 32px color-mix(in oklab, var(--wk-gold) 20%, transparent);
+
+  /* ------------------------------------------------------------------
+     Movimento
+     ------------------------------------------------------------------ */
+  --wk-duration-fast: 150ms;
+  --wk-duration-base: 200ms;   /* botões */
+  --wk-duration-slow: 240ms;   /* assistente */
+  --wk-ease-out:    cubic-bezier(0.22, 1, 0.36, 1);   /* a curva assinatura */
+  --wk-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ------------------------------------------------------------------
+     Alvos de toque — mínimo 44px em tudo que é tocável
+     ------------------------------------------------------------------ */
+  --wk-tap-min:     44px;   /* botão padrão e pequeno */
+  --wk-tap-lg:      56px;   /* botão grande */
+  --wk-tap-action:  68px;   /* ação primária de tela */
+  --wk-tap-nav:     72px;   /* aba da barra inferior */
+
+  /* Altura real da barra de abas: alvo + borda + área do home indicator.
+     Tudo que se fixa acima da barra lê este valor. */
+  --wk-nav-h: calc(72px + 1px + env(safe-area-inset-bottom));
+
+  /* ------------------------------------------------------------------
+     Camadas
+     ------------------------------------------------------------------ */
+  --wk-z-composer: 30;
+  --wk-z-nav:      40;
+  --wk-z-overlay:  50;
+  --wk-z-modal:    300;
+  --wk-z-toast:    400;
+}
+
+/* Não existe tema escuro. O produto imita papel, e uma inversão automática do
+   sistema operacional destruiria essa leitura. O app declara o mesmo. */
+:root {
+  color-scheme: light;
+}

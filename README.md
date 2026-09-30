@@ -1,3 +1,13 @@
+# Design Systems
+
+This repository hosts two independent design systems:
+
+- **AI Lab Global** (repo root, prefix `al-`) — documented below.
+- **[Wakaru](wakaru/README.md)** (`wakaru/`, prefix `wk-`) — for [wakaruapp.app](https://wakaruapp.app),
+  retrofuture direction modeled on [rabbit r1](https://www.rabbit.tech/rabbit-r1).
+
+---
+
 # AI Lab Global — Design System
 
 A dark-first, high-contrast design system for AI Lab Global. Visual direction inspired by
