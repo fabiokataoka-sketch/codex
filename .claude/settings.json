@@ -9,5 +9,8 @@
   },
   "enabledPlugins": {
     "typesafe@typesafe-ai": true
-  }
+  },
+  "enabledMcpjsonServers": [
+    "perplexity"
+  ]
 }
