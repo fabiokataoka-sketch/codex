@@ -41,7 +41,6 @@
     ['Criar', [['home', 'Início'], ['new', 'Novo projeto'], ['live', 'Lives'], ['tools', 'Ferramentas']]],
     ['Conteúdo', [['projects', 'Projetos'], ['clips', 'Clipes'], ['templates', 'Templates'], ['personas', 'Personas IA']]],
     ['Distribuir', [['publish', 'Publicação'], ['connections', 'Contas'], ['automations', 'Automações'], ['metrics', 'Métricas']]],
-    ['Comunidade', [['championships', 'Campeonatos']]],
     ['Conta', [['billing', 'Plano e créditos'], ['settings', 'Workspace e API'], ['selftest', 'Autoteste']]],
   ];
 
@@ -395,29 +394,6 @@
       },
     },
 
-    championships: {
-      html: r => { const w = S.workspace(); const open = r.arg ? w.championships.find(c => c.id === r.arg) : null;
-        if (open) { const rk = S.ranking(open.id); return topbar(`<a href="#/championships" class="faint" style="text-decoration:none">Campeonatos /</a> ${esc(open.name)}`, `<span class="pill ${open.status === 'open' ? 'ok' : ''}">${open.status === 'open' ? 'aberto' : 'encerrado'}</span>${open.status === 'open' ? '<button class="btn" id="close">Encerrar e pagar</button>' : ''}`) + `
-          <div class="grid cols-3"><div class="card"><div class="faint">Prêmio</div><div class="stat">${open.currency} ${open.prize.toLocaleString('pt-BR')}</div></div><div class="card"><div class="faint">Envios</div><div class="stat">${open.submissions.length}</div></div><div class="card"><div class="faint">Prazo</div><div class="stat" style="font-size:20px">${new Date(open.deadline).toLocaleDateString('pt-BR')}</div></div></div>
-          ${open.status === 'open' ? `<form class="card grid" id="sub" style="margin-top:16px"><h3 style="margin:0">Enviar participação</h3><div><label>Link do vídeo publicado</label><input type="url" name="url" required placeholder="https://tiktok.com/@voce/video/123"></div>
-            <label class="row" style="margin:0;color:var(--text)"><input type="checkbox" name="consent"> Li e aceito as regras: ${esc(open.rules || 'sem regras adicionais')}</label><button class="btn primary">Enviar</button></form>` : ''}
-          <div class="card" style="margin-top:16px"><h3 style="margin-top:0">Envios</h3><table><tr><th>Link</th><th>Status</th><th>Views</th><th></th></tr>${open.submissions.map(s => `<tr><td style="font-size:12px">${esc(s.url)}</td><td><span class="pill ${s.status === 'approved' ? 'ok' : s.status === 'rejected' ? 'bad' : 'warn'}">${{ in_review: 'em revisão', approved: 'aprovado', rejected: 'recusado' }[s.status]}</span></td><td>${fmtN(s.views)}</td>
-            <td class="row">${s.status === 'in_review' ? `<button class="btn sm" data-ok="${s.id}">Aprovar</button><button class="btn sm danger" data-no="${s.id}">Recusar</button>` : ''}</td></tr>`).join('')}</table></div>
-          <div class="card" style="margin-top:16px"><h3 style="margin-top:0">Ranking</h3>${rk.map((s, i) => `<div>${i + 1}. ${esc(s.url)} — ${fmtN(s.views)} views${open.payouts && open.payouts[i] ? ` · <b>${open.currency} ${open.payouts[i].amount}</b>` : ''}</div>`).join('') || '<span class="faint">Sem envios aprovados.</span>'}</div>`; }
-        return topbar('Campeonatos') + `<div class="grid cols-2"><form class="card grid" id="f"><h3 style="margin:0">Criar campeonato</h3><div><label>Nome</label><input type="text" name="name" required></div>
-          <div class="grid cols-3"><div><label>Prêmio</label><input type="number" name="prize" value="1000" min="1"></div><div><label>Moeda</label><select name="currency"><option>BRL</option><option>USD</option><option>créditos</option></select></div><div><label>Prazo (dias)</label><input type="number" name="deadlineDays" value="30"></div></div>
-          <div><label>Regras</label><textarea name="rules" rows="2">Use o material liberado. Marque o perfil oficial.</textarea></div><button class="btn primary">Criar</button></form>
-          <div class="card"><h3 style="margin-top:0">Como funciona</h3><p class="muted">Participantes enviam o link do corte publicado; você aprova; o ranking usa as views; ao encerrar, o prêmio é dividido 50/30/20 entre os três primeiros (regra desta réplica).</p></div></div>
-          <div class="grid cols-3" style="margin-top:16px">${w.championships.map(c => `<a class="card" href="#/championships/${c.id}" style="text-decoration:none"><b>${esc(c.name)}</b><div class="faint">${c.currency} ${c.prize.toLocaleString('pt-BR')} · ${c.submissions.length} envios</div><span class="pill ${c.status === 'open' ? 'ok' : ''}">${c.status === 'open' ? 'aberto' : 'encerrado'}</span></a>`).join('')}</div>`; },
-      bind: r => {
-        if (!r.arg) { $('#f').onsubmit = e => { e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); d.prize = +d.prize; d.deadlineDays = +d.deadlineDays; const c = act(() => S.createChampionship(d), 'Campeonato criado'); if (c) location.hash = '#/championships/' + c.id; }; return; }
-        const sub = $('#sub'); if (sub) sub.onsubmit = e => { e.preventDefault(); act(() => S.submitToChampionship(r.arg, { url: sub.url.value, consent: sub.consent.checked }), 'Enviado para revisão'); };
-        document.querySelectorAll('[data-ok]').forEach(b => b.onclick = () => act(() => S.reviewSubmission(r.arg, b.dataset.ok, true)));
-        document.querySelectorAll('[data-no]').forEach(b => b.onclick = () => act(() => S.reviewSubmission(r.arg, b.dataset.no, false)));
-        const cl = $('#close'); if (cl) cl.onclick = () => sure('Encerrar o campeonato e distribuir o prêmio?').then(ok => ok && act(() => S.closeChampionship(r.arg), 'Campeonato encerrado'));
-      },
-    },
-
     billing: {
       html: r => { const w = S.workspace(); const hl = r.q.get('plan');
         return topbar('Plano e créditos') + `<div class="grid cols-4">${Object.values(Core.PLANS).map(p => `<div class="card grid" style="${p.id === hl ? 'border:2px solid var(--primary)' : ''}"><b>${p.name}</b><div class="stat">US$ ${p.price.toFixed(2)}</div>
@@ -483,7 +459,6 @@
     t('Persona: falha estorna créditos', () => { const s = mk('plus'); const p = s.createPersona({ kind: 'preset', presetId: 'p-orange' }); const c = s.createProject({ file: 'a', durationMin: 3 }).clips[0]; const b = s.balance().credits; s.swapPersona(c.id, [p.id], { simulateFailure: true }); ok(s.balance().credits === b); });
     t('Automação: comentário vira DM com link', () => { const s = mk(); s.createAutomation({ type: 'comment_to_dm', keyword: 'link', link: 'https://e.com' }); ok(s.simulateComment({ user: '@a', text: 'LINK pf', follows: true })[0].link === 'https://e.com'); });
     t('Automação: pedido de follow e coleta de e-mail', () => { const s = mk(); s.createAutomation({ type: 'comment_to_dm', keyword: 'link', link: 'https://e.com' }); s.createAutomation({ type: 'follow_gate' }); ok(s.simulateComment({ user: '@a', text: 'link' })[0].action === 'follow_request'); s.createAutomation({ type: 'collect_email' }); s.simulateComment({ user: '@b', text: 'link', follows: true, email: 'b@x.com' }); ok(s.workspace().contacts.length === 1); });
-    t('Campeonato: consentimento, revisão, ranking, pagamento', () => { const s = mk(); const c = s.createChampionship({ name: 'C', prize: 100 }); throwsCode(() => s.submitToChampionship(c.id, { url: 'https://tiktok.com/@a/video/1' }), 'consent_required'); const x = s.submitToChampionship(c.id, { url: 'https://tiktok.com/@a/video/1', consent: true }); s.reviewSubmission(c.id, x.id, true); ok(s.ranking(c.id).length === 1); ok(s.closeChampionship(c.id)[0].amount === 50); });
     t('Workspaces separados, equipe e API keys', () => { const s = mk(); s.createWorkspace('B'); ok(s.balance().credits === 15); s.inviteMember('e@x.com'); throwsCode(() => s.inviteMember('e@x.com'), 'duplicate'); const k = s.createApiKey(); s.revokeApiKey(k.id); ok(!s.workspace().apiKeys.length); });
     t('Persistência via snapshot', () => { const s = mk('starter'); s.createProject({ file: 'a', durationMin: 6 }); ok(Core.createStore(s.snapshot()).workspace().clips.length === s.workspace().clips.length); });
     return out;

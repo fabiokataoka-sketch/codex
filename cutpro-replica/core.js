@@ -116,7 +116,7 @@
         id: uid('ws'), name, plan: 'free', credits: PLANS.free.credits, creditsExpireAt: now() + PLANS.free.creditValidityDays * 864e5,
         projects: [], clips: [], templates: CAPTION_TEMPLATES.map(t => Object.assign({}, t)),
         connections: [], posts: [], monitors: [], personas: [], personaVideos: [], automations: [], contacts: [],
-        championships: [], jobs: [], apiKeys: [], team: [], ledger: [], autoPost: false,
+        jobs: [], apiKeys: [], team: [], ledger: [], autoPost: false,
       };
     }
 
@@ -462,29 +462,6 @@
           out.push({ to: user, message: a.message || 'Aqui está o link:', button: 'Abrir', link: a.link, action: 'dm' }); a.runs++;
         });
         emit(); return out;
-      },
-
-      // ---- Campeonatos ----
-      createChampionship({ name, prize, currency, deadlineDays, rules }) {
-        if (!name) throw err('invalid_name', 'Nome obrigatório.');
-        if (!(prize > 0)) throw err('invalid_prize', 'Prêmio precisa ser maior que zero.');
-        const c = { id: uid('chp'), name, prize, currency: currency || 'BRL', deadline: now() + (deadlineDays || 30) * 864e5, rules: rules || '', submissions: [], status: 'open', owner: true };
-        ws().championships.push(c); emit(); return c;
-      },
-      submitToChampionship(chId, { clipId, url, consent }) {
-        const c = findIn('championships', chId);
-        if (c.status !== 'open') throw err('closed', 'Campeonato encerrado.');
-        if (!consent) throw err('consent_required', 'Aceite as regras para participar.');
-        detectSource(url);
-        if (c.submissions.some(s => s.url === url)) throw err('duplicate', 'Vídeo já enviado.');
-        const s = { id: uid('sub'), clipId, url, status: 'in_review', views: 0, at: now() }; c.submissions.push(s); emit(); return s;
-      },
-      reviewSubmission(chId, subId, approve) { const c = findIn('championships', chId); const s = c.submissions.find(x => x.id === subId); if (!s) throw err('not_found', 'Envio não encontrado.'); s.status = approve ? 'approved' : 'rejected'; if (approve) s.views = 1000 + (hash(s.url) % 500000); emit(); return s; },
-      ranking(chId) { return findIn('championships', chId).submissions.filter(s => s.status === 'approved').sort((a, b) => b.views - a.views); },
-      closeChampionship(chId) {
-        const c = findIn('championships', chId); const rk = api.ranking(chId); c.status = 'closed';
-        const split = [0.5, 0.3, 0.2]; c.payouts = rk.slice(0, 3).map((s, i) => ({ subId: s.id, amount: +(c.prize * split[i]).toFixed(2) }));
-        emit(); return c.payouts;
       },
 
       // ---- API ----

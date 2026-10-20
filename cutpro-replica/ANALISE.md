@@ -15,7 +15,7 @@ cutpro-replica/index.html     # landing
 cutpro-replica/app.html       # estúdio (cadastro → todas as funções)
 ```
 
-Dentro do estúdio, **Conta → Autoteste** roda 22 verificações direto no navegador, sem tocar nos seus dados.
+Dentro do estúdio, **Conta → Autoteste** roda 21 verificações direto no navegador, sem tocar nos seus dados.
 
 ## Mapa do site original
 
@@ -26,7 +26,7 @@ Dentro do estúdio, **Conta → Autoteste** roda 22 verificações direto no nav
 | Ferramentas avulsas | `/en/tools` | `#/tools` |
 | Personas IA | `/en/personas` | `#/personas` |
 | Automações | `/en/automations` | `#/automations` |
-| Campeonatos | `/en/championships` | `#/championships` |
+| Campeonatos | `/en/championships` | removido da réplica |
 | Streamers (lives) | `/en/solutions/streamers` | `#/live` |
 | Métricas | `/studio/metrics` | `#/metrics` |
 | Planos | `/en/pricing` | `#/billing` |
@@ -57,7 +57,6 @@ Todas em `core.js`, cobertas por `tests/core.test.js`.
 | Até 4 personas no mesmo vídeo pelo mesmo preço | `quoteSwap` |
 | Preço antes de gerar e estorno automático em falha | `quoteSwap`, `swapPersona` |
 | Comentário → DM com botão e link; pedir follow; coletar e-mail; replicar post | `createAutomation`, `simulateComment` |
-| Campeonato: regras, consentimento, revisão, ranking por views, pagamento pela plataforma | `createChampionship` … `closeChampionship` |
 | Workspace por cliente com equipe e contas próprias | `createWorkspace`, `inviteMember` |
 | Download em massa e cancelamento sem multa | `bulkDownload`, `cancelSubscription` |
 | Ferramentas: destaques, transcrição, tradução, remover silêncio, reenquadrar, redimensionar, comprimir, MP4, MP3, baixar de plataforma, títulos/hashtags | `runTool` |
@@ -67,7 +66,6 @@ Todas em `core.js`, cobertas por `tests/core.test.js`.
 
 - Custo de ferramentas avulsas (1 crédito/min para as de IA, 0 para conversões).
 - Custo de persona (5 créditos para criar, 2 para regenerar, 3 a cada 10 s para trocar).
-- Divisão do prêmio do campeonato (50/30/20 entre os 3 primeiros).
 - Clipes por projeto (≈ 1 a cada 3 min, máx. 30) e duração (15–60 s).
 - Limite de 1h para vídeos no plano grátis.
 
@@ -83,10 +81,10 @@ Todas em `core.js`, cobertas por `tests/core.test.js`.
 
 ## Cobertura de testes
 
-- `tests/core.test.js`: 18 testes no Node, cobrindo todas as funções públicas do `Core`.
-- `app.html#/selftest`: 22 verificações no navegador.
+- `tests/core.test.js`: 17 testes no Node, cobrindo todas as funções públicas do `Core`.
+- `app.html#/selftest`: 21 verificações no navegador.
 - Um roteiro Playwright passou por todas as telas (cadastro, upgrade, novo projeto, editor, contas,
-  publicação, métricas, lives, ferramentas, personas, automações, campeonatos, templates, workspace,
+  publicação, métricas, lives, ferramentas, personas, automações, templates, workspace,
   autoteste, persistência após recarregar) sem erros de JavaScript.
 
 ## Testar o serviço real

@@ -219,22 +219,6 @@ test('automações: comentário vira DM, pedido de follow e coleta de e-mail', (
   assert.throws(() => s.createAutomation({ type: 'x' }), code('invalid_type'));
 });
 
-test('campeonatos: criar, enviar, revisar, ranking e pagamento', () => {
-  const s = fresh();
-  assert.throws(() => s.createChampionship({ name: 'X', prize: 0 }), code('invalid_prize'));
-  const c = s.createChampionship({ name: 'Copa de Cortes', prize: 1000 });
-  assert.throws(() => s.submitToChampionship(c.id, { url: 'https://tiktok.com/@a/video/1' }), code('consent_required'));
-  const urls = ['https://tiktok.com/@a/video/1', 'https://instagram.com/reel/2', 'https://tiktok.com/@b/video/3', 'https://youtube.com/shorts/4'];
-  const subs = urls.map(url => s.submitToChampionship(c.id, { url, consent: true }));
-  assert.throws(() => s.submitToChampionship(c.id, { url: urls[0], consent: true }), code('duplicate'));
-  subs.slice(0, 3).forEach(x => s.reviewSubmission(c.id, x.id, true));
-  s.reviewSubmission(c.id, subs[3].id, false);
-  const rk = s.ranking(c.id); assert.equal(rk.length, 3);
-  const pay = s.closeChampionship(c.id);
-  assert.equal(pay.reduce((a, p) => a + p.amount, 0), 1000);
-  assert.throws(() => s.submitToChampionship(c.id, { url: 'https://tiktok.com/@z/video/9', consent: true }), code('closed'));
-});
-
 test('workspaces, equipe, API keys, download em massa e cancelamento', () => {
   const s = fresh();
   const w2 = s.createWorkspace('Cliente B');
