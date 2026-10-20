@@ -10,12 +10,12 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #08080a; --surface: #111116; --surface-2: #18181f; --border: #26262f;
-    --text: #f2f2f6; --muted: #a0a0ae; --faint: #6c6c7a; --primary-soft: #1d1b3a;
+    --text: #f2f2f6; --muted: #a0a0ae; --faint: #6c6c7a; --primary-soft: #1d1b3a; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #08080a; --surface: #111116; --surface-2: #18181f; --border: #26262f;
-  --text: #f2f2f6; --muted: #a0a0ae; --faint: #6c6c7a; --primary-soft: #1d1b3a;
+  --text: #f2f2f6; --muted: #a0a0ae; --faint: #6c6c7a; --primary-soft: #1d1b3a; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -58,3 +58,7 @@ label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 4px
 .toast-wrap { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 8px; z-index: 100; }
 .toast { background: var(--text); color: var(--bg); padding: 10px 14px; border-radius: 8px; font-size: 14px; max-width: 340px; box-shadow: var(--shadow); }
 .toast.bad { background: var(--bad); color: #fff; }
+
+.modal-ov { position: fixed; inset: 0; background: rgba(10,10,20,.45); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 200; }
+.modal { width: min(520px, 100%); max-height: 90vh; overflow: auto; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }

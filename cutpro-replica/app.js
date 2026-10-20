@@ -15,7 +15,25 @@
   const fmtDate = t => new Date(t).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
   function toast(msg, bad) { const t = document.createElement('div'); t.className = 'toast' + (bad ? ' bad' : ''); t.textContent = msg; $('#toasts').appendChild(t); setTimeout(() => t.remove(), 3500); }
   function act(fn, okMsg) { try { const r = fn(); if (okMsg) toast(okMsg); render(); return r; } catch (e) { toast(e.message, true); render(); } }
-  function download(name, text, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: type || 'text/plain' })); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+  // Diálogos na própria página (o sandbox do artifact bloqueia confirm/prompt e downloads).
+  function modal(inner, onReady) {
+    const ov = document.createElement('div'); ov.className = 'modal-ov';
+    ov.innerHTML = `<div class="modal card" role="dialog" aria-modal="true">${inner}</div>`;
+    document.body.appendChild(ov); const close = () => ov.remove();
+    ov.addEventListener('keydown', e => { if (e.key === 'Escape') ov.querySelector('[data-no]') && ov.querySelector('[data-no]').click(); });
+    onReady(ov, close); const f = ov.querySelector('input, textarea, button.primary'); if (f) f.focus();
+  }
+  const sure = msg => new Promise(res => modal(`<p style="margin-top:0">${esc(msg)}</p><div class="row" style="justify-content:flex-end"><button class="btn" data-no>Voltar</button><button class="btn primary" data-yes>Confirmar</button></div>`,
+    (ov, close) => { ov.querySelector('[data-no]').onclick = () => { close(); res(false); }; ov.querySelector('[data-yes]').onclick = () => { close(); res(true); }; }));
+  const ask = (msg, def) => new Promise(res => modal(`<form><label for="askIn">${esc(msg)}</label><input type="text" id="askIn" value="${esc(def || '')}"><div class="row" style="justify-content:flex-end;margin-top:12px"><button type="button" class="btn" data-no>Cancelar</button><button class="btn primary">OK</button></div></form>`,
+    (ov, close) => { ov.querySelector('[data-no]').onclick = () => { close(); res(null); }; ov.querySelector('form').onsubmit = e => { e.preventDefault(); const v = ov.querySelector('#askIn').value.trim(); close(); res(v || null); }; }));
+  function download(name, text) {
+    modal(`<div class="row" style="justify-content:space-between"><b>${esc(name)}</b><span class="faint" style="font-size:12px">${text.length.toLocaleString('pt-BR')} caracteres</span></div>
+      <textarea id="dlText" rows="14" readonly style="margin-top:10px;font-family:ui-monospace,monospace;font-size:12px">${esc(text)}</textarea>
+      <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-no>Fechar</button><button class="btn primary" data-copy>Copiar</button></div>`,
+      (ov, close) => { ov.querySelector('[data-no]').onclick = close; const ta = ov.querySelector('#dlText');
+        ov.querySelector('[data-copy]').onclick = () => { const done = () => toast('Copiado'); try { navigator.clipboard.writeText(text).then(done, () => { ta.select(); toast('Selecionado: use Ctrl+C'); }); } catch (_) { ta.select(); toast('Selecionado: use Ctrl+C'); } }; });
+  }
   const gradient = id => { const h = Core.hash(id); return `linear-gradient(160deg, hsl(${h % 360} 55% 55%), hsl(${(h >> 8) % 360} 50% 28%))`; };
   const NET_LABEL = { tiktok: 'TikTok', instagram: 'Instagram', facebook: 'Facebook', x: 'X', linkedin: 'LinkedIn', bluesky: 'Bluesky', pinterest: 'Pinterest', telegram: 'Telegram', mastodon: 'Mastodon', discord: 'Discord', dailymotion: 'Dailymotion', tumblr: 'Tumblr', slack: 'Slack' };
 
@@ -56,7 +74,7 @@
       <nav>${NAV.map(([g, items]) => `<div class="group">${g}</div>` + items.map(([id, label]) => `<a href="#/${id}" class="${cur === id || (cur === 'editor' && id === 'clips') ? 'on' : ''}">${label}</a>`).join('')).join('')}</nav>
       <div style="padding:14px 10px"><button class="btn sm" id="logout">Sair</button></div>`;
     $('#wsSel').onchange = e => {
-      if (e.target.value === '__new') { const n = prompt('Nome do workspace (ex.: cliente)'); if (n) act(() => S.createWorkspace(n), 'Workspace criado'); else render(); }
+      if (e.target.value === '__new') ask('Nome do workspace (ex.: nome do cliente)').then(n => { if (n) act(() => S.createWorkspace(n), 'Workspace criado'); else render(); });
       else act(() => S.switchWorkspace(e.target.value));
     };
     $('#logout').onclick = () => { S.logout(); location.hash = '#/login'; };
@@ -78,7 +96,7 @@
         <form id="f" class="grid"><div><label>Nome</label><input type="text" name="name"></div><div><label>E-mail</label><input type="email" name="email" required></div>
         <div><label>Senha (8+ caracteres)</label><input type="password" name="password" required></div><button class="btn primary">Criar conta grátis</button></form>
         <p class="faint" style="font-size:13px">Já tem conta? <a href="#/login">Entrar</a>. Os dados ficam só neste navegador.</p></div>`,
-      bind: () => { $('#f').onsubmit = e => { e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); if (S.state.user && !confirm('Já existe uma conta neste navegador. Substituir?')) return; S = Core.createStore(null); S.subscribe(persist); act(() => S.register(d), 'Conta criada: 15 créditos grátis'); persist(); location.hash = '#/home'; }; },
+      bind: () => { $('#f').onsubmit = e => { e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); (S.state.user ? sure('Já existe uma conta neste navegador. Substituir?') : Promise.resolve(true)).then(go => { if (!go) return; const prev = S; S = Core.createStore(null); S.subscribe(persist); try { S.register(d); toast('Conta criada: 15 créditos grátis'); persist(); location.hash = '#/home'; } catch (err) { S = prev; toast(err.message, true); } }); }; },
     },
     login: {
       html: () => `<div class="auth card"><a class="logo" href="index.html"><span class="logo-mark"></span>ClipForge</a><h2>Entrar</h2>
@@ -146,7 +164,7 @@
     projects: {
       html: () => { const w = S.workspace(); return topbar('Projetos', `<a class="btn primary" href="#/new">Novo</a>`) + (w.projects.length ? `<div class="card"><table><tr><th>Fonte</th><th>Duração</th><th>Estratégia</th><th>Créditos</th><th>Clipes</th><th>Criado</th><th></th></tr>
         ${w.projects.map(p => `<tr><td><span class="pill">${p.source.kind}</span> ${esc(p.source.name.slice(0, 48))}</td><td>${p.durationMin} min</td><td>${p.strategy}</td><td>${p.credits}</td><td><a href="#/clips?project=${p.id}">${p.clipIds.length}</a></td><td>${fmtDate(p.createdAt)}</td><td><button class="btn sm danger" data-del="${p.id}">Excluir</button></td></tr>`).join('')}</table></div>` : `<div class="empty">Sem projetos.</div>`); },
-      bind: () => document.querySelectorAll('[data-del]').forEach(b => b.onclick = () => confirm('Excluir projeto e clipes?') && act(() => S.deleteProject(b.dataset.del), 'Projeto excluído')),
+      bind: () => document.querySelectorAll('[data-del]').forEach(b => b.onclick = () => sure('Excluir o projeto e todos os clipes dele?').then(ok => ok && act(() => S.deleteProject(b.dataset.del), 'Projeto excluído'))),
     },
 
     clips: {
@@ -162,7 +180,7 @@
       bind: r => {
         const upd = () => { const q = new URLSearchParams(r.q); q.set('sort', $('#sort').value); q.set('min', $('#min').value); location.hash = '#/clips?' + q; };
         $('#sort').onchange = upd; $('#min').onchange = upd;
-        $('#bulk').onclick = () => { const b = act(() => S.bulkDownload(S.listClips({ projectId: r.q.get('project') }).map(c => c.id))); if (b) download('clipes.txt', 'Download em massa (simulado)\n' + b.files.join('\n')); };
+        $('#bulk').onclick = () => { const b = act(() => S.bulkDownload(S.listClips({ projectId: r.q.get('project') }).map(c => c.id))); if (b) download('Download em massa (simulado): ' + b.count + ' arquivos', b.files.join('\n')); };
         bindPublishButtons();
       },
     },
@@ -222,10 +240,12 @@
         $('#shiftM').onclick = () => act(() => S.shiftCaptions(id, -0.5)); $('#shiftP').onclick = () => act(() => S.shiftCaptions(id, 0.5));
         document.querySelectorAll('[data-cap]').forEach(i => i.onchange = () => act(() => S.editCaption(id, +i.dataset.cap, i.value)));
         $('#srt').onclick = () => download(`${id}.srt`, S.toSRT(S.getClip(id).captions));
-        $('#vtt').onclick = () => download(`${id}.vtt`, S.toVTT(S.getClip(id).captions), 'text/vtt');
+        $('#vtt').onclick = () => download(`${id}.vtt`, S.toVTT(S.getClip(id).captions));
         $('#render').onclick = () => act(() => S.render(id, { resolution: $('#res').value }), 'Renderização concluída');
-        $('#titles').onclick = () => { const res = act(() => S.suggestTitles(id)); if (res) { const pick = prompt('Títulos sugeridos (edite e confirme para usar):\n' + res.titles.map((x, i) => `${i + 1}. ${x}`).join('\n'), res.titles[0]); if (pick) act(() => S.updateClip(id, { title: pick }), 'Título atualizado'); } };
-        $('#delClip').onclick = () => confirm('Excluir clipe?') && (act(() => S.deleteClip(id), 'Clipe excluído'), location.hash = '#/clips');
+        $('#titles').onclick = () => { const res = act(() => S.suggestTitles(id)); if (!res) return;
+          modal(`<b>Títulos sugeridos</b><div class="grid" style="margin-top:10px;gap:8px">${res.titles.map(x => `<button class="btn" data-t="${esc(x)}" style="white-space:normal;text-align:left">${esc(x)}</button>`).join('')}</div><p class="faint" style="font-size:13px">Hashtags: ${esc(res.hashtags.join(' '))}</p><div class="row" style="justify-content:flex-end"><button class="btn" data-no>Fechar</button></div>`,
+            (ov, close) => { ov.querySelector('[data-no]').onclick = close; ov.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { close(); act(() => S.updateClip(id, { title: b.dataset.t }), 'Título atualizado'); }); }); };
+        $('#delClip').onclick = () => sure('Excluir este clipe?').then(ok => { if (ok) { act(() => S.deleteClip(id), 'Clipe excluído'); location.hash = '#/clips'; } });
         bindPublishButtons();
       },
     },
@@ -273,7 +293,7 @@
         ${cs.map(c => `<div class="row" style="justify-content:space-between"><span>${esc(c.handle)}</span><button class="btn sm danger" data-dis="${c.id}">×</button></div>`).join('') || '<span class="faint">Nenhuma conta</span>'}
         <button class="btn sm" data-con="${n}">Conectar</button></div>`; }).join('')}</div><p class="faint">Conexão simulada: nenhum OAuth real é feito.</p>`; },
       bind: () => {
-        document.querySelectorAll('[data-con]').forEach(b => b.onclick = () => { const h = prompt('Nome da conta (@usuario)', '@meucanal'); if (h) act(() => S.connect(b.dataset.con, h), 'Conta conectada'); });
+        document.querySelectorAll('[data-con]').forEach(b => b.onclick = () => ask(`Conta do ${NET_LABEL[b.dataset.con]} (@usuario)`, '@meucanal').then(h => { if (h) act(() => S.connect(b.dataset.con, h), 'Conta conectada'); }));
         document.querySelectorAll('[data-dis]').forEach(b => b.onclick = () => act(() => S.disconnect(b.dataset.dis), 'Conta desconectada'));
       },
     },
@@ -394,7 +414,7 @@
         const sub = $('#sub'); if (sub) sub.onsubmit = e => { e.preventDefault(); act(() => S.submitToChampionship(r.arg, { url: sub.url.value, consent: sub.consent.checked }), 'Enviado para revisão'); };
         document.querySelectorAll('[data-ok]').forEach(b => b.onclick = () => act(() => S.reviewSubmission(r.arg, b.dataset.ok, true)));
         document.querySelectorAll('[data-no]').forEach(b => b.onclick = () => act(() => S.reviewSubmission(r.arg, b.dataset.no, false)));
-        const cl = $('#close'); if (cl) cl.onclick = () => confirm('Encerrar e distribuir o prêmio?') && act(() => S.closeChampionship(r.arg), 'Campeonato encerrado');
+        const cl = $('#close'); if (cl) cl.onclick = () => sure('Encerrar o campeonato e distribuir o prêmio?').then(ok => ok && act(() => S.closeChampionship(r.arg), 'Campeonato encerrado'));
       },
     },
 
@@ -408,7 +428,7 @@
           <p class="faint">Pagamento simulado: nenhuma cobrança real.</p>`; },
       bind: () => {
         document.querySelectorAll('[data-plan]').forEach(b => b.onclick = () => act(() => S.subscribePlan(b.dataset.plan), 'Plano ativado'));
-        $('#cancel').onclick = () => confirm('Cancelar assinatura?') && act(() => S.cancelSubscription(), 'Assinatura cancelada no fim do período');
+        $('#cancel').onclick = () => sure('Cancelar a assinatura? O acesso continua até o fim do período.').then(ok => ok && act(() => S.cancelSubscription(), 'Assinatura cancelada no fim do período'));
       },
     },
 
@@ -424,8 +444,8 @@
         $('#inv').onsubmit = e => { e.preventDefault(); act(() => S.inviteMember(e.target.email.value, e.target.role.value), 'Convite enviado'); };
         $('#key').onsubmit = e => { e.preventDefault(); act(() => S.createApiKey(e.target.label.value), 'Chave criada'); };
         document.querySelectorAll('[data-rev]').forEach(b => b.onclick = () => act(() => S.revokeApiKey(b.dataset.rev), 'Chave revogada'));
-        $('#export').onclick = () => download('clipforge-estado.json', JSON.stringify(S.snapshot(), null, 2), 'application/json');
-        $('#reset').onclick = () => { if (confirm('Apagar todos os dados locais?')) { try { localStorage.removeItem(KEY); } catch (_) {} S = Core.createStore(null); S.subscribe(persist); location.hash = '#/register'; } };
+        $('#export').onclick = () => download('clipforge-estado.json', JSON.stringify(S.snapshot(), null, 2));
+        $('#reset').onclick = () => sure('Apagar todos os dados deste navegador?').then(ok => { if (!ok) return; try { localStorage.removeItem(KEY); } catch (_) {} S = Core.createStore(null); S.subscribe(persist); location.hash = '#/register'; render(); });
       },
     },
 
