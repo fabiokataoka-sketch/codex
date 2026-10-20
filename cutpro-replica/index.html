@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClipForge — réplica funcional</title>
+<meta name="description" content="Réplica funcional para testes: clipes com IA, editor, publicação, métricas, personas, automações e campeonatos.">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 16px; }
+  header.top nav { display: flex; gap: 28px; }
+  header.top nav a { text-decoration: none; color: var(--muted); font-weight: 500; }
+  header.top nav a:hover { color: var(--text); }
+  .hero { position: relative; text-align: center; padding: 90px 0 60px;
+    background-image: radial-gradient(circle at 50% 0%, var(--primary-soft), transparent 55%), radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: auto, 22px 22px; }
+  .hero h1 { font-size: clamp(36px, 6vw, 62px); line-height: 1.05; letter-spacing: -.035em; margin: 18px 0 8px; }
+  .hero h1 .soft { display: block; color: var(--faint); font-weight: 400; }
+  .hero p.lead { max-width: 600px; margin: 18px auto 30px; font-size: 19px; color: var(--muted); }
+  .toggle { display: inline-flex; padding: 4px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  .toggle button { border: 0; background: none; padding: 6px 26px; border-radius: 9px; cursor: pointer; color: var(--muted); font-size: 14px; }
+  .toggle button.on { background: var(--primary); color: #fff; }
+  .float { position: absolute; width: 240px; text-align: left; font-size: 13px; }
+  .float .card { padding: 8px; }
+  .float.l1 { left: 0; top: 110px; } .float.l2 { left: 0; top: 380px; } .float.r1 { right: 0; top: 150px; width: 220px; }
+  .fake-live { height: 130px; border-radius: 8px; background: linear-gradient(135deg, #2a2540, #5a3b4e); position: relative; }
+  .fake-live .pill { position: absolute; top: 8px; left: 8px; }
+  .wave { display: flex; align-items: center; gap: 4px; height: 90px; padding: 0 6px; }
+  .wave i { flex: 1; background: var(--faint); border-radius: 2px; }
+  .wave i.hot { background: var(--primary); }
+  .fake-clip { aspect-ratio: 9/16; border-radius: 8px; background: linear-gradient(180deg, #8fb8de, #3c3a6e 55%, #b14a8a); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; text-shadow: 0 2px 4px #0008; padding: 10px; text-align: center; }
+  @media (max-width: 1100px) { .float { display: none; } header.top nav { display: none; } }
+
+  section { padding: 80px 0; }
+  .eyebrow { color: var(--primary); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
+  h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.03em; line-height: 1.1; margin: 8px 0 16px; }
+  h2 .soft { color: var(--faint); font-weight: 400; }
+  .steps { grid-template-columns: repeat(3, 1fr); margin-top: 32px; }
+  .steps .n { font-size: 13px; color: var(--primary); font-weight: 700; }
+  .feat { grid-template-columns: repeat(2, 1fr); margin-top: 32px; }
+  .feat h3, .steps h3 { margin: 6px 0; }
+  .stages { grid-template-columns: repeat(4, 1fr); margin-top: 32px; }
+  .stages ul, .plan ul { padding-left: 18px; margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+  .plans { grid-template-columns: repeat(4, 1fr); margin-top: 32px; }
+  .plan .price { font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
+  .plan.featured { border: 2px solid var(--primary); }
+  .chores { columns: 3; font-size: 14px; color: var(--muted); padding-left: 20px; }
+  details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  .heat { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; align-items: end; height: 120px; }
+  .heat div { background: var(--primary); border-radius: 4px 4px 0 0; opacity: .35; }
+  .heat div.best { opacity: 1; }
+  footer { border-top: 1px solid var(--border); padding: 30px 0; color: var(--faint); font-size: 13px; }
+  @media (max-width: 860px) { .steps, .feat, .stages, .plans { grid-template-columns: 1fr; } .chores { columns: 1; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="index.html"><span class="logo-mark"></span>ClipForge</a>
+    <nav>
+      <a href="#campeonatos">Campeonatos</a>
+      <a href="#personas">Personas IA</a>
+      <a href="#planos">Planos</a>
+      <a href="app.html#/tools">Ferramentas</a>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="btn" style="border:0;background:none" href="app.html#/login">Entrar</a>
+      <a class="btn primary" href="app.html#/register">Testar grátis</a>
+    </div>
+  </header>
+</div>
+
+<div class="hero">
+  <div class="wrap" style="position:relative">
+    <div class="float l1"><b>Ao vivo</b> <span class="faint">Kick · cortando em tempo real</span>
+      <div class="card"><div class="fake-live"><span class="pill live">● AO VIVO</span></div></div></div>
+    <div class="float l2"><b>Vídeo</b> <span class="faint">Longo · 12 min</span>
+      <div class="card"><div class="wave" id="wave"></div><div style="display:flex;justify-content:space-between;font-size:11px"><span class="faint">00:07:22</span><span style="color:var(--primary)">pico de energia</span></div></div></div>
+    <div class="float r1"><b>Clipe pronto</b> <span class="faint">9:16 · 26s</span>
+      <div class="card"><div class="fake-clip">LEGENDA SINCRONIZADA AQUI</div></div></div>
+
+    <a class="pill" href="app.html#/personas" style="text-decoration:none;background:var(--surface);border:1px solid var(--border)"><span class="pill primary">Novo</span> Troque quem aparece no vídeo com IA →</a>
+    <div style="margin-top:14px"><div class="toggle" role="tablist">
+      <button class="on" data-mode="clips">Clipes</button><button data-mode="personas">Personas IA</button></div></div>
+    <h1 id="heroTitle">Vídeo longo entra.<span class="soft">Clipes prontos saem.</span></h1>
+    <p class="lead" id="heroLead">Link, arquivo ou transmissão: um só lugar para cortar, editar, legendar, agendar e publicar. A IA faz o trabalho pesado.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn primary lg" href="app.html#/register">Começar grátis</a>
+      <a class="btn lg" href="#como-funciona">Ver como funciona</a>
+    </div>
+    <p class="faint" style="font-size:13px;margin-top:14px">Plano grátis com 15 créditos mensais, sem cartão</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="como-funciona">
+    <div class="eyebrow">Como funciona</div>
+    <h2>Do link ao post<span class="soft"> em três passos.</span></h2>
+    <div class="grid steps">
+      <div class="card"><div class="n">01 · Envie</div><h3>Link, arquivo ou live</h3><p class="muted">YouTube, Twitch, Kick, Instagram, TikTok, Vimeo ou upload. De 40 segundos a 9 horas.</p></div>
+      <div class="card"><div class="n">02 · A IA corta</div><h3>Só o que vale a pena</h3><p class="muted">Picos de energia, reações e viradas viram clipes 9:16 com rastreio de rosto, legenda e nota viral de 0 a 100.</p></div>
+      <div class="card"><div class="n">03 · Publique</div><h3>Uma fila para todas as contas</h3><p class="muted">Aprove ou deixe no automático. Agendamento em 13 redes no horário que seu histórico recomenda.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">A plataforma</div>
+    <h2>Corte, edição, agenda e métricas<span class="soft"> na mesma conta.</span></h2>
+    <div class="grid feat">
+      <div class="card"><h3>Editor completo no navegador</h3><p class="muted">Timeline, cortes, legendas animadas, música, sobreposições e templates da comunidade. Nada renderiza no seu computador.</p><a class="btn sm" href="app.html#/clips">Abrir editor</a></div>
+      <div class="card"><h3>Clipes durante a live</h3><p class="muted">Aponte para um canal da Twitch ou Kick e receba clipes em lotes de 10 minutos enquanto a transmissão acontece (Plus e Pro).</p><a class="btn sm" href="app.html#/live">Monitorar live</a></div>
+      <div class="card"><h3>Métricas e melhor horário</h3><p class="muted">Views, engajamento e ranking de clipes lidos da API de cada rede, com mapa de calor por dia e hora.</p>
+        <div class="heat" id="heat"></div><div class="faint" style="display:grid;grid-template-columns:repeat(8,1fr);font-size:11px;text-align:center"><span>09</span><span>11</span><span>13</span><span>15</span><span>17</span><span>19h</span><span>21</span><span>23</span></div></div>
+      <div class="card"><h3>E mais</h3><ul class="muted" style="padding-left:18px;margin:0;font-size:14px">
+        <li>Um workspace por cliente, com equipe e contas próprias</li><li>Templates da comunidade e os seus</li>
+        <li>Ferramentas avulsas: baixar, transcrever, traduzir, comprimir, redimensionar</li><li>API pública e servidor MCP</li></ul>
+        <a class="btn sm" href="app.html#/tools" style="margin-top:10px">Ver ferramentas</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Do momento à distribuição</div>
+    <h2>O ciclo completo<span class="soft"> do conteúdo curto.</span></h2>
+    <div class="grid stages">
+      <div class="card"><div class="n" style="color:var(--primary);font-weight:700">01</div><h3>Encontrar</h3><ul><li>Análise do vídeo inteiro</li><li>Transcrição em 40+ idiomas</li><li>Nota viral e título sugerido</li></ul></div>
+      <div class="card"><div class="n" style="color:var(--primary);font-weight:700">02</div><h3>Editar</h3><ul><li>Timeline com várias faixas</li><li>Legendas no ritmo da fala</li><li>Enquadramento 9:16 automático</li></ul></div>
+      <div class="card"><div class="n" style="color:var(--primary);font-weight:700">03</div><h3>Distribuir</h3><ul><li>13 redes, várias contas</li><li>Horário recomendado</li><li>Auto-post por fluxo</li></ul></div>
+      <div class="card"><div class="n" style="color:var(--primary);font-weight:700">04</div><h3>Crescer</h3><ul><li>Views por clipe e rede</li><li>Mapa de calor</li><li>Campeonatos de cortes</li></ul></div>
+    </div>
+  </section>
+
+  <section id="personas">
+    <div class="eyebrow">Personas IA</div>
+    <h2>Personas geradas por IA<span class="soft"> para estrelar seus vídeos.</span></h2>
+    <div class="grid stages">
+      <div class="card"><h3>Quatro jeitos de criar</h3><p class="muted">Personagem pronto, até 6 fotos suas, ficha de personagem ou do zero.</p></div>
+      <div class="card"><h3>Você escolhe quem trocar</h3><p class="muted">Toque na pessoa do vídeo e compare com o original.</p></div>
+      <div class="card"><h3>Até 4 personas</h3><p class="muted">Várias na mesma cena pelo preço de uma.</p></div>
+      <div class="card"><h3>Preço antes de gerar</h3><p class="muted">Se a geração falhar, os créditos voltam sozinhos.</p></div>
+    </div>
+    <p><a class="btn primary" href="app.html#/personas">Criar minha persona</a></p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Automações</div>
+    <h2>Respostas automáticas<span class="soft"> para comentários e mensagens.</span></h2>
+    <div class="grid stages">
+      <div class="card"><h3>Comentário → DM</h3><p class="muted">Palavra-chave no comentário dispara uma mensagem com botão e link.</p></div>
+      <div class="card"><h3>Pedir para seguir</h3><p class="muted">Quem não segue recebe o pedido antes do link.</p></div>
+      <div class="card"><h3>Coletar e-mails</h3><p class="muted">Os contatos caem numa aba própria.</p></div>
+      <div class="card"><h3>Um post, todas as redes</h3><p class="muted">Publicou numa rede, replica nas outras contas.</p></div>
+    </div>
+    <p><a class="btn" href="app.html#/automations">Explorar automações</a></p>
+  </section>
+
+  <section>
+    <div class="eyebrow">O que sai da sua lista</div>
+    <h2>Menos produção manual,<span class="soft"> mais publicação.</span></h2>
+    <div class="grid stages">
+      <div class="card"><h3>Achar o momento</h3><p class="muted">A análise percorre o vídeo inteiro e devolve os trechos ranqueados.</p></div>
+      <div class="card"><h3>Montar o clipe</h3><p class="muted">Enquadramento vertical, legenda e template aplicados automaticamente.</p></div>
+      <div class="card"><h3>Distribuir</h3><p class="muted">Um agendamento cobre todas as contas conectadas.</p></div>
+      <div class="card"><h3>Medir</h3><p class="muted">Os números chegam sozinhos, sem planilha.</p></div>
+    </div>
+  </section>
+
+  <section id="campeonatos">
+    <div class="eyebrow">Campeonatos de cortes</div>
+    <h2>Competições de cortes<span class="soft"> com ranking por views.</span></h2>
+    <p class="muted" style="max-width:720px">Abra um campeonato, defina o prêmio e libere o material. Os participantes cortam, publicam nas próprias contas, e o ranking usa as views lidas da API de cada rede. O pagamento sai pela plataforma.</p>
+    <a class="btn primary" href="app.html#/championships">Ver campeonatos</a>
+  </section>
+
+  <section id="planos">
+    <div class="eyebrow">Planos</div>
+    <h2>Planos e créditos</h2>
+    <p class="muted">1 crédito = 1 minuto de vídeo analisado, independentemente de quantos clipes saírem.</p>
+    <div class="grid plans" id="plans"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Dúvidas</div>
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Preciso enviar o arquivo?</summary><p class="muted">Não. Cole o link e a plataforma busca o vídeo. Upload do computador também funciona.</p></details>
+    <details><summary>Só funciona com vídeo longo?</summary><p class="muted">Não. Vídeos curtos podem receber legenda, tradução, reenquadramento e agendamento direto. O limite é de até 9 horas por vídeo.</p></details>
+    <details><summary>Como funcionam os créditos?</summary><p class="muted">1 crédito por minuto analisado. Uma live de 3 horas custa 180 créditos. Sobras acumulam até o vencimento do plano.</p></details>
+    <details><summary>A IA publica sozinha?</summary><p class="muted">Só se você ligar o auto-post. Por padrão ela sugere, com nota viral, e você aprova.</p></details>
+    <details><summary>Em quais redes publica?</summary><p class="muted">TikTok, Instagram, Facebook, X, LinkedIn, Bluesky, Pinterest, Telegram, Mastodon, Discord, Dailymotion, Tumblr e Slack. Twitch e Kick entram só como fonte.</p></details>
+    <details><summary>E se eu quiser sair?</summary><p class="muted">Baixe os clipes em massa e cancele pelo painel. Sem multa.</p></details>
+  </section>
+
+  <section style="text-align:center">
+    <h2>Pronto para testar?</h2>
+    <p class="muted">Crie uma conta de teste e rode todos os fluxos com dados simulados.</p>
+    <a class="btn primary lg" href="app.html#/register">Começar grátis</a>
+  </section>
+</div>
+<footer><div class="wrap">ClipForge é uma réplica funcional para testes, sem afiliação com nenhuma empresa. Todo processamento é simulado.</div></footer>
+
+<script src="core.js"></script>
+<script>
+  // Ondas e heatmap decorativos
+  const wave = document.getElementById('wave');
+  for (let i = 0; i < 34; i++) { const b = document.createElement('i'); const h = 15 + Math.abs(Math.sin(i * 1.7)) * 75; b.style.height = h + '%'; if (i > 13 && i < 22) b.className = 'hot'; wave.appendChild(b); }
+  const heat = document.getElementById('heat');
+  [30, 45, 40, 55, 60, 100, 70, 42].forEach((v, i) => { const d = document.createElement('div'); d.style.height = v + '%'; if (i === 5) d.className = 'best'; heat.appendChild(d); });
+
+  // Alternância Clipes / Personas no hero
+  const copy = {
+    clips: ['Vídeo longo entra.', 'Clipes prontos saem.', 'Link, arquivo ou transmissão: um só lugar para cortar, editar, legendar, agendar e publicar. A IA faz o trabalho pesado.'],
+    personas: ['Seu vídeo,', 'outro rosto em cena.', 'Crie uma persona a partir de fotos, de um personagem pronto ou de uma descrição, e coloque-a no lugar de quem aparece no vídeo.'],
+  };
+  document.querySelectorAll('.toggle button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.toggle button').forEach(x => x.classList.toggle('on', x === b));
+    const c = copy[b.dataset.mode];
+    document.getElementById('heroTitle').innerHTML = c[0] + '<span class="soft">' + c[1] + '</span>';
+    document.getElementById('heroLead').textContent = c[2];
+  });
+
+  // Planos gerados a partir das regras do core (fonte única)
+  const desc = { free: 'Para experimentar', starter: 'Algumas postagens por semana, uma conta', plus: 'Postagem diária em várias contas', pro: 'Canais grandes, agências e equipes' };
+  document.getElementById('plans').innerHTML = Object.values(Core.PLANS).map(p => `
+    <div class="card plan ${p.id === 'plus' ? 'featured' : ''}">
+      ${p.id === 'plus' ? '<span class="pill primary">mais escolhido</span>' : ''}
+      <h3>${p.name}</h3><p class="muted" style="font-size:14px;min-height:42px">${desc[p.id]}</p>
+      <div class="price">US$ ${p.price.toFixed(2).replace('.', ',')}<span class="faint" style="font-size:14px;font-weight:400"> /mês</span></div>
+      <ul><li>${p.credits.toLocaleString('pt-BR')} créditos/mês</li><li>${p.watermark ? 'Com marca d’água' : 'Sem marca d’água'}</li>
+        <li>Vídeos até ${p.maxVideoMin / 60}h</li><li>${p.accountsPerNetwork} conta(s) por rede</li>
+        ${p.liveClips ? '<li>Clipes ao vivo</li>' : ''}${p.export4k ? '<li>Exportação 4K</li>' : ''}${p.priority ? '<li>Processamento prioritário</li>' : ''}</ul>
+      <a class="btn ${p.id === 'plus' ? 'primary' : ''}" style="margin-top:14px;width:100%;justify-content:center" href="app.html#/billing?plan=${p.id}">${p.price ? 'Assinar ' + p.name : 'Começar grátis'}</a>
+    </div>`).join('');
+</script>
+</body>
+</html>
